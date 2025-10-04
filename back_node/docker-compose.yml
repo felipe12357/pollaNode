@@ -1,0 +1,14 @@
+version: '3.1' #es la version de docker compouse
+services:
+  postgres-db:
+    image: postgres:15.7
+    container_name: polla_app_postgrest_prisma
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASS}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    ports:
+       - 5432:5432

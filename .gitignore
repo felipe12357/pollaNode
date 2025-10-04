@@ -1,0 +1,5 @@
+back_node/node_modules
+# Keep environment variables out of version control
+back_node/.env
+back_node/postgres
+back_node/src/generated/prisma
