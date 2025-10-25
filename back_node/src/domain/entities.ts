@@ -6,6 +6,10 @@ export type MatchDto = {
   id?: number;
 }
 
+export type MatchResultDto = MatchDto & {
+  foreCast: string | null;
+}
+
 export type ForeCastDto = {
   matchId: number;
   userId: number;

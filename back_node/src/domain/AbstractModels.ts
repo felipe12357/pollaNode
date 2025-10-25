@@ -5,6 +5,8 @@ export abstract class MatchSource {
   abstract create(match: MatchDto): Promise<MatchDto>
   abstract delete(id: number): Promise<number>
   abstract getAll(): Promise<MatchDto[]>
+  abstract updateResult(id: number, result: string): Promise<MatchDto>
+  abstract getUserMatchList(id: number): Promise<unknown>
 }
 
 export abstract class ForeCastSource {

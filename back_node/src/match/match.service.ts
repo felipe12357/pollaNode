@@ -1,7 +1,8 @@
 import { prisma } from "../data";
 import { MatchSource } from "../domain/AbstractModels";
-import { MatchDto } from "../domain/entities";
+import { MatchDto, MatchResultDto } from "../domain/entities";
 import { Match } from "../generated/prisma";
+import { SharedResources } from "../sharedResources";
 
 export class MatchService implements MatchSource {
 
@@ -9,6 +10,27 @@ export class MatchService implements MatchSource {
     const result = await prisma.match.findMany();
 
     return result.map(val => this.transformToEntity(val))
+  }
+
+  public async getUserMatchList(userId:number): Promise<MatchResultDto[]> {
+    const result = await prisma.match.findMany({
+      include: {
+        foreCast: {
+          select: {
+           resultForeCast: true,
+          },
+          where: { userId }
+        },
+      },
+    });
+
+    const response = result.map(val => {
+      return { ...val, 
+        date: SharedResources.transformDate(val.date), 
+        foreCast: val.foreCast.length > 0 ? val.foreCast[0]!.resultForeCast : null};
+    });
+    
+    return response;
   }
 
   public async create(match: MatchDto): Promise<MatchDto> {
@@ -19,9 +41,7 @@ export class MatchService implements MatchSource {
       }
     });
 
-    const dateTransformed: string = result?.date
-      ? <string> result?.date.toISOString().split('T')[0]
-      : '';
+    const dateTransformed: string = SharedResources.transformDate(result?.date);
 
     return {...result, date: dateTransformed};
   }
@@ -34,11 +54,17 @@ export class MatchService implements MatchSource {
     return deleted.id;
   }
 
+  public async updateResult(id: number, result: string): Promise<MatchDto> {
+    const updatedMatch =  await prisma.match.update({
+      where: { id },
+      data: { result },
+    });
+    return this.transformToEntity(updatedMatch); 
+  }
+
   private transformToEntity(obj: Match): MatchDto {
 
-    const dateTransformed: string = obj?.date
-      ? <string> obj?.date.toISOString().split('T')[0]
-      : '';
+    const dateTransformed: string = SharedResources.transformDate(obj?.date);
 
     return {...obj, date: dateTransformed};
   }

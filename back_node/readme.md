@@ -27,3 +27,34 @@
     }
   
   npx prisma generate
+
+
+  ### Ejemplo leftJoin
+
+  const result = await prisma.match.findMany({
+      include: {
+        foreCast: {
+          where: { userId }
+        },
+      },
+    });
+
+  ### ejemplo innerJoin
+
+  const result = await prisma.match.findMany({
+      where: {
+        foreCast: { some: { userId } } 
+      },
+      include: {
+        foreCast: {
+          where: { userId } 
+        }
+      }
+    });
+
+  ### Join (todos los datos)
+    const result = await prisma.match.findMany({
+      include: {
+        foreCast: true
+      },
+    });

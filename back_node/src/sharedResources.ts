@@ -1,6 +1,6 @@
 export class SharedResources {
 
-  static formatDTOErrors(error:{msg: string, path?: string}[]) {
-      return error.map(err => `field ${err.path} ${err.msg}`)
+  static transformDate(date: Date): string {
+    return <string> date?.toISOString().split('T')[0];
   }
 }
