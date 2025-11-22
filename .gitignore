@@ -3,3 +3,5 @@ back_node/node_modules
 back_node/.env
 back_node/postgres
 back_node/src/generated/prisma
+
+front_react/node_modules

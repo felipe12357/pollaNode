@@ -7,7 +7,9 @@ import { SharedResources } from "../sharedResources";
 export class MatchService implements MatchSource {
 
   public async getAll(): Promise<MatchDto[]> {
-    const result = await prisma.match.findMany();
+    const result = await prisma.match.findMany({
+      orderBy: { date: 'desc' }
+    });
 
     return result.map(val => this.transformToEntity(val))
   }
