@@ -5,3 +5,8 @@ export type MatchDto = {
   result?: string | null;
   id?: number;
 }
+
+export type MatchResultDto = {
+  result: string;
+  id: number;
+}

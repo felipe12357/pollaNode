@@ -5,6 +5,18 @@
   font-style: normal;
 }
 
+$color-red:#FF0000;
+$color-red-dark:#B22222;
+$color-green:#32CD32;
+$color-green-dark:#228B22;
+$color-blue:#4169E1;
+$color-blue-dark:#00008B;
+$color-brown:#DAA520;
+$color-silver:#C0C0C0;
+$border-radius-style:5px;
+$border-style: 2px solid $color-silver;
+$color-white:#eceff1;
+
 :root {
   
 }
@@ -15,4 +27,97 @@ body {
   background-color: #f5f5f5;
   color: #333;
 }
+
+input {
+  padding: 5px;
+  border-radius: 5px;
+  border:2px solid $color-silver;
+  font-family:'Fira', sans-serif;
+}
+
+input:focus {
+  border: 2px solid $color-silver;
+  outline: none;
+  box-shadow: none;
+}
+
+.button {
+  background-color: $color-green-dark;
+  padding: .75rem 10px;
+  // font-family:'Moltors';
+  color:$color-white;
+  border-radius: $border-radius-style;
+  border: 0px;
+  cursor:pointer;
+
+  &:hover, &:active{
+    background-color: $color-green;
+  }
+  &.active{
+    background-color: $color-green-dark;
+  }
+}
+
+.button-primary {
+  background-color: $color-blue-dark;
+
+  &:hover, &:active{
+    background-color: $color-blue;
+  }
+  &.active{
+    background-color: $color-blue-dark;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.delete-icon {
+  @extend .cursor-pointer;
+  color: $color-red-dark;
+}
+
+.update-icon {
+  @extend .cursor-pointer;
+  color: $color-brown;
+}
+
+.confirm-icon {
+  @extend .cursor-pointer;
+  color: $color-green-dark;
+}
+
+.cancel-icon {
+  width:20px;
+  height: 20px;
+  color: $color-red-dark;
+  @extend .cursor-pointer;
+}
+
+.match-row {
+  display: grid;
+  place-content: center;
+  grid-template-columns: 9.25rem 3.12rem 9.25rem 9.37rem 7.12rem 2.5rem 2.5rem;
+  row-gap: 0.62rem;
+  padding-bottom: .75rem;
+
+  &_header-match {
+    grid-column: 1 / span 3;
+  }
+
+  &_header-actions {
+    grid-column: 6 / span 2;
+  }
+
+  input {
+    width: 80%;
+  }
+
+  div:nth-child(6), :nth-child(7) {
+    display: flex;
+    align-items: center;
+  }
+}
+
 
