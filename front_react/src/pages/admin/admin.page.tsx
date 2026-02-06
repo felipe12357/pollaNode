@@ -34,7 +34,7 @@ const AdminPage = () =>{
   }
 
   return (
-    <div className="admin-component">
+    <div className="admin-component ">
       <div className="admin-component_menu">
         <button className="button button-primary" onClick={() => handleNavigate()} >
           <FaHome /> Home
@@ -43,15 +43,17 @@ const AdminPage = () =>{
           <FaPlus /> Add Match
         </button>
       </div>
-      <div className="match-row header">
-        <div className="match-row_header-match"> Partido </div>
-        <div> Fecha </div>
-        <div> Resultado </div>
-        <div className="match-row_header-actions"> Acciones </div>
-        { showAddMatchButton && <MatchAddComponent updateList={() =>revalidate()} addNewMatch={(e) => setshowAddMatchButton(e) }/> }
-        
+      <div className="container">
+        <div className="match-row header">
+          <div className="match-row_header-match"> Partido </div>
+          <div> Fecha </div>
+          <div> Resultado </div>
+          <div className="match-row_header-actions"> Acciones </div>
+          { showAddMatchButton && <MatchAddComponent updateList={() =>revalidate()} addNewMatch={(e) => setshowAddMatchButton(e) }/> }
+          
+        </div>
+        { (!loadingError) && <MatchListComponent matchList={matchList} updateList={(e) =>setmatchList(e)} /> }
       </div>
-      { (!loadingError) && <MatchListComponent matchList={matchList} updateList={(e) =>setmatchList(e)} /> }
     </div>
   )
 }

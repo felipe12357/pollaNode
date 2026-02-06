@@ -1,5 +1,9 @@
+@import '../../constants.scss';
+
 .header-component {
   margin: 0 auto;
-  max-width: 76.25rem;
+  padding: .3rem 0 .3rem 2rem;
   margin-bottom: 3rem;
+  background-color: $color-blue-main;
+  color: $color-white;
 }

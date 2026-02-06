@@ -8,7 +8,7 @@ export class MatchService implements MatchSource {
 
   public async getAll(): Promise<MatchDto[]> {
     const result = await prisma.match.findMany({
-      orderBy: { date: 'desc' }
+      orderBy: { date: 'asc' }
     });
 
     return result.map(val => this.transformToEntity(val))
@@ -49,10 +49,15 @@ export class MatchService implements MatchSource {
   }
 
   public async delete(id: number): Promise<number> {
+    await prisma.matchForecast.deleteMany({
+      where: {
+        matchId:id,
+      }
+    });
+
     const deleted = await prisma.match.delete({
       where: { id },
     });
-
     return deleted.id;
   }
 

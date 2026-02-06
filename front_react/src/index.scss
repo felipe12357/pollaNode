@@ -1,3 +1,5 @@
+@import './constants.scss';
+
 @font-face {
   font-family: 'Fira';
   src: url('./assets/fira-sans-regular.ttf') format('truetype');
@@ -5,17 +7,6 @@
   font-style: normal;
 }
 
-$color-red:#FF0000;
-$color-red-dark:#B22222;
-$color-green:#32CD32;
-$color-green-dark:#228B22;
-$color-blue:#4169E1;
-$color-blue-dark:#00008B;
-$color-brown:#DAA520;
-$color-silver:#C0C0C0;
-$border-radius-style:5px;
-$border-style: 2px solid $color-silver;
-$color-white:#eceff1;
 
 :root {
   
@@ -59,13 +50,13 @@ input:focus {
 }
 
 .button-primary {
-  background-color: $color-blue-dark;
+  background-color: $color-blue-main;
 
   &:hover, &:active{
     background-color: $color-blue;
   }
   &.active{
-    background-color: $color-blue-dark;
+    background-color: $color-blue-main;
   }
 }
 
@@ -93,6 +84,14 @@ input:focus {
   height: 20px;
   color: $color-red-dark;
   @extend .cursor-pointer;
+}
+
+.container {
+  box-shadow: $box-shadow-small;
+  background-color: $color-grey-light;
+  width: fit-content;
+  padding: 1rem;
+  border-radius: $border-radius-style;
 }
 
 .match-row {

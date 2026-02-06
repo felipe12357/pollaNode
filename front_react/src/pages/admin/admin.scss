@@ -1,7 +1,7 @@
 .admin-component {
 
   &_menu {
-    width: 43.11rem;
+    width: 45.11rem;
     margin: 0 auto;
     margin-bottom: 2rem;
 
@@ -12,5 +12,9 @@
 
   .header {
     font-weight: bold;
+  }
+
+  .container {
+    margin: 0 auto;
   }
 }

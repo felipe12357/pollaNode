@@ -26,10 +26,10 @@ export class MatchRoutes {
     router.post('/',
       body(['team1'])
         .notEmpty().withMessage('missing property').bail()
-        .isAlpha(),
+        .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/),
       body(['team2'])
         .notEmpty().withMessage('missing property').bail()
-        .isAlpha(),
+        .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/),
       body(['date'])
         .notEmpty().withMessage('missing property').bail()
         .isDate(),
