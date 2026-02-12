@@ -1,10 +1,8 @@
-import axios, { type AxiosInstance } from "axios";
+import axios from "axios";
 import type { UserLoginDto } from "../dtos/user";
 import { ErrorHandlingInterceptor } from "./error-handling.interceptor";
 
 class UserService extends ErrorHandlingInterceptor {
-
-  private axiosInstance: AxiosInstance; 
 
   constructor() {
     const axiosInstance = axios.create({
@@ -12,7 +10,6 @@ class UserService extends ErrorHandlingInterceptor {
     });
 
     super(axiosInstance);
-    this.axiosInstance = axiosInstance;
   }
   
   login = async(data: UserLoginDto): Promise<string> => {

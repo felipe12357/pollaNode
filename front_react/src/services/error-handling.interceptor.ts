@@ -3,12 +3,15 @@ import { toast } from "react-toastify";
 
 export class ErrorHandlingInterceptor {
 
+  protected axiosInstance: AxiosInstance;
+
   constructor(axiosInstance: AxiosInstance) {
-    this.handleError(axiosInstance);
+    this.axiosInstance = axiosInstance;
+    this.handleError();
   }
 
-  private handleError(axiosInstance: AxiosInstance) {
-    axiosInstance.interceptors.response.use(
+  private handleError() {
+    this.axiosInstance.interceptors.response.use(
       response => response,
       error => {
         toast.error(`There was an error: ${error.response.data.errors[0]}`);

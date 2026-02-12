@@ -1,10 +1,8 @@
-import axios, { type AxiosInstance } from "axios";
+import axios from "axios";
 import type { MatchDto, MatchResultDto } from "../dtos/match";
 import { ErrorHandlingInterceptor } from "./error-handling.interceptor";
 
 class MatchService extends ErrorHandlingInterceptor {
-
-  private axiosInstance: AxiosInstance; 
 
   constructor() {
     const axiosInstance = axios.create({
@@ -12,9 +10,7 @@ class MatchService extends ErrorHandlingInterceptor {
     });
 
     super(axiosInstance);
-    this.axiosInstance = axiosInstance;
   }
-
 
   getAll = async(): Promise<MatchDto[]> => {
     const response = await this.axiosInstance.get<MatchDto[]>(`/`);
