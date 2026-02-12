@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { MainLayout } from "./layout/mainLayout";
 import { Suspense } from "react";
-import { AdminPage, HomePage } from "./pages";
+import { AdminPage, HomePage, LoginPage } from "./pages";
 import { AdminLoader } from "./pages/admin/admin.loader";
 import { LoadingComponent } from "./layout/loading/loading.component";
 
@@ -11,6 +11,12 @@ export const routes = createBrowserRouter([
         path: "/",
         element: <MainLayout/>,
         children:[
+          {
+              path: "login", 
+              element: <Suspense fallback={<LoadingComponent/>}> 
+                <LoginPage/>
+              </Suspense>
+          },
           {
               path: "home", 
               element: <Suspense fallback={<LoadingComponent/>}> 

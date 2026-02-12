@@ -6,6 +6,7 @@ import { JwtAdapter } from "../utils/jwt.adapter";
 
 export class UserService implements UserSource {
 
+  //TODO esto debe regresar TAMBIEN EL USER ID
   public async login({username, password}: UserValidationDto): Promise<string> {
     // console.log('password encriptado', BcryptAdapter.hash(password));
     const existsUser = await prisma.user.findFirst({

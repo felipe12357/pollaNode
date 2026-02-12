@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { UserService } from "./user.service";
 import { UserController } from "./user.controller";
-import { body } from "express-validator";
+import { body, param, query } from "express-validator";
 import { ValidationRoutesMiddleware } from "../middlewares/validation.routes.middleware";
 
 export class UserRoutes {
@@ -14,8 +14,8 @@ export class UserRoutes {
 
     // Definir las rutas
     router.get('/login', 
-      body(['password','username']).notEmpty(),
-      body(['password','username']).isAlphanumeric(),
+      query(['password','username']).notEmpty(),
+      query(['password','username']).isAlphanumeric(),
       ValidationRoutesMiddleware.validate,
       userController.login );
 

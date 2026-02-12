@@ -1,21 +1,18 @@
-import axios from "axios";
+import axios, { type AxiosInstance } from "axios";
 import type { MatchDto, MatchResultDto } from "../dtos/match";
-import { toast } from "react-toastify";
+import { ErrorHandlingInterceptor } from "./error-handling.interceptor";
 
-class MatchService {
+class MatchService extends ErrorHandlingInterceptor {
 
-  axiosInstance = axios.create({
-    baseURL:'http://localhost:3000/api/match',
-  });
+  private axiosInstance: AxiosInstance; 
 
   constructor() {
-    this.axiosInstance.interceptors.response.use(
-      response => response,
-      error => {
-        toast.error(`there was an error: ${error.response.data.errors[0]}`);
-        return Promise.reject(error.response?.data ?? error);
-      }
-    );
+    const axiosInstance = axios.create({
+    baseURL:'http://localhost:3000/api/match',
+    });
+
+    super(axiosInstance);
+    this.axiosInstance = axiosInstance;
   }
 
 

@@ -1,0 +1,23 @@
+.login-component {
+  margin-top: 5rem;
+
+  >div:nth-child(1){
+    div {
+      margin-bottom: 1rem;
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+     
+
+      label {
+        margin-right: 1rem;
+        align-self: center;
+      }
+    }
+   
+  }
+
+  >div:nth-child(2){
+    display: flex;
+    justify-content: flex-end;
+  }
+}

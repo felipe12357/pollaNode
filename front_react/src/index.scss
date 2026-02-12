@@ -1,4 +1,4 @@
-@import './constants.scss';
+@use './constants.scss';
 
 @font-face {
   font-family: 'Fira';
@@ -22,41 +22,40 @@ body {
 input {
   padding: 5px;
   border-radius: 5px;
-  border:2px solid $color-silver;
+  border:2px solid constants.$color-silver;
   font-family:'Fira', sans-serif;
 }
 
 input:focus {
-  border: 2px solid $color-silver;
+  border: 2px solid constants.$color-silver;
   outline: none;
   box-shadow: none;
 }
 
 .button {
-  background-color: $color-green-dark;
+  background-color: constants.$color-green-dark;
   padding: .75rem 10px;
-  // font-family:'Moltors';
-  color:$color-white;
-  border-radius: $border-radius-style;
+  color:constants.$color-white;
+  border-radius: constants.$border-radius-style;
   border: 0px;
   cursor:pointer;
 
   &:hover, &:active{
-    background-color: $color-green;
+    background-color: constants.$color-green;
   }
   &.active{
-    background-color: $color-green-dark;
+    background-color: constants.$color-green-dark;
   }
 }
 
 .button-primary {
-  background-color: $color-blue-main;
+  background-color: constants.$color-blue-main;
 
   &:hover, &:active{
-    background-color: $color-blue;
+    background-color: constants.$color-blue;
   }
   &.active{
-    background-color: $color-blue-main;
+    background-color: constants.$color-blue-main;
   }
 }
 
@@ -66,32 +65,33 @@ input:focus {
 
 .delete-icon {
   @extend .cursor-pointer;
-  color: $color-red-dark;
+  color: constants.$color-red-dark;
 }
 
 .update-icon {
   @extend .cursor-pointer;
-  color: $color-brown;
+  color: constants.$color-brown;
 }
 
 .confirm-icon {
   @extend .cursor-pointer;
-  color: $color-green-dark;
+  color: constants.$color-green-dark;
 }
 
 .cancel-icon {
   width:20px;
   height: 20px;
-  color: $color-red-dark;
+  color: constants.$color-red-dark;
   @extend .cursor-pointer;
 }
 
 .container {
-  box-shadow: $box-shadow-small;
-  background-color: $color-grey-light;
+  margin: 0 auto;
+  box-shadow: constants.$box-shadow-small;
+  background-color: constants.$color-grey-light;
   width: fit-content;
   padding: 1rem;
-  border-radius: $border-radius-style;
+  border-radius: constants.$border-radius-style;
 }
 
 .match-row {
