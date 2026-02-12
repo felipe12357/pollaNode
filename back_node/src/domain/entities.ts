@@ -16,3 +16,8 @@ export type ForeCastDto = {
   id?: number;
   result: string;
 }
+
+export type UserValidationDto = {
+  username: string;
+  password: string;
+}

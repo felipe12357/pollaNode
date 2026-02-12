@@ -15,6 +15,13 @@
   para ejecutar cambios en la bd se corren migraciones, para ello se cambia el archivo: schema.prisma
   y leugo el comando: npx prisma migrate dev --name match_user, donde "match_user" es el nombre de la migracion
 
+  CUANDO SE EQUIVOCA EN UNA MIGRACION EN LUGAR DE CREAR OTRA PARA CORREGIRLO EXISTE LA
+  OPCION DE ELIMINARLA MANUALMENTE:
+    * se elimina la carpeta
+    * se elimina el registro de la migracion de la tabla de migraciones de la BD
+    * en la bd se deben regresar los cambios efectuados en la migracion para que quede justo como estaba antes de su ejecucion (eliminar/agregar columnas, tipos de datos etc)
+    * finalmente se vuelve a ejecutar la nueva migracion con las correcciones
+
   documentacion manejo de datos: https://www.prisma.io/docs/orm/prisma-schema/data-model/models
 
   Generar esquema relacion:

@@ -1,5 +1,5 @@
 import { MatchForecast } from "../generated/prisma";
-import { ForeCastDto, MatchDto } from "./entities";
+import { ForeCastDto, MatchDto, UserValidationDto } from "./entities";
 
 export abstract class MatchSource {
   abstract create(match: MatchDto): Promise<MatchDto>
@@ -13,4 +13,8 @@ export abstract class ForeCastSource {
   abstract create(foreCast: ForeCastDto): Promise<ForeCastDto>
   abstract delete(matchId: number, userId:number): Promise<MatchForecast>
   abstract getAll(): Promise<ForeCastDto[]>
+}
+
+export abstract class UserSource {
+  abstract login(userPass: UserValidationDto): Promise<string>
 }

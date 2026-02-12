@@ -29,10 +29,10 @@ model MatchForecast {
 
  model User {
   id Int @id @default(autoincrement())
-  username String @db.VarChar(20)
+  username String @unique @db.VarChar(20)
   name String ? @db.VarChar(20)
   lastname String ? @db.VarChar(20)
-  password String @db.VarChar(20)
+  password String @db.VarChar(510)
   foreCast MatchForecast[]
 } 
 
