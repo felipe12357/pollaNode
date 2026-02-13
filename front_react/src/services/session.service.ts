@@ -1,8 +1,8 @@
 import axios from "axios";
 import type { UserLoginDto, UserLoginRDto } from "../dtos/user";
-import { ErrorHandlingInterceptor } from "./error-handling.interceptor";
+import { AxiosHandlingInterceptor } from "./axios-handling.interceptor";
 
-class UserService extends ErrorHandlingInterceptor {
+class UserService extends AxiosHandlingInterceptor {
 
   constructor() {
     const axiosInstance = axios.create({

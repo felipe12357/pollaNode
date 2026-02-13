@@ -1,18 +1,14 @@
-export type MatchDto = {
-  team1: string;
-  team2: string;
+import { Match, MatchForecast, User } from "../generated/prisma";
+
+export type MatchDto = Omit<Match, 'foreCast' | 'date'> & {
   date: string;
-  result?: string | null;
-  id?: number;
 }
 
 export type MatchResultDto = MatchDto & {
   foreCast: string | null;
 }
 
-export type ForeCastDto = {
-  matchId: number;
-  userId: number;
+export type ForeCastDto = Omit<MatchForecast, 'resultForeCast'> & {
   id?: number;
   result: string;
 }
@@ -22,10 +18,8 @@ export type UserValidationDto = {
   password: string;
 }
 
-export type UserValidationRDto = {
-  username: string;
-  id: number;
-  name: string | null;
-  lastname: string | null;
+export type UserValidationRDto = Omit<User, 'password' | 'foreCast'> & {
   token: string;
 }
+
+export type UserData = Omit<User, 'password' | 'foreCast'>

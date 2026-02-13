@@ -1,8 +1,10 @@
 import { Router } from "express";
 import { MatchController } from "./match.controller";
 import { MatchService } from "./match.service";
-import { body, param, query } from "express-validator";
+import { body, param } from "express-validator";
 import { ValidationRoutesMiddleware } from "../middlewares/validation.routes.middleware";
+import { AuthMiddleware } from "../middlewares/auth.middleware";
+import { UserRole } from "../generated/prisma";
 
 export class MatchRoutes {
 
@@ -12,7 +14,8 @@ export class MatchRoutes {
     const matchService = new MatchService();
     const matchController = new MatchController(matchService);
 
-    router.get('/', 
+    router.get('/',
+      (req, res, next) => AuthMiddleware.validateJWT(req, res, next, UserRole.ADMIN),
       matchController.getAll);
 
     router.get('/:userId',

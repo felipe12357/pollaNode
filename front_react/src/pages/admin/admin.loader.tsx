@@ -16,7 +16,9 @@ export const AdminLoader= async ():Promise<Partial<MatchListResponse> | Response
   
   const response = await mathService.getAll()
     .then((data)=> ({ data }))
-    .catch((error)=>({ error: error.message }));
-    
+    .catch((error)=>{
+      return {error:error.response.data.error};
+    });
+
   return response;
 }

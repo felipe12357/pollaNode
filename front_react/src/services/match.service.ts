@@ -1,8 +1,8 @@
 import axios from "axios";
 import type { MatchDto, MatchResultDto } from "../dtos/match";
-import { ErrorHandlingInterceptor } from "./error-handling.interceptor";
+import { AxiosHandlingInterceptor } from "./axios-handling.interceptor";
 
-class MatchService extends ErrorHandlingInterceptor {
+class MatchService extends AxiosHandlingInterceptor {
 
   constructor() {
     const axiosInstance = axios.create({

@@ -4,8 +4,8 @@ export type UserLoginDto = {
 }
 
 export const UserRole = {
-  ADMIN: 'admin',
-  NORMAL: 'normal',
+  ADMIN: 'ADMIN',
+  USER: 'USER',
 }
 
 export type UserLoginRDto = {
