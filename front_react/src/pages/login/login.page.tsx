@@ -11,9 +11,13 @@ const LoginPage = () =>{
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     const data = Object.fromEntries(formData.entries()) as UserLoginDto;
-    const result = await userService.login(data)
-    console.log(result);
-    // navigate('/home');
+    const result = await userService.login(data);
+
+    //TODO crear el context para montar alli la informacion del usuario
+    //probar si se peude guardar en el servicio y usarla directamtente\
+    if(result)
+     navigate('/home');
+    
   } 
 
   return(
@@ -21,12 +25,12 @@ const LoginPage = () =>{
       <div>
           <div>
               <label htmlFor="username"> Username: </label>
-              <input type="text" name="username" id="user" required></input>
+              <input type="text" name="username" id="user" required defaultValue='pepes'></input>
           </div>
 
           <div>
               <label htmlFor="password"> Password: </label>
-              <input type="password" name="password" id="password" required></input>
+              <input type="password" name="password" id="password" required defaultValue='EraseAvezCruz2020'></input>
           </div>
       </div>
       <div>

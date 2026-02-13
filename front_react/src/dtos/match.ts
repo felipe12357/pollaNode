@@ -6,6 +6,11 @@ export type MatchDto = {
   id?: number;
 }
 
+export type MatchListResponse = {
+  data: MatchDto[],
+  error?: string,
+}
+
 export type MatchResultDto = {
   result: string;
   id: number;

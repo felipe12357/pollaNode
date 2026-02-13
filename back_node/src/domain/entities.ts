@@ -21,3 +21,11 @@ export type UserValidationDto = {
   username: string;
   password: string;
 }
+
+export type UserValidationRDto = {
+  username: string;
+  id: number;
+  name: string | null;
+  lastname: string | null;
+  token: string;
+}

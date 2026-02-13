@@ -1,5 +1,5 @@
 import { useLoaderData, useNavigate, useRevalidator } from "react-router-dom";
-import type { MatchDto } from "../../dtos/match";
+import type { MatchDto, MatchListResponse } from "../../dtos/match";
 import { toast } from "react-toastify";
 import { useEffect, useRef, useState } from "react";
 import './admin.scss';
@@ -11,7 +11,7 @@ import { FaHome } from "react-icons/fa";
 const AdminPage = () =>{
   const navigate = useNavigate();
   const { revalidate } = useRevalidator();
-  const {data, error:loadingError} = useLoaderData() as {data?: MatchDto[], error?:string};
+  const {data, error:loadingError} = useLoaderData() as MatchListResponse;
   const currentLoadingError = useRef<string | undefined>('');
   const [matchList, setmatchList] = useState<MatchDto[]>([]);
   const [showAddMatchButton, setshowAddMatchButton] = useState<Boolean>(false);

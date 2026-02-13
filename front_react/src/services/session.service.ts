@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { UserLoginDto } from "../dtos/user";
+import type { UserLoginDto, UserLoginRDto } from "../dtos/user";
 import { ErrorHandlingInterceptor } from "./error-handling.interceptor";
 
 class UserService extends ErrorHandlingInterceptor {
@@ -12,11 +12,15 @@ class UserService extends ErrorHandlingInterceptor {
     super(axiosInstance);
   }
   
-  login = async(data: UserLoginDto): Promise<string> => {
-    const response = await this.axiosInstance.get<string>(`/login`,{params:data});
+  login = async(data: UserLoginDto): Promise<UserLoginRDto> => {
+    const response = await this.axiosInstance.get<UserLoginRDto>(`/login`,{params:data});
+
+    sessionStorage.setItem('user-token', response.data.token);
+    sessionStorage.setItem('user-role', response.data.role);
     return response.data;
   }
 }
+
 
 const userService = new UserService();
 export default userService;
