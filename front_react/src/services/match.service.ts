@@ -31,7 +31,6 @@ class MatchService extends AxiosHandlingInterceptor {
     const response = await this.axiosInstance.patch<MatchDto>(`/result`, data);
     return response.data;
   }
-
 }
 
 const mathService = new MatchService();

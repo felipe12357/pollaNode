@@ -2,8 +2,8 @@ import { FaCheck } from 'react-icons/fa';
 import './matchAdd.scss';
 import { FaXmark } from 'react-icons/fa6';
 import { useRef } from 'react';
-import mathService from '../../services/match.service';
-import type { MatchDto } from '../../dtos/match';
+import type { MatchDto } from '../../../../dtos/match';
+import mathService from '../../../../services/match.service';
 
 
 interface MatchAddProps {

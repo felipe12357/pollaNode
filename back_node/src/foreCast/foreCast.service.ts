@@ -1,7 +1,8 @@
 import { prisma } from "../data";
 import { ForeCastSource } from "../domain/AbstractModels";
-import { ForeCastDto } from "../domain/entities";
+import { ForeCastDto, MatchResultDto } from "../domain/entities";
 import { MatchForecast } from "../generated/prisma";
+import { SharedResources } from "../sharedResources";
 
 export class ForeCastService implements ForeCastSource {
 
@@ -27,6 +28,27 @@ export class ForeCastService implements ForeCastSource {
       },
     });
     return <MatchForecast>deleted;
+  }
+
+  public async getUserMatchList(userId:number): Promise<MatchResultDto[]> {
+    const result = await prisma.match.findMany({
+      include: {
+        foreCast: {
+          select: {
+           resultForeCast: true,
+          },
+          where: { userId }
+        },
+      },
+    });
+
+    const response = result.map(val => {
+      return { ...val, 
+        date: SharedResources.transformDate(val.date), 
+        foreCast: val.foreCast.length > 0 ? val.foreCast[0]!.resultForeCast : null};
+    });
+    
+    return response;
   }
 
 

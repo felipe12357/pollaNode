@@ -12,7 +12,7 @@ const LoginPage = () =>{
     const formData = new FormData(event.target as HTMLFormElement);
     const data = Object.fromEntries(formData.entries()) as UserLoginDto;
     const result = await userService.login(data);
-
+    // TODO: useActionState https://react.dev/reference/react/useActionState
     //TODO crear el context para montar alli la informacion del usuario
     //probar si se peude guardar en el servicio y usarla directamtente\
     if(result)

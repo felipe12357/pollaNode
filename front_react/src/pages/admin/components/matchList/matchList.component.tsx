@@ -1,12 +1,11 @@
 
 import { useState } from "react";
-import type { MatchDto } from "../../dtos/match";
-import { FaPen } from "react-icons/fa";
-import { FaTrash } from "react-icons/fa";
-import { FaCheck } from "react-icons/fa";
+import { FaPen, FaTrash, FaCheck } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
-import mathService from "../../services/match.service";
+
 import './matchList.scss';
+import mathService from "../../../../services/match.service";
+import type { MatchDto } from "../../../../dtos/match";
 
 interface MatchListProps {
   matchList:MatchDto[]

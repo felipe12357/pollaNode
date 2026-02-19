@@ -3,8 +3,8 @@ import type { MatchDto, MatchListResponse } from "../../dtos/match";
 import { toast } from "react-toastify";
 import { useEffect, useRef, useState } from "react";
 import './admin.scss';
-import MatchListComponent from "../../components/matchList/matchList.component";
-import MatchAddComponent from "../../components/matchAdd/matchAdd.component";
+import MatchListComponent from "./components/matchList/matchList.component";
+import MatchAddComponent from "./components/matchAdd/matchAdd.component";
 import { FaPlus } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
 

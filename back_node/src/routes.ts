@@ -10,7 +10,7 @@ export class AppRoutes {
     const router = Router();
     router.use('/api/user', UserRoutes.routes );  
     router.use('/api/match', MatchRoutes.routes );
-    router.use('/api/foreCast', ForeCastRoutes.routes );
+    router.use('/api/forecast', ForeCastRoutes.routes );
     return router;
   }
 

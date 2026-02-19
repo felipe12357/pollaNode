@@ -1,8 +1,9 @@
 import { Router } from "express";
 import { ForeCastController } from "./foreCast.controller";
 import { ForeCastService } from "./foreCast.service";
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 import { ValidationRoutesMiddleware } from "../middlewares/validation.routes.middleware";
+import { AuthMiddleware } from "../middlewares/auth.middleware";
 
 export class ForeCastRoutes {
 
@@ -11,6 +12,14 @@ export class ForeCastRoutes {
     const router = Router();
     const matchService = new ForeCastService();
     const foreCastController = new ForeCastController(matchService);
+
+    router.get('/:userId',
+      AuthMiddleware.validateJWT,
+      param('userId')
+      .notEmpty().withMessage('missing property').bail()
+      .isNumeric(),
+      ValidationRoutesMiddleware.validate,
+      foreCastController.getUserMatchForecast);
 
     //Body hace la validacion sobre el formato body/json 
     router.post('/',

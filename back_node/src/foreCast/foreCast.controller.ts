@@ -33,4 +33,12 @@ export class ForeCastController {
       .then(result => res.status(200).send(result))
       .catch(error => res.status(500).send(error))
   }
+
+  getUserMatchForecast = (req: Request, res: Response) => {
+    const userId = parseInt(req.params.userId!);
+
+    this.foreCastService.getUserMatchList(userId)
+        .then(result => res.status(200).send(result))
+        .catch(error => res.status(500).send(error));
+  }
 }

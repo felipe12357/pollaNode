@@ -18,13 +18,6 @@ export class MatchRoutes {
       (req, res, next) => AuthMiddleware.validateJWT(req, res, next, UserRole.ADMIN),
       matchController.getAll);
 
-    router.get('/:userId',
-      param('userId')
-      .notEmpty().withMessage('missing property').bail()
-      .isNumeric(),
-      ValidationRoutesMiddleware.validate,
-      matchController.getUserMatchList);
-
     //Body hace la validacion sobre el formato body/json 
     router.post('/',  (req, res, next) =>
       AuthMiddleware.validateJWT(req, res, next, UserRole.ADMIN),

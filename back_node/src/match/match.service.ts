@@ -1,6 +1,6 @@
 import { prisma } from "../data";
 import { MatchSource } from "../domain/AbstractModels";
-import { MatchDto, MatchResultDto } from "../domain/entities";
+import { MatchDto } from "../domain/entities";
 import { Match } from "../generated/prisma";
 import { SharedResources } from "../sharedResources";
 
@@ -12,27 +12,6 @@ export class MatchService implements MatchSource {
     });
 
     return result.map(val => this.transformToEntity(val))
-  }
-
-  public async getUserMatchList(userId:number): Promise<MatchResultDto[]> {
-    const result = await prisma.match.findMany({
-      include: {
-        foreCast: {
-          select: {
-           resultForeCast: true,
-          },
-          where: { userId }
-        },
-      },
-    });
-
-    const response = result.map(val => {
-      return { ...val, 
-        date: SharedResources.transformDate(val.date), 
-        foreCast: val.foreCast.length > 0 ? val.foreCast[0]!.resultForeCast : null};
-    });
-    
-    return response;
   }
 
   public async create(match: MatchDto): Promise<MatchDto> {
@@ -61,12 +40,67 @@ export class MatchService implements MatchSource {
     return deleted.id;
   }
 
-  public async updateResult(id: number, result: string): Promise<MatchDto> {
+  public async updateResult(id: number, result: string, phaseBonus = false): Promise<MatchDto> {
     const updatedMatch =  await prisma.match.update({
       where: { id },
       data: { result },
     });
+
+    this.updatePoints(id, result, phaseBonus)
     return this.transformToEntity(updatedMatch); 
+  }
+
+  private async updatePoints(matchId: number, result: string, phaseBonus: boolean): Promise<void> {
+    const forecastList = await prisma.matchForecast.findMany({
+      where: { matchId }
+    });
+
+    await prisma.$transaction(
+      forecastList.filter(forecast => forecast.resultForeCast).map(forecast =>{
+        const points = this.calculatePoints(forecast.resultForeCast!, result, phaseBonus)
+        return prisma.matchForecast.update({
+          where: {
+            // toca asi por q en el modelo dije q la clave primaria es compuesta
+            //  @@unique([userId, matchId]) //esto es para q no se pueda repetir la combinacion
+            userId_matchId: {
+              userId: forecast.userId,
+              matchId: forecast.matchId
+            }
+          },
+          data: {
+            points:points
+          }
+        })
+      })
+    )
+  }
+
+  private calculatePoints(resultForeCast:string, result: string, phaseBonus:boolean): number {
+    let points = 0;
+    const forecastDigits = <string[]>resultForeCast?.split('-');
+    const resultDigits = result?.split('-');
+
+    //valida numero goles local
+    if( forecastDigits[0] === resultDigits[0])
+      points = phaseBonus ? points + 4 : points + 2;
+
+    // valida numero goles visitante
+    if( forecastDigits[1] === resultDigits[1])
+      points = phaseBonus ? points + 4 : points + 2;
+
+    // valida diferencia de goles
+    if( Math.abs(+forecastDigits[0]! - +forecastDigits[1]!) ===  Math.abs(+resultDigits[0]! - +resultDigits[1]!)) {
+      points = phaseBonus ? points + 2 : points + 1;
+    }
+
+    // valida ganador
+    if( (+forecastDigits[0]! > +forecastDigits[1]! && +resultDigits[0]! > +resultDigits[1]!)
+      || (+forecastDigits[0]! < +forecastDigits[1]! && +resultDigits[0]! < +resultDigits[1]!)
+      || (+forecastDigits[0]! === +forecastDigits[1]! && +resultDigits[0]! === +resultDigits[1]!) ) {
+      points = phaseBonus ? points + 10 : points + 5;
+    }
+
+    return points;
   }
 
   private transformToEntity(obj: Match): MatchDto {

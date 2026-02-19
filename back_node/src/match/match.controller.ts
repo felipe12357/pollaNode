@@ -19,15 +19,6 @@ export class MatchController {
       .catch(error => res.status(500).send(error))
   }
 
-  getUserMatchList = (req: Request, res: Response) => {
-    const userId = parseInt(req.params.userId!);
-
-    this.matchService.getUserMatchList(userId)
-        .then(result => res.status(200).send(result))
-        .catch(error => res.status(500).send(error));
-  }
-
-
   delete = (req: Request, res: Response) => {
     const { id } = req.body;
 
