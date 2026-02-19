@@ -26,7 +26,8 @@ export class MatchRoutes {
       matchController.getUserMatchList);
 
     //Body hace la validacion sobre el formato body/json 
-    router.post('/',
+    router.post('/',  (req, res, next) =>
+      AuthMiddleware.validateJWT(req, res, next, UserRole.ADMIN),
       body(['team1'])
         .notEmpty().withMessage('missing property').bail()
         .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/),
@@ -39,7 +40,8 @@ export class MatchRoutes {
        ValidationRoutesMiddleware.validate,
        matchController.create );
 
-    router.delete('/', 
+    router.delete('/', (req, res, next) =>
+      AuthMiddleware.validateJWT(req, res, next, UserRole.ADMIN),
       body(['id'])
         .notEmpty().withMessage('missing property').bail()
         .isNumeric(),
@@ -47,7 +49,8 @@ export class MatchRoutes {
       matchController.delete );
   
     //http://localhost:3000/api/match/result
-    router.patch('/result',
+    router.patch('/result', (req, res, next) =>
+      AuthMiddleware.validateJWT(req, res, next, UserRole.ADMIN),
       body(['id'])
         .notEmpty().withMessage('missing property').bail()
         .isNumeric(),

@@ -1,14 +1,13 @@
 import { Request, Response } from "express";
 import { MatchSource } from "../domain/AbstractModels";
-import { MatchDto } from "../domain/entities";
+import { MatchDto, UserData } from "../domain/entities";
 
 export class MatchController {
 
   constructor(public readonly matchService: MatchSource) {}
 
   create = (req: Request, res: Response) => {
-    const match: MatchDto = req.body;
-
+    const { user, ...match } : MatchDto & { user:UserData } = req.body
     this.matchService.create(match)
       .then(result => res.status(200).send(result))
       .catch(error => res.status(500).send(error))
