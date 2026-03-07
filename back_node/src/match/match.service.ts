@@ -45,7 +45,7 @@ export class MatchService implements MatchSource {
       where: { id },
       data: { result },
     });
-
+    //check this:  prisma.$executeRaw`SELECT 1`;
     this.updatePoints(id, result, phaseBonus)
     return this.transformToEntity(updatedMatch); 
   }

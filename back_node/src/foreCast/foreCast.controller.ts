@@ -20,6 +20,20 @@ export class ForeCastController {
       })
   }
 
+  update = (req: Request, res: Response) => {
+    const forecast: ForeCastDto = {
+      ...req.body, 
+      userId: +req.body.userId, 
+      matchId: +req.body.matchId,
+    };
+
+    this.foreCastService.update(forecast)
+      .then(result => res.status(200).send(result))
+      .catch(error => {
+        return res.status(500).send(error)
+      })
+  }
+
   delete = (req: Request, res: Response) => {
     const { matchId, userId } = req.body;
 

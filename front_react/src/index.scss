@@ -97,25 +97,16 @@ input:focus {
 .match-row {
   display: grid;
   place-content: center;
-  grid-template-columns: 9.25rem 3.12rem 9.25rem 9.37rem 7.12rem 2.5rem 2.5rem;
   row-gap: 0.62rem;
   padding-bottom: .75rem;
+  align-items: center;
 
   &_header-match {
     grid-column: 1 / span 3;
   }
 
-  &_header-actions {
-    grid-column: 6 / span 2;
-  }
-
   input {
     width: 80%;
-  }
-
-  div:nth-child(6), :nth-child(7) {
-    display: flex;
-    align-items: center;
   }
 }
 

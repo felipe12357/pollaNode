@@ -14,11 +14,11 @@ export class ForeCastRoutes {
     const foreCastController = new ForeCastController(matchService);
 
     router.get('/:userId',
-      AuthMiddleware.validateJWT,
       param('userId')
       .notEmpty().withMessage('missing property').bail()
       .isNumeric(),
       ValidationRoutesMiddleware.validate,
+      (req, res, next) => AuthMiddleware.validateJWT(req, res, next),
       foreCastController.getUserMatchForecast);
 
     //Body hace la validacion sobre el formato body/json 
@@ -29,7 +29,7 @@ export class ForeCastRoutes {
       body(['userId'])
         .notEmpty().withMessage('missing property').bail()
         .isNumeric(),
-      body(['result'])
+      body(['forecast'])
         .notEmpty().withMessage('missing property').bail()
          .matches(/^[0-9]-[0-9]$/).withMessage('must be in format N-N where N is 0-9'),
       ValidationRoutesMiddleware.validate,

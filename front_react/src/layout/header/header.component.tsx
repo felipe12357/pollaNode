@@ -1,9 +1,14 @@
+import { useNavigate } from 'react-router-dom';
 import './header.scss';
 
 export const HeaderComponent = () =>{
-    return (
-        <div className='header-component'>
-            <h1>Polla Mundialista 2026</h1>
-        </div>
-    )
+  const navigate = useNavigate();
+
+  return (
+    <div className='header-component cursor-pointer'>
+        <h1 onClick={() => navigate('/home')}>
+            Polla Mundialista 2026
+        </h1>
+    </div>
+  )
 }

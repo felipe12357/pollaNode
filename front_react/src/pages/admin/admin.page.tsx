@@ -10,7 +10,7 @@ import { FaHome } from "react-icons/fa";
 
 const AdminPage = () =>{
   const navigate = useNavigate();
-  const { revalidate } = useRevalidator();
+  const { revalidate } = useRevalidator(); // se usa para volver a cargar el loader
   const {data, error:loadingError} = useLoaderData() as MatchListResponse;
   const currentLoadingError = useRef<string | undefined>('');
   const [matchList, setmatchList] = useState<MatchDto[]>([]);
@@ -29,14 +29,10 @@ const AdminPage = () =>{
       setmatchList(data);
   },[data])
 
-  const handleNavigate = () => {
-    navigate('/home');
-  }
-
   return (
     <div className="admin-component ">
       <div className="admin-component_menu">
-        <button className="button button-primary" onClick={() => handleNavigate()} >
+        <button className="button button-primary" onClick={() => navigate('/home')} >
           <FaHome /> Home
         </button>
         <button className="button" onClick={() => setshowAddMatchButton(true)} >

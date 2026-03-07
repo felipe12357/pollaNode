@@ -1,6 +1,7 @@
 import axios from "axios";
 import { AxiosHandlingInterceptor } from "./axios-handling.interceptor";
 import type { MatchDto } from "../dtos/match";
+import type { ForecastResultDTO } from "../dtos/forecast";
 
 class ForecastService extends AxiosHandlingInterceptor {
 
@@ -14,6 +15,11 @@ class ForecastService extends AxiosHandlingInterceptor {
 
   getByUserId = async(userId: number): Promise<MatchDto[]> => {
     const response = await this.axiosInstance.get<MatchDto[]>(`/${userId}`);
+    return response.data;
+  }
+
+  updateForecast = async(userId:number, matchId: number, forecast: string): Promise<ForecastResultDTO>  => {
+    const response = await this.axiosInstance.post<ForecastResultDTO>(`/`, { matchId, userId, forecast });
     return response.data;
   }
 }

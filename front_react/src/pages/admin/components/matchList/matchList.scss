@@ -1,4 +1,8 @@
 .match-list-component {
+  .match-row {
+    grid-template-columns: 9.25rem 3.12rem 9.25rem 9.37rem 7.12rem 2.5rem 2.5rem;
+  }
+
   input {
     width: 40%;
   }

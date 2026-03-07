@@ -33,34 +33,36 @@ const MatchListComponent:React.FC<MatchListProps> = ({matchList, updateList}) =>
     updateList(newMatchList);
   }
 
-  return  matchList?.map(match =>
-    <div className="match-row match-list-component" key={match.id}>
-      <div> {match.team1} </div>
-      <div> vs </div>
-      <div> {match.team2} </div>
-      <div> {match.date} </div>
-      <div>
-        {  (selectedMatchID === match.id)
-          ? <input type="text" onChange={(e)=>setMatchInput(e.target.value)}></input>
-          : match.result ? match.result : 'N/A'
-        }
+  return  <div className="match-list-component">
+    { matchList?.map(match =>
+      <div className="match-row" key={match.id}>
+        <div> {match.team1} </div>
+        <div> vs </div>
+        <div> {match.team2} </div>
+        <div> {match.date} </div>
+        <div>
+          {  (selectedMatchID === match.id)
+            ? <input type="text" onChange={(e)=>setMatchInput(e.target.value)}></input>
+            : match.result ? match.result : 'N/A'
+          }
+        </div>
+        <div>
+          {
+            (selectedMatchID === match.id)  
+            ? <FaCheck className="confirm-icon" onClick={()=>updateMatch()}/>
+            : <FaPen className="update-icon" onClick={()=>setMatchId(match.id as number)}/>
+          }
+        </div>
+        <div>
+          {
+            (selectedMatchID === match.id)
+            ? <FaXmark className="cancel-icon" onClick={()=>setMatchId(null)}/>
+            : <FaTrash className="delete-icon" onClick={()=>deleteMatch(match.id as number)}/>
+          }
+        </div>
       </div>
-      <div>
-        {
-          (selectedMatchID === match.id)  
-          ? <FaCheck className="confirm-icon" onClick={()=>updateMatch()}/>
-          : <FaPen className="update-icon" onClick={()=>setMatchId(match.id as number)}/>
-        }
-      </div>
-      <div>
-        {
-          (selectedMatchID === match.id)
-          ? <FaXmark className="cancel-icon" onClick={()=>setMatchId(null)}/>
-          : <FaTrash className="delete-icon" onClick={()=>deleteMatch(match.id as number)}/>
-        }
-      </div>
-    </div>
-  )
+    )}
+  </div>
 }
 
 export default MatchListComponent;

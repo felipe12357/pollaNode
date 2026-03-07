@@ -15,3 +15,13 @@ export type MatchResultDto = {
   result: string;
   id: number;
 }
+
+export type MatchForecastDto = MatchDto & {
+  foreCast: string;
+  points?: number;
+}
+
+export type MatchForecastListResponse = {
+  data: MatchForecastDto[],
+  error?: string,
+}

@@ -1,0 +1,24 @@
+.forecast-list-component {
+  .header {
+    font-weight: bold;
+  }
+
+  .match-row {
+    grid-template-columns: 9.25rem 3.12rem 9.25rem 6.37rem 6.12rem 6.5rem 4.5rem;
+
+    input {
+      width: 40%;
+    }
+
+    :nth-child(5), :nth-child(6){
+      display: flex;
+      justify-content: space-around;
+      padding-right: 10px;
+    }
+  }
+
+  .update-icon {
+    width: 12px;
+    height: 12px;
+  }
+}

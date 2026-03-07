@@ -13,6 +13,7 @@ export abstract class ForeCastSource {
   abstract delete(matchId: number, userId:number): Promise<MatchForecast>
   abstract getAll(): Promise<ForeCastDto[]>
   abstract getUserMatchList(id: number): Promise<unknown>
+  abstract update(foreCast: ForeCastDto): Promise<ForeCastDto>
 }
 
 export abstract class UserSource {

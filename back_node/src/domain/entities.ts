@@ -6,11 +6,12 @@ export type MatchDto = Omit<Match, 'foreCast' | 'date'> & {
 
 export type MatchResultDto = MatchDto & {
   foreCast: string | null;
+  points?: number;
 }
 
 export type ForeCastDto = Omit<MatchForecast, 'resultForeCast'> & {
   id?: number;
-  result: string;
+  forecast: string;
 }
 
 export type UserValidationDto = {
