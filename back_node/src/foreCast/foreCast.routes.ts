@@ -12,13 +12,14 @@ export class ForeCastRoutes {
     const router = Router();
     const matchService = new ForeCastService();
     const foreCastController = new ForeCastController(matchService);
+    //implemento el AutHMiddleware para todas las rutas
+    router.use((req, res, next) => AuthMiddleware.validateJWT(req, res, next))
 
     router.get('/:userId',
       param('userId')
       .notEmpty().withMessage('missing property').bail()
       .isNumeric(),
       ValidationRoutesMiddleware.validate,
-      (req, res, next) => AuthMiddleware.validateJWT(req, res, next),
       foreCastController.getUserMatchForecast);
 
     //Body hace la validacion sobre el formato body/json 

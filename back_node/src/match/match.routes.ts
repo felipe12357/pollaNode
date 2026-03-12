@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { MatchController } from "./match.controller";
 import { MatchService } from "./match.service";
-import { body, param } from "express-validator";
+import { body } from "express-validator";
 import { ValidationRoutesMiddleware } from "../middlewares/validation.routes.middleware";
 import { AuthMiddleware } from "../middlewares/auth.middleware";
 import { UserRole } from "../generated/prisma";
@@ -13,14 +13,13 @@ export class MatchRoutes {
     const router = Router();
     const matchService = new MatchService();
     const matchController = new MatchController(matchService);
+    //implemento el AutHMiddleware para todas las rutas
+    router.use((req, res, next) => AuthMiddleware.validateJWT(req, res, next, UserRole.ADMIN))
 
-    router.get('/',
-      (req, res, next) => AuthMiddleware.validateJWT(req, res, next, UserRole.ADMIN),
-      matchController.getAll);
+    router.get('/', matchController.getAll);
 
     //Body hace la validacion sobre el formato body/json 
     router.post('/',  (req, res, next) =>
-      AuthMiddleware.validateJWT(req, res, next, UserRole.ADMIN),
       body(['team1'])
         .notEmpty().withMessage('missing property').bail()
         .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/),
@@ -34,7 +33,6 @@ export class MatchRoutes {
        matchController.create );
 
     router.delete('/', (req, res, next) =>
-      AuthMiddleware.validateJWT(req, res, next, UserRole.ADMIN),
       body(['id'])
         .notEmpty().withMessage('missing property').bail()
         .isNumeric(),
@@ -43,7 +41,7 @@ export class MatchRoutes {
   
     //http://localhost:3000/api/match/result
     router.patch('/result', (req, res, next) =>
-      AuthMiddleware.validateJWT(req, res, next, UserRole.ADMIN),
+    //  AuthMiddleware.validateJWT(req, res, next, UserRole.ADMIN),
       body(['id'])
         .notEmpty().withMessage('missing property').bail()
         .isNumeric(),

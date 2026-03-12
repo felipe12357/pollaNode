@@ -20,7 +20,6 @@ export class AuthMiddleware {
 
 
       const token = authorization.split(' ')[1] || '';
-
       try {
         const payload = await JwtAdapter.validateToken<{data:{id:number}}>(token);
         const user = await prisma.user.findUnique({where:{
@@ -37,7 +36,7 @@ export class AuthMiddleware {
         next(); // esta es la funcion q permite q la peticion continue con su flujo
         //es decir en este caso controlador -> service 
       } catch (error:any) {
-        res.status(500).json({error:error});
+        res.status(401).json({error:error});
       }
     }
 }

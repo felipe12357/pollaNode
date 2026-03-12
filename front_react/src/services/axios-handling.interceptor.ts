@@ -1,5 +1,6 @@
 import { type AxiosInstance } from "axios";
 import { toast } from "react-toastify";
+import globalNavigation from "../utilities/navigation";
 
 export class AxiosHandlingInterceptor {
 
@@ -29,6 +30,8 @@ export class AxiosHandlingInterceptor {
       error => {
         const errort = error.response.data.error || error.response.data?.errors[0];
         toast.error(`There was an error: ${errort}`);
+        globalNavigation.navigate?.('/login');
+        
         return Promise.reject(error);
       }
     );
