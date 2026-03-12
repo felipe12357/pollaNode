@@ -2,14 +2,13 @@ import { Router } from "express";
 import { MatchController } from "./match.controller";
 import { MatchService } from "./match.service";
 import { body } from "express-validator";
-import { ValidationRoutesMiddleware } from "../middlewares/validation.routes.middleware";
-import { AuthMiddleware } from "../middlewares/auth.middleware";
-import { UserRole } from "../generated/prisma";
+import { ValidationRoutesMiddleware } from "../../middlewares/validation.routes.middleware";
+import { AuthMiddleware } from "../../middlewares/auth.middleware";
+import { UserRole } from "../../generated/prisma";
 
 export class MatchRoutes {
 
   static get routes(): Router {
-
     const router = Router();
     const matchService = new MatchService();
     const matchController = new MatchController(matchService);
@@ -19,7 +18,7 @@ export class MatchRoutes {
     router.get('/', matchController.getAll);
 
     //Body hace la validacion sobre el formato body/json 
-    router.post('/',  (req, res, next) =>
+    router.post('/',
       body(['team1'])
         .notEmpty().withMessage('missing property').bail()
         .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/),
@@ -32,7 +31,7 @@ export class MatchRoutes {
        ValidationRoutesMiddleware.validate,
        matchController.create );
 
-    router.delete('/', (req, res, next) =>
+    router.delete('/',
       body(['id'])
         .notEmpty().withMessage('missing property').bail()
         .isNumeric(),
@@ -40,8 +39,9 @@ export class MatchRoutes {
       matchController.delete );
   
     //http://localhost:3000/api/match/result
-    router.patch('/result', (req, res, next) =>
-    //  AuthMiddleware.validateJWT(req, res, next, UserRole.ADMIN),
+    router.patch('/result',
+      // ejemplo de utilizar el middleware en una sola ruta
+      // (req, res, next) =>  AuthMiddleware.validateJWT(req, res, next, UserRole.ADMIN),
       body(['id'])
         .notEmpty().withMessage('missing property').bail()
         .isNumeric(),
