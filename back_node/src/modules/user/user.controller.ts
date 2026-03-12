@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { UserValidationDto } from "../domain/entities";
-import { UserSource } from "../domain/AbstractModels";
+import { UserValidationDto } from "../../domain/entities";
+import { UserSource } from "../../domain/AbstractModels";
 
 export class UserController {
   constructor(public readonly userService: UserSource) {}

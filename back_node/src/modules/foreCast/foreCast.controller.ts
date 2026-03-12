@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { ForeCastSource } from "../domain/AbstractModels";
-import { ForeCastDto } from "../domain/entities";
+import { ForeCastSource } from "../../domain/AbstractModels";
+import { ForeCastDto } from "../../domain/entities";
 
 export class ForeCastController {
 

@@ -2,7 +2,7 @@ import { Router } from "express";
 import { UserService } from "./user.service";
 import { UserController } from "./user.controller";
 import { body, param, query } from "express-validator";
-import { ValidationRoutesMiddleware } from "../middlewares/validation.routes.middleware";
+import { ValidationRoutesMiddleware } from "../../middlewares/validation.routes.middleware";
 
 export class UserRoutes {
 

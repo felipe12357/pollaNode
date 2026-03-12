@@ -1,8 +1,8 @@
-import { prisma } from "../data";
-import { UserSource } from "../domain/AbstractModels";
-import { UserValidationDto, UserValidationRDto } from "../domain/entities";
-import { BcryptAdapter } from "../utils/bcrypt.adapter";
-import { JwtAdapter } from "../utils/jwt.adapter";
+import { prisma } from "../../data";
+import { UserSource } from "../../domain/AbstractModels";
+import { UserValidationDto, UserValidationRDto } from "../../domain/entities";
+import { BcryptAdapter } from "../../utils/bcrypt.adapter";
+import { JwtAdapter } from "../../utils/jwt.adapter";
 
 export class UserService implements UserSource {
 

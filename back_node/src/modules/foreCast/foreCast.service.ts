@@ -1,8 +1,8 @@
-import { prisma } from "../data";
-import { ForeCastSource } from "../domain/AbstractModels";
-import { ForeCastDto, MatchResultDto } from "../domain/entities";
-import { MatchForecast } from "../generated/prisma";
-import { SharedResources } from "../sharedResources";
+import { prisma } from "../../data";
+import { ForeCastSource } from "../../domain/AbstractModels";
+import { ForeCastDto, MatchResultDto } from "../../domain/entities";
+import { MatchForecast } from "../../generated/prisma";
+import { SharedResources } from "../../sharedResources";
 
 export class ForeCastService implements ForeCastSource {
 

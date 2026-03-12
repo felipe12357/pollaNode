@@ -30,7 +30,9 @@ export class AxiosHandlingInterceptor {
       error => {
         const errort = error.response.data.error || error.response.data?.errors[0];
         toast.error(`There was an error: ${errort}`);
-        globalNavigation.navigate?.('/login');
+
+        if(error.status === 401)
+          globalNavigation.navigate?.('/login');
         
         return Promise.reject(error);
       }

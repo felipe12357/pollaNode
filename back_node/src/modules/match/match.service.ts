@@ -1,8 +1,8 @@
-import { prisma } from "../data";
-import { MatchSource } from "../domain/AbstractModels";
-import { MatchDto } from "../domain/entities";
-import { Match } from "../generated/prisma";
-import { SharedResources } from "../sharedResources";
+import { prisma } from "../../data";
+import { MatchSource } from "../../domain/AbstractModels";
+import { MatchDto } from "../../domain/entities";
+import { Match } from "../../generated/prisma";
+import { SharedResources } from "../../sharedResources";
 
 export class MatchService implements MatchSource {
 

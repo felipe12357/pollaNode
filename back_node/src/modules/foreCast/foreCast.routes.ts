@@ -2,8 +2,8 @@ import { Router } from "express";
 import { ForeCastController } from "./foreCast.controller";
 import { ForeCastService } from "./foreCast.service";
 import { body, param } from "express-validator";
-import { ValidationRoutesMiddleware } from "../middlewares/validation.routes.middleware";
-import { AuthMiddleware } from "../middlewares/auth.middleware";
+import { ValidationRoutesMiddleware } from "../../middlewares/validation.routes.middleware";
+import { AuthMiddleware } from "../../middlewares/auth.middleware";
 
 export class ForeCastRoutes {
 

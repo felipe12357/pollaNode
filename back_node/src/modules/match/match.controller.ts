@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { MatchSource } from "../domain/AbstractModels";
-import { MatchDto, UserData } from "../domain/entities";
+import { MatchSource } from "../../domain/AbstractModels";
+import { MatchDto, UserData } from "../../domain/entities";
 
 export class MatchController {
 
