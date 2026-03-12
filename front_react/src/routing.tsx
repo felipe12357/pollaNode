@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import { MainLayout } from "./layout/mainLayout";
 import { Suspense } from "react";
 import { AdminPage, HomePage, LoginPage } from "./pages";
@@ -13,6 +13,7 @@ export const routes = createBrowserRouter([
         path: "/",
         element: <MainLayout/>,
         children:[
+          { index: true, element: <Navigate to="/home" replace /> },
           {
               path: "login", 
               element: <Suspense fallback={<LoadingComponent/>}> 
@@ -35,7 +36,11 @@ export const routes = createBrowserRouter([
             path: "admin",
             element: <Suspense fallback={<LoadingComponent/>}> <AdminPage/> </Suspense>,
             loader: async () => await AdminLoader(),
-          }
+          },
+          {
+            path: "*",
+            element: <Navigate to="/home" replace />,
+          },
         ]
     }
 ]);
