@@ -1,19 +1,13 @@
 import { redirect } from "react-router-dom";
-import { ValidationRouteService } from "../../services/validation-route.service";
-import type { MatchListResponse } from "../../dtos/match";
+import { ValidationRouteService } from "../../services/validation-route.service";;
 import forecastService from "../../services/forecast.service";
+import type { MatchForecastDto } from "../../dtos/match";
 
-export const ForecastLoader= async ():Promise<Partial<MatchListResponse> | Response>=>{
+export const ForecastLoader= async ():Promise<MatchForecastDto[] | Response>=>{
 
   if(!ValidationRouteService.validateRoute()) {
     return redirect('../login');
   }
-  
-  const response = await forecastService.getByUserId(2)
-    .then((data)=> ({ data }))
-    .catch((error)=>{
-      return {error:error.response.data.error};
-    });
-
-  return response;
+  // TODO utilizar el id del usuario
+  return await forecastService.getByUserId(2)
 }

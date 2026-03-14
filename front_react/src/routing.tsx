@@ -36,6 +36,7 @@ export const routes = createBrowserRouter([
             path: "admin",
             element: <Suspense fallback={<LoadingComponent/>}> <AdminPage/> </Suspense>,
             loader: async () => await AdminLoader(),
+            errorElement: <div>Error loading page</div>
           },
           {
             path: "*",

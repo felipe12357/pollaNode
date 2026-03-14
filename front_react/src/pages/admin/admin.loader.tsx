@@ -1,9 +1,9 @@
 import { redirect } from "react-router-dom";
-import type { MatchListResponse } from "../../dtos/match";
+import type { MatchDto } from "../../dtos/match";
 import mathService from "../../services/match.service"
 import { ValidationRouteService } from "../../services/validation-route.service";
 
-export const AdminLoader= async ():Promise<Partial<MatchListResponse> | Response>=>{
+export const AdminLoader= async ():Promise<MatchDto[] | Response>=>{
 
   if(!ValidationRouteService.validateRouteAdmin()) {
     if(!ValidationRouteService.validateRoute()) {
@@ -13,12 +13,5 @@ export const AdminLoader= async ():Promise<Partial<MatchListResponse> | Response
     return redirect('../home');
   }
   
-  
-  const response = await mathService.getAll()
-    .then((data)=> ({ data }))
-    .catch((error)=>{
-      return {error:error.response.data.error};
-    });
-
-  return response;
+  return await mathService.getAll()
 }

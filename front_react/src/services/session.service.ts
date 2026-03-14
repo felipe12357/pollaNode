@@ -14,9 +14,7 @@ class UserService extends AxiosHandlingInterceptor {
   
   login = async(data: UserLoginDto): Promise<UserLoginRDto> => {
     const response = await this.axiosInstance.get<UserLoginRDto>(`/login`,{params:data});
-
-    sessionStorage.setItem('user-token', response.data.token);
-    sessionStorage.setItem('user-role', response.data.role);
+    sessionStorage.setItem('user-data',JSON.stringify(response.data));
     return response.data;
   }
 }
