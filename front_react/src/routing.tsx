@@ -26,7 +26,7 @@ export const routes = createBrowserRouter([
                 <HomePage/>
               </Suspense>
           }, {
-              path: "forecast", 
+              path: "forecast/:userId", 
               element: <Suspense fallback={<LoadingComponent/>}> 
                 <ForecastPage/>
               </Suspense>,

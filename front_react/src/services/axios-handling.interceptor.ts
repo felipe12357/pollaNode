@@ -1,7 +1,7 @@
 import { type AxiosInstance } from "axios";
 import { toast } from "react-toastify";
 import globalNavigation from "../utilities/navigation";
-import type { UserLoginRDto } from "../dtos/user";
+import { GetSessionUser } from "../utilities/session.storage";
 
 export class AxiosHandlingInterceptor {
 
@@ -16,9 +16,8 @@ export class AxiosHandlingInterceptor {
   private addToken() {
     this.axiosInstance.interceptors.request.use(
       config => {
-        const sessionUserDataString = sessionStorage.getItem('user-data');
-        if(sessionUserDataString) {
-          const sessionUserData = JSON.parse(sessionUserDataString) as UserLoginRDto;
+        const sessionUserData = GetSessionUser();
+        if(sessionUserData) {
           config.headers.Authorization = `Bearer ${sessionUserData.token}`;
         }
 

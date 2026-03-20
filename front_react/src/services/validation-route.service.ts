@@ -1,15 +1,15 @@
-import { UserRole, type UserLoginRDto } from "../dtos/user";
+import { UserRole } from "../dtos/user";
+import { GetSessionUser } from "../utilities/session.storage";
 
 export class ValidationRouteService {
 
   static validateRoute(): boolean {
-    return !!sessionStorage.getItem('user-data')
+    return !!GetSessionUser()
   }
 
   static validateRouteAdmin(): boolean {
-    const sessionUserDataString = sessionStorage.getItem('user-data');
-    if(sessionUserDataString) {
-      const sessionUserData = JSON.parse(sessionUserDataString) as UserLoginRDto;
+    const sessionUserData = GetSessionUser();
+    if(sessionUserData) {
       return sessionUserData.role === UserRole.ADMIN
     }
     return false;

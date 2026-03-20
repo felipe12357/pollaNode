@@ -15,7 +15,7 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList}) => {
   const [forecastInput, setForecastInput] = useState<string>('');
 
   const updateForecastResult = async()=> {
-
+    //todo utilizar el userId
     const response = await forecastService.updateForecast(2,selectedMatchID!, forecastInput);
 
     if(response) {

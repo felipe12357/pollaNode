@@ -16,3 +16,5 @@ export type UserLoginRDto = {
   token: string;
   role: typeof UserRole[keyof typeof UserRole];
 }
+
+export type UserData = Omit<UserLoginRDto, 'token'>;

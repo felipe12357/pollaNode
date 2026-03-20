@@ -3,11 +3,12 @@ import './login.scss';
 import userService from "../../services/session.service";
 import type { UserLoginDto } from "../../dtos/user";
 import { useContextGlobal } from "../../contextGlobalProvider";
+import { ACTION_TYPES_APP } from "../../redux/app.actions";
 
 
 const LoginPage = () =>{
   const navigate = useNavigate();
-  const { setUser } = useContextGlobal();
+  const { dispatch } = useContextGlobal();
 
   const handleSubmit = async(event:React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -15,7 +16,7 @@ const LoginPage = () =>{
     const data = Object.fromEntries(formData.entries()) as UserLoginDto;
     const result = await userService.login(data);
     const {token, ...userData} = result;
-    setUser(userData);
+    dispatch({type: ACTION_TYPES_APP.SET_USER, payload:userData});
     // TODO: useActionState https://react.dev/reference/react/useActionState
     //probar si se peude guardar en el servicio y usarla directamtente\
     if(result)

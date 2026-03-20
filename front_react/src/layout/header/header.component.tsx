@@ -4,7 +4,7 @@ import { useContextGlobal } from '../../contextGlobalProvider';
 
 export const HeaderComponent = () =>{
   const navigate = useNavigate();
-  const { user } = useContextGlobal();
+  const {appState: {user}} = useContextGlobal();
   
   return (
     <div className='header-component cursor-pointer'>

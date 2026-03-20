@@ -1,19 +1,22 @@
-import { createContext, useContext, useState, type JSXElementConstructor, type ReactElement, type ReactNode } from "react";
-import type { UserLoginRDto } from './dtos/user';
+import { createContext, useContext, useReducer, type Dispatch, type JSXElementConstructor, type ReactElement, type ReactNode } from "react";
+import { appReducer, defaultAppState, type AppState } from "./redux/app.reducer";
+import type { AppListAction } from "./redux/app.actions";
 
-type dataGlobalContext = {
-  user: Omit<UserLoginRDto, 'token'>,
-  setUser: (user:Omit<UserLoginRDto, 'token'>)=> void,
+interface ContextType {
+  appState: AppState,
+  dispatch: Dispatch<AppListAction>,
 }
  
-export const GlobalContext = createContext({});
-export const useContextGlobal = () => useContext(GlobalContext) as dataGlobalContext;
+export const GlobalContext = createContext<ContextType>({
+  appState: defaultAppState,
+  dispatch: ()=> {},
+});
+export const useContextGlobal = () => useContext(GlobalContext);
  
 export const ContextGlobalProvider = (props: { children: ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> }) => {
-  const [user,setUser] = useState(); //TODO migrar a useReducer
-
+  const [appState, dispatch] = useReducer(appReducer, defaultAppState);
   return (
-      <GlobalContext.Provider value={{user, setUser}}>
+      <GlobalContext.Provider value={{appState, dispatch}}>
           {props.children}
       </GlobalContext.Provider>
   )
