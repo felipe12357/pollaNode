@@ -5,4 +5,4 @@ export const ACTION_TYPES_APP = {
 }
 
 export type AppListAction =
-  | { type: typeof ACTION_TYPES_APP.SET_USER; payload: UserData}
+  | { type: typeof ACTION_TYPES_APP.SET_USER; payload: UserData | null}

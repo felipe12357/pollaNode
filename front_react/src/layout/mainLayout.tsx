@@ -1,4 +1,4 @@
-;import { Outlet, useNavigate, useNavigation } from "react-router-dom"
+import { Outlet, useNavigate, useNavigation } from "react-router-dom";
 import { HeaderComponent } from "./header/header.component"
 import { ToastContainer } from "react-toastify"
 import { LoadingComponent } from "./loading/loading.component";

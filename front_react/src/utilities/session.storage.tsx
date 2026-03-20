@@ -10,3 +10,7 @@ export const GetSessionUser = (): UserLoginRDto | null => {
 
   return null;
 }
+
+export const removeSessionUser = (): void => {
+  sessionStorage.removeItem('user-data');
+}

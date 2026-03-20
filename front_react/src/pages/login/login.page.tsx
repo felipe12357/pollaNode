@@ -4,11 +4,16 @@ import userService from "../../services/session.service";
 import type { UserLoginDto } from "../../dtos/user";
 import { useContextGlobal } from "../../contextGlobalProvider";
 import { ACTION_TYPES_APP } from "../../redux/app.actions";
+import { useEffect } from "react";
 
 
 const LoginPage = () =>{
   const navigate = useNavigate();
   const { dispatch } = useContextGlobal();
+
+  useEffect(() => {
+    dispatch({type: ACTION_TYPES_APP.SET_USER, payload:null})
+  },[])
 
   const handleSubmit = async(event:React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
