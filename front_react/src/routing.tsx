@@ -5,7 +5,7 @@ import { AdminPage, HomePage, LoginPage } from "./pages";
 import { AdminLoader } from "./pages/admin/admin.loader";
 import { LoadingComponent } from "./layout/loading/loading.component";
 import ForecastPage from "./pages/forecast/forecast.page";
-import { ForecastLoader } from "./pages/forecast/forecast.loader";
+import { ForecastLoader, type ForecastLoaderParams } from "./pages/forecast/forecast.loader";
 
 //Utilizo Suspense para lazy loading
 export const routes = createBrowserRouter([
@@ -30,7 +30,7 @@ export const routes = createBrowserRouter([
               element: <Suspense fallback={<LoadingComponent/>}> 
                 <ForecastPage/>
               </Suspense>,
-              loader: async () => await ForecastLoader(),
+              loader: async ({params}) => await ForecastLoader(params as ForecastLoaderParams),
           }
           ,{
             path: "admin",

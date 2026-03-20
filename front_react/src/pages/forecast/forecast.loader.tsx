@@ -3,11 +3,13 @@ import { ValidationRouteService } from "../../services/validation-route.service"
 import forecastService from "../../services/forecast.service";
 import type { MatchForecastDto } from "../../dtos/match";
 
-export const ForecastLoader= async ():Promise<MatchForecastDto[] | Response>=>{
+export type ForecastLoaderParams = {
+  userId: string;
+};
 
+export const ForecastLoader= async ({userId}: ForecastLoaderParams):Promise<MatchForecastDto[] | Response>=>{
   if(!ValidationRouteService.validateRoute()) {
     return redirect('../login');
   }
-  // TODO utilizar el id del usuario
-  return await forecastService.getByUserId(2)
+  return await forecastService.getByUserId(+userId)
 }

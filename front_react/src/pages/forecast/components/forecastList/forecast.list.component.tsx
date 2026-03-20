@@ -4,6 +4,7 @@ import './forecast.list.scss';
 import { FaCheck, FaPen } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import forecastService from "../../../../services/forecast.service";
+import { useContextGlobal } from "../../../../contextGlobalProvider";
 
 interface MatchListProps {
   matchList:MatchForecastDto[]
@@ -13,10 +14,10 @@ interface MatchListProps {
 const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList}) => {
   const [selectedMatchID, setMatchId] = useState<number | null>();
   const [forecastInput, setForecastInput] = useState<string>('');
+  const {appState: {user}} = useContextGlobal();
 
   const updateForecastResult = async()=> {
-    //todo utilizar el userId
-    const response = await forecastService.updateForecast(2,selectedMatchID!, forecastInput);
+    const response = await forecastService.updateForecast(user!.id,selectedMatchID!, forecastInput);
 
     if(response) {
       const position = matchList.findIndex((match) => selectedMatchID === match.id);
