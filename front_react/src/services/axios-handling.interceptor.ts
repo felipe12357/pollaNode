@@ -31,7 +31,7 @@ export class AxiosHandlingInterceptor {
       response => response,
       error => {
         let errort = "Unknown error";
-
+        console.log('en el interceptor');
         if (error.response)
           errort = error.response?.data.error || error.response?.data?.errors[0];
         else if (error.request)

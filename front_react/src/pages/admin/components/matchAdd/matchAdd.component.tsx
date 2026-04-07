@@ -24,7 +24,7 @@ const MatchAddComponent:React.FC<MatchAddProps> = ({updateList, addNewMatch}) =>
     updateList();
   }
 
-  // TODO MIGRAR A ACTIONS
+  // TODO AGREGAR SI TIENE BONUS DE FASE
   return <form id="matchForm" ref={formRef} className="match-add-component match-row">
     <div> <input type="text" name="team1"></input> </div>
     <div> vs </div>

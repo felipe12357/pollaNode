@@ -17,4 +17,8 @@ export type UserLoginRDto = {
   role: typeof UserRole[keyof typeof UserRole];
 }
 
+export type UserRegisterDto = UserLoginDto & {
+  email: string
+}
+
 export type UserData = Omit<UserLoginRDto, 'token'>;

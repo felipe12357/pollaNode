@@ -27,6 +27,13 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList}) => {
 
     setMatchId(null);
   }
+
+  //todo scroolling al partido de la fecha proxima
+/*     const elemento = document.getElementById(`fila-${fila}`);
+  elemento.scrollIntoView({
+    behavior: "smooth", // opcional
+    block: "start"
+  }) */
  
   return <div className="forecast-list-component container">
       <div className="match-row header">

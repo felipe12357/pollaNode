@@ -19,6 +19,10 @@ export type UserValidationDto = {
   password: string;
 }
 
+export type UserRegisterDto = UserValidationDto & {
+  email: string;
+}
+
 export type UserValidationRDto = Omit<User, 'password' | 'foreCast'> & {
   token: string;
 }

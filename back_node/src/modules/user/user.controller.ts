@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { UserValidationDto } from "../../domain/entities";
+import { UserRegisterDto, UserValidationDto } from "../../domain/entities";
 import { UserSource } from "../../domain/AbstractModels";
 
 export class UserController {
@@ -13,5 +13,15 @@ export class UserController {
       .catch(error => {
         return res.status(401).send({ errors: [error.message] })
       })
+  }
+
+  register = (req: Request, res: Response) => {
+    const userData: UserRegisterDto = req.body as unknown as UserRegisterDto;
+    
+    this.userService.register(userData)
+      .then(result => res.status(200).send(result))
+      .catch(error => {
+        return res.status(401).send({ errors: [error.message] })
+      });
   }
 }

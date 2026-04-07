@@ -33,6 +33,7 @@ const MatchListComponent:React.FC<MatchListProps> = ({matchList, updateList}) =>
     updateList(newMatchList);
   }
 
+  // todo AGREGAR SI TIENE BONUS
   return  <div className="match-list-component">
     { matchList?.map(match =>
       <div className="match-row" key={match.id}>

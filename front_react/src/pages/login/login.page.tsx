@@ -1,7 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { Form, useActionData, useNavigate } from "react-router-dom";
 import './login.scss';
-import userService from "../../services/session.service";
-import type { UserLoginDto } from "../../dtos/user";
+import type { UserLoginRDto } from "../../dtos/user";
 import { useContextGlobal } from "../../contextGlobalProvider";
 import { ACTION_TYPES_APP } from "../../redux/app.actions";
 import { useEffect } from "react";
@@ -10,42 +9,37 @@ import { useEffect } from "react";
 const LoginPage = () =>{
   const navigate = useNavigate();
   const { dispatch } = useContextGlobal();
+  const actionData: UserLoginRDto | undefined = useActionData();
 
   useEffect(() => {
     dispatch({type: ACTION_TYPES_APP.SET_USER, payload:null})
   },[])
 
-  const handleSubmit = async(event:React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.target as HTMLFormElement);
-    const data = Object.fromEntries(formData.entries()) as UserLoginDto;
-    const result = await userService.login(data);
-    const {token, ...userData} = result;
-    dispatch({type: ACTION_TYPES_APP.SET_USER, payload:userData});
-    // TODO: useActionState https://react.dev/reference/react/useActionState
-    //probar si se peude guardar en el servicio y usarla directamtente\
-    if(result)
-     navigate('/home');
-    
-  } 
+  useEffect(()=>{
+    if(actionData){
+      dispatch({type: ACTION_TYPES_APP.SET_USER, payload:actionData});
+      navigate('/home');
+    }
+  },[actionData])
 
   return(
-    <form className='container login-component' onSubmit={handleSubmit}>
+    <Form className='container login-component' method='post'>
       <div>
           <div>
-              <label htmlFor="username"> Username: </label>
+              <label htmlFor="username"> Nombre de Usuario: </label>
               <input type="text" name="username" id="user" required defaultValue='pepes'></input>
           </div>
 
           <div>
-              <label htmlFor="password"> Password: </label>
+              <label htmlFor="password"> Contraseña: </label>
               <input type="password" name="password" id="password" required defaultValue='EraseAvezCruz2020'></input>
           </div>
       </div>
       <div>
-        <button className='button'>Loggin</button> 
+        <button className='button button-primary' type="button" onClick={()=>navigate('/register')}>Registrarse</button>
+        <button className='button'>Ingresar</button> 
       </div>
-    </form>
+    </Form>
   )
 }
 

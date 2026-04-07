@@ -1,15 +1,17 @@
 import { Router } from "express";
 import { UserService } from "./user.service";
 import { UserController } from "./user.controller";
-import { body, param, query } from "express-validator";
+import { body, query } from "express-validator";
 import { ValidationRoutesMiddleware } from "../../middlewares/validation.routes.middleware";
+import { MailHandlerAdapter } from "../../utils/mail.adapter";
 
 export class UserRoutes {
 
   static get routes(): Router {
 
     const router = Router();
-    const userService = new UserService();
+    const mailAdapter = new MailHandlerAdapter();
+    const userService = new UserService(mailAdapter);
     const userController = new UserController(userService);
 
     // Definir las rutas
@@ -18,6 +20,12 @@ export class UserRoutes {
       query(['password','username']).isAlphanumeric(),
       ValidationRoutesMiddleware.validate,
       userController.login );
+
+    router.post('/register', 
+      body(['username', 'password', 'email']).notEmpty().withMessage('missing property'),
+      body(['email']).isEmail(),
+      ValidationRoutesMiddleware.validate,
+      userController.register );
 
     return router;
   }

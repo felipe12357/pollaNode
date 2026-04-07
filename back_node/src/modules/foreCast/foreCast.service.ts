@@ -69,6 +69,7 @@ export class ForeCastService implements ForeCastSource {
           where: { userId }
         },
       },
+      orderBy: { date: 'asc' }
     });
 
     const response = result.map(val => {

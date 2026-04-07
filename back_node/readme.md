@@ -3,6 +3,8 @@
   express-validator: validacion de parametros en las rutas
   prisma: gestor de BD
 
+  url para configurar gmail y enviar correos:
+  https://myaccount.google.com/apppasswords
 
 ### recapitulacion
   El comando: docker compose up -d ejecuta la configuracion del archivo compose,

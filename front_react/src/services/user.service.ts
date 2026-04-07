@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { UserLoginDto, UserLoginRDto } from "../dtos/user";
+import type { UserLoginDto, UserLoginRDto, UserRegisterDto } from "../dtos/user";
 import { AxiosHandlingInterceptor } from "./axios-handling.interceptor";
 
 class UserService extends AxiosHandlingInterceptor {
@@ -15,6 +15,11 @@ class UserService extends AxiosHandlingInterceptor {
   login = async(data: UserLoginDto): Promise<UserLoginRDto> => {
     const response = await this.axiosInstance.get<UserLoginRDto>(`/login`,{params:data});
     sessionStorage.setItem('user-data',JSON.stringify(response.data));
+    return response.data;
+  }
+
+  register = async(data: UserRegisterDto): Promise<boolean> => {
+    const response = await this.axiosInstance.post<boolean>(`/register`, data);
     return response.data;
   }
 }

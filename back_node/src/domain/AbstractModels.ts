@@ -1,5 +1,6 @@
 import { MatchForecast } from "../generated/prisma";
-import { ForeCastDto, MatchDto, UserValidationDto, UserValidationRDto } from "./entities";
+import { MailHandlerAdapter } from "../utils/mail.adapter";
+import { ForeCastDto, MatchDto, UserRegisterDto, UserValidationDto, UserValidationRDto } from "./entities";
 
 export abstract class MatchSource {
   abstract create(match: MatchDto): Promise<MatchDto>
@@ -17,5 +18,11 @@ export abstract class ForeCastSource {
 }
 
 export abstract class UserSource {
+  constructor(protected mailHandler: MailHandler) { }
   abstract login(userPass: UserValidationDto): Promise<UserValidationRDto>
+  abstract register(userData: UserRegisterDto): Promise<boolean>
+}
+
+export abstract class MailHandler {
+  abstract sendMail(from: string, to: string, subject: string, text: string): Promise<boolean>
 }

@@ -1,4 +1,4 @@
-.login-component {
+.register-component {
   margin-top: 5rem;
   min-width: 30rem;
   
@@ -8,7 +8,7 @@
 
   >div:nth-child(1){
     div {
-      margin-bottom: 1rem;
+      margin-bottom: 1rem;     
 
       label {
         margin-right: 1rem;
@@ -26,6 +26,6 @@
 
   >div:nth-child(2){
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
   }
 }
