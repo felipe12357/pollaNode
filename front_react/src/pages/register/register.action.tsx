@@ -11,6 +11,6 @@ export const registerAction = async({request}: {request: Request})=>{
 
     return result;
   } catch (err) {
-    return false;
+    return err;
   }
 }

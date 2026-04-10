@@ -39,6 +39,7 @@ model MatchForecast {
   name String ? @db.VarChar(20)
   lastname String ? @db.VarChar(20)
   password String @db.VarChar(510)
+  email String @unique @db.VarChar(320)
   foreCast MatchForecast[]
   role UserRole @default(USER)
 } 

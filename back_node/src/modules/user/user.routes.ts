@@ -21,6 +21,13 @@ export class UserRoutes {
       ValidationRoutesMiddleware.validate,
       userController.login );
 
+    router.post('/complete-register', 
+      body(['password','username', 'email']).notEmpty().withMessage('missing property'),
+      body(['username']).isAlphanumeric(),
+      body(['email']).isEmail(),
+      ValidationRoutesMiddleware.validate,
+      userController.completeRegister );
+
     router.post('/register', 
       body(['username', 'password', 'email']).notEmpty().withMessage('missing property'),
       body(['email']).isEmail(),

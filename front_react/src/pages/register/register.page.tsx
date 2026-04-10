@@ -1,18 +1,21 @@
-import { Form, useActionData, useNavigate } from "react-router-dom";
+import { Form, useActionData, useNavigate, useNavigation } from "react-router-dom";
 import { useEffect } from "react";
 import './register.scss';
 import { toast } from "react-toastify";
+import { GiSoccerBall } from "react-icons/gi";
+
 
 const RegisterPage = () =>{
   const actionData: unknown = useActionData();
-  const navigate =  useNavigate(); 
+  const navigate =  useNavigate();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
 
   useEffect(()=>{
     if(actionData) {
       toast.success('Revisa el correo electrónico para terminar el proceso');
       navigate('/');
     }
-    console.log('tata', actionData);
   },[actionData])
 
   return(
@@ -32,7 +35,10 @@ const RegisterPage = () =>{
           </div>
       </div>
       <div>
-        <button className='button button-primary'>Registrarse</button>
+      <button className={`button button-primary ${isSubmitting && "button-primary_disabled"} `} disabled={isSubmitting}>
+        <span>Registrarse</span> 
+        { isSubmitting && <GiSoccerBall className="loading-icon"/> }
+      </button>
       </div>
     </Form>
   )

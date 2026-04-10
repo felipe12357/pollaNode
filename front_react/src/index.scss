@@ -7,6 +7,15 @@
   font-style: normal;
 }
 
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 
 :root {
   
@@ -57,6 +66,12 @@ input:focus {
   &.active{
     background-color: constants.$color-blue-main;
   }
+
+  &_disabled, &_disabled:hover{
+    cursor: auto;
+    background-color: constants.$color-blue;
+    opacity: 0.65;
+  }
 }
 
 .button-danger {
@@ -72,6 +87,11 @@ input:focus {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.loading-icon {
+  font-size: 24px;
+  animation: rotateAnimation 2s linear infinite;
 }
 
 .delete-icon {
@@ -94,6 +114,18 @@ input:focus {
   height: 20px;
   color: constants.$color-red-dark;
   @extend .cursor-pointer;
+}
+
+.alert-container {
+  padding: 1rem;
+  border-radius: constants.$border-radius-style;
+
+}
+
+.alert-container-danger {
+  color: constants.$color-red-dark;
+  background-color: #f8d7da;
+  border-color: constants.$color-red-dark;
 }
 
 .container {

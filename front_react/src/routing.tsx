@@ -9,6 +9,8 @@ import { ForecastLoader, type ForecastLoaderParams } from "./pages/forecast/fore
 import { loginAction } from "./pages/login/login.action";
 import RegisterPage from "./pages/register/register.page";
 import { registerAction } from "./pages/register/register.action";
+import CompleteRegisterPage from "./pages/complete-register/complete-register.page";
+import { CompleteRegisterLoader } from "./pages/complete-register/complete-register.loader";
 
 //Utilizo Suspense para lazy loading
 export const routes = createBrowserRouter([
@@ -30,6 +32,13 @@ export const routes = createBrowserRouter([
               element: <Suspense fallback={<LoadingComponent/>}> 
                 <RegisterPage/>
               </Suspense>,
+          },
+          {
+              path: "complete-register",
+              element: <Suspense fallback={<LoadingComponent/>}> 
+                <CompleteRegisterPage/>
+              </Suspense>,
+              loader: async (params) => await CompleteRegisterLoader(params),
           },
           {
               path: "home", 

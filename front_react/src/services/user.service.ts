@@ -22,6 +22,12 @@ class UserService extends AxiosHandlingInterceptor {
     const response = await this.axiosInstance.post<boolean>(`/register`, data);
     return response.data;
   }
+
+  completeRegister = async(data: UserRegisterDto): Promise<UserLoginRDto> => {
+    const response = await this.axiosInstance.post<UserLoginRDto>(`/complete-register`, data);
+    sessionStorage.setItem('user-data',JSON.stringify(response.data));
+    return response.data;
+  }
 }
 
 

@@ -29,17 +29,35 @@ export class UserService extends UserSource {
   }
 
   public async register(data: UserRegisterDto): Promise<boolean> {
-    const message = this.getRegisterMail(data.username, data.password)
+    const message = this.getRegisterMail(data)
     const response = await this.mailHandler.sendMail(<string>process.env.EMAIL_USER,data.email, 'Registro Polla', message);
 
     return response;
   }
 
-  private getRegisterMail(username:string, password: string): string {
-    const encrypterPassword = BcryptAdapter.hash(password);
+  public async completeRegister(data: UserRegisterDto): Promise<UserValidationRDto> {
+    const { username, email} = data;
+    const existsUser = await prisma.user.findFirst({
+      where: { 
+        OR: [ {username}, {email}],
+      }
+    });
+
+    if(existsUser){
+      throw new Error('The email or username is already in use');
+    } else {
+      const { password, ...existsUser} = await prisma.user.create({ data });
+      const token = await JwtAdapter.genereteToken({id: existsUser.id, username: existsUser.username});
+
+      return { token, ...existsUser}
+    }
+  }
+
+  private getRegisterMail(data:UserRegisterDto): string {
+    const encrypterPassword = BcryptAdapter.hash(data.password);
     const mailText = `<p>Para completar el registro en la aplicación da click en el siguiente enlace:</p>
     
-    <a href='${process.env.APP_URL}/api/user/complete-register?username=${username}&password=${encrypterPassword}'> 
+    <a href='${process.env.APP_FRONT_URL}/complete-register?username=${data.username}&password=${encrypterPassword}&email=${data.email}'> 
       Completar registro 
     </a>`;
    

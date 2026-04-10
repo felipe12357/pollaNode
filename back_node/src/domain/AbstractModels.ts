@@ -21,6 +21,7 @@ export abstract class UserSource {
   constructor(protected mailHandler: MailHandler) { }
   abstract login(userPass: UserValidationDto): Promise<UserValidationRDto>
   abstract register(userData: UserRegisterDto): Promise<boolean>
+  abstract completeRegister(userData: UserRegisterDto): Promise<UserValidationRDto>
 }
 
 export abstract class MailHandler {

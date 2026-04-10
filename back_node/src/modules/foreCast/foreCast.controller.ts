@@ -29,7 +29,6 @@ export class ForeCastController {
     this.foreCastService.update(forecast)
       .then(result => res.status(200).send(result))
       .catch(error => {
-        console.log('en el update', error);
         return res.status(500).send(error)
       })
   }
@@ -52,7 +51,7 @@ export class ForeCastController {
     const userId = parseInt(req.params.userId!);
 
     this.foreCastService.getUserMatchList(userId)
-        .then(result => res.status(200).send(result))
-        .catch(error => res.status(500).send(error));
+      .then(result => res.status(200).send(result))
+      .catch(error => res.status(500).send(error));
   }
 }

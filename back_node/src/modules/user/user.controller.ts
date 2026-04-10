@@ -24,4 +24,14 @@ export class UserController {
         return res.status(401).send({ errors: [error.message] })
       });
   }
+
+  completeRegister = (req: Request, res: Response) => {
+    const userData: UserRegisterDto = req.body as unknown as UserRegisterDto;
+
+    this.userService.completeRegister(userData)
+      .then(result => res.status(200).send(result))
+      .catch(error => {
+        return res.status(400).send({ errors: [error.message] })
+      });
+  }
 }

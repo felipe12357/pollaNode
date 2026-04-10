@@ -30,19 +30,18 @@ export class AxiosHandlingInterceptor {
     this.axiosInstance.interceptors.response.use(
       response => response,
       error => {
-        let errort = "Unknown error";
-        console.log('en el interceptor');
+        let errort = "Error desconocido";
+
         if (error.response)
           errort = error.response?.data.error || error.response?.data?.errors[0];
         else if (error.request)
-          errort = "Server not responding";
+          errort = "No hay respuesta del Servidor";
         else
           errort = error.message;
 
         setTimeout(() => {
-          toast.error(`There was an error: ${errort}`);
-        } , 10);
-
+          toast.error(`Hubo un error: ${errort}`);
+        } , 300);
 
         if(error.status === 401){
           sessionStorage.removeItem('user-data');
