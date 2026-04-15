@@ -1,6 +1,15 @@
 .forecast-list-component {
+  height: 37rem;
+  overflow-y: scroll;
+
   .header {
     font-weight: bold;
+    position: sticky;
+    top: -16px;
+    z-index: 1;
+    background-color: inherit;
+    padding-bottom: 10px;
+    padding-top: 10px;
   }
 
   .match-row {

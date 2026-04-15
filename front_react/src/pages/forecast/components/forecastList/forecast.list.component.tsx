@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { MatchForecastDto } from "../../../../dtos/match";
 import './forecast.list.scss';
 import { FaCheck, FaPen } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import forecastService from "../../../../services/forecast.service";
 import { useContextGlobal } from "../../../../contextGlobalProvider";
+import { useTableScrollDate } from "../../../../hooks/useTableScrollDate";
+
 
 interface MatchListProps {
   matchList:MatchForecastDto[]
@@ -15,6 +17,14 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList}) => {
   const [selectedMatchID, setMatchId] = useState<number | null>();
   const [forecastInput, setForecastInput] = useState<string>('');
   const {appState: {user}} = useContextGlobal();
+  const { setRef, scroll } = useTableScrollDate();
+
+  useEffect(() => {
+    if(matchList.length > 0) {
+      const mockDate = new Date('2026-06-14');
+      scroll(mockDate, matchList, 2);
+    }
+  },[matchList]);
 
   const updateForecastResult = async()=> {
     const response = await forecastService.updateForecast(user!.id,selectedMatchID!, forecastInput);
@@ -27,13 +37,6 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList}) => {
 
     setMatchId(null);
   }
-
-  //todo scroolling al partido de la fecha proxima
-/*     const elemento = document.getElementById(`fila-${fila}`);
-  elemento.scrollIntoView({
-    behavior: "smooth", // opcional
-    block: "start"
-  }) */
  
   return <div className="forecast-list-component container">
       <div className="match-row header">
@@ -49,7 +52,11 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList}) => {
 
       </div>
     { matchList?.map((match) => 
-      <div className="match-row" key={match.id}>
+      <div className="match-row" key={match.id} ref={
+        (element) => {
+          if (element) setRef(element)
+        }}
+      >
         <div> {match.team1} </div>
         <div> vs </div>
         <div> {match.team2} </div>
