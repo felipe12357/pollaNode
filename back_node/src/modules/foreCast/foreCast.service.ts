@@ -1,15 +1,24 @@
 import { prisma } from "../../data";
 import { ForeCastSource } from "../../domain/AbstractModels";
-import { ForeCastDto, MatchResultDto } from "../../domain/entities";
+import { ForeCastDto, MatchResultDto, Results } from "../../domain/entities";
 import { MatchForecast } from "../../generated/prisma";
 import { SharedResources } from "../../sharedResources";
 
 export class ForeCastService implements ForeCastSource {
 
-  public async getAll(): Promise<ForeCastDto[]> {
-    const result = await prisma.matchForecast.findMany();
+  public async getAll(): Promise<Results[]> {
 
-    return result.map(val => this.transformToEntity(val))
+    const result = await <Results[]><unknown>(prisma.$queryRaw `
+      SELECT 
+        "User"."username", 
+         COALESCE(SUM ("MatchForecast"."points")::int, 0) as points
+      from "User"
+        inner join "MatchForecast" on "User"."id" = "MatchForecast"."userId"
+      Group By "User"."username"
+      Order By "points" DESC, "User"."username"
+    `);
+
+    return result;
   }
 
   public async create(val: ForeCastDto): Promise<ForeCastDto> {

@@ -1,0 +1,12 @@
+.result-list-component {
+  .header {
+    font-weight: bold;
+  }
+  
+  .result-row {
+    display: grid;
+    grid-template-columns: 8.25rem 4.12rem;
+    column-gap: 1rem;
+    margin-bottom: .5rem;
+  }
+}

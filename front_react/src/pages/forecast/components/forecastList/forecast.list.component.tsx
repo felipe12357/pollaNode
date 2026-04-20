@@ -21,8 +21,8 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList}) => {
 
   useEffect(() => {
     if(matchList.length > 0) {
-      const mockDate = new Date('2026-06-14');
-      scroll(mockDate, matchList, 2);
+      const today = new Date();
+      scroll(today, matchList, 2);
     }
   },[matchList]);
 
@@ -43,13 +43,9 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList}) => {
           <div className="match-row_header-match"> Partido </div>
           <div> Fecha </div>
           <div> Pronostico </div>
-          {
-            !selectedMatchID && <>
-              <div> Resultado </div>
-              <div> Puntos </div>
-            </>
-          }
-
+          <div> Acciones </div>
+          <div> Resultado </div>
+          <div> Puntos </div>
       </div>
     { matchList?.map((match) => 
       <div className="match-row" key={match.id} ref={
@@ -61,26 +57,21 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList}) => {
         <div> vs </div>
         <div> {match.team2} </div>
         <div> {match.date} </div>
-        <div>
-          { selectedMatchID === match.id 
-            ? <input type="text" onChange={(e)=>setForecastInput(e.target.value)}></input>
-            : <>  
-              {match.foreCast}
-              { new Date() < new Date(match.date) && <FaPen className="update-icon" onClick={()=>setMatchId(match.id as number)} /> }
-            </>
-          } 
+        <div> {selectedMatchID === match.id 
+            ? <input type="text" onChange={(e)=>setForecastInput(e.target.value)} defaultValue={match.foreCast}></input>
+            : match.foreCast}
         </div>
-        {
-          selectedMatchID === match.id && <div >
-            <FaCheck className="confirm-icon" onClick={()=>updateForecastResult()}/>
-            <FaXmark className="cancel-icon" onClick={()=>setMatchId(null)}/>
-          </div>
-        }
-        {
-          !selectedMatchID && <> 
-          <div> {match.result} </div>
-          <div> {match.points}</div></>
-        }
+          { selectedMatchID === match.id 
+            ? <div className="icon-options"> 
+              <FaCheck className="confirm-icon" onClick={()=>updateForecastResult()}/>
+              <FaXmark className="cancel-icon" onClick={()=>setMatchId(null)}/>
+              </div>
+            : <div>
+              { new Date() < new Date(match.date) && <FaPen className="update-icon" onClick={()=>setMatchId(match.id as number)} /> }
+            </div>
+          } 
+        <div> {match.result} </div>
+        <div> {match.points}</div>
       </div>
     )}
   </div>

@@ -36,6 +36,7 @@ export class ForeCastRoutes {
       ValidationRoutesMiddleware.validate,
       foreCastController.create );
 
+    // not in use
     router.delete('/', 
       body(['matchId'])
         .notEmpty().withMessage('missing property').bail()
@@ -46,6 +47,7 @@ export class ForeCastRoutes {
       ValidationRoutesMiddleware.validate,
       foreCastController.delete );
     
+    // not in use
     router.get('/', foreCastController.getAll);
 
 

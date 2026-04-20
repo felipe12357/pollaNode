@@ -44,7 +44,7 @@ export class ForeCastController {
   getAll = (req: Request, res: Response) => {
     this.foreCastService.getAll()
       .then(result => res.status(200).send(result))
-      .catch(error => res.status(500).send(error))
+      .catch(error => res.status(500).send('el error' + error))
   }
 
   getUserMatchForecast = (req: Request, res: Response) => {

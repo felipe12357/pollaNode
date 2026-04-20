@@ -13,16 +13,20 @@
   }
 
   .match-row {
-    grid-template-columns: 9.25rem 3.12rem 9.25rem 6.37rem 6.12rem 6.5rem 4.5rem;
+    grid-template-columns: 8.25rem 1.12rem 8.25rem 6.37rem 5.5rem 4.12rem 4.9rem 4.5rem;
+    column-gap: 1rem;
 
     input {
       width: 40%;
     }
 
-    :nth-child(5), :nth-child(6){
+    :nth-child(5), :nth-child(6), :nth-child(7), :nth-child(8){
       display: flex;
-      justify-content: space-around;
-      padding-right: 10px;
+      justify-content: center;
+    }
+
+    .icon-options {
+      justify-content: space-between;
     }
   }
 

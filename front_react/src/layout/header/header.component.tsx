@@ -17,9 +17,10 @@ export const HeaderComponent = () =>{
 
   return (
     <div className='header-component'>
-        <h1 className='cursor-pointer' onClick={() => navigate('/home')}>
-          Polla Mundialista 2026
-        </h1>
+        <div onClick={() => navigate('/home')}>
+          <img src="/src/assets/worldcup.png"></img>
+          <h1 className='cursor-pointer'> Polla Mundialista 2026 </h1>
+        </div>
         { user && 
           <span>Hola {user.username}
             <button className="button button-danger" onClick={() => closeSession()} >

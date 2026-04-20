@@ -11,6 +11,7 @@ import RegisterPage from "./pages/register/register.page";
 import { registerAction } from "./pages/register/register.action";
 import CompleteRegisterPage from "./pages/complete-register/complete-register.page";
 import { CompleteRegisterLoader } from "./pages/complete-register/complete-register.loader";
+import { ResultListLoader } from "./pages/home/components/resultList.loader";
 
 //Utilizo Suspense para lazy loading
 export const routes = createBrowserRouter([
@@ -44,7 +45,8 @@ export const routes = createBrowserRouter([
               path: "home", 
               element: <Suspense fallback={<LoadingComponent/>}> 
                 <HomePage/>
-              </Suspense>
+              </Suspense>,
+              loader: async () => await ResultListLoader(),
           }, {
               path: "forecast/:userId", 
               element: <Suspense fallback={<LoadingComponent/>}> 

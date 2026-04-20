@@ -28,3 +28,8 @@ export type UserValidationRDto = Omit<User, 'password' | 'foreCast'> & {
 }
 
 export type UserData = Omit<User, 'password' | 'foreCast'>
+
+export type Results =  {
+  points: number;
+  username: string;
+}

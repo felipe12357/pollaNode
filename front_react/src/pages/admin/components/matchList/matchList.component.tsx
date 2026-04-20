@@ -20,8 +20,8 @@ const MatchListComponent:React.FC<MatchListProps> = ({matchList, updateList}) =>
 
   useEffect(() => {
     if(matchList.length > 0) {
-      const mockDate = new Date('2026-06-14');
-      scroll(mockDate, matchList);
+      const today = new Date();
+      scroll(today, matchList);
     }
   },[matchList]);
 
