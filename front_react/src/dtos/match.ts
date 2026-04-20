@@ -4,6 +4,7 @@ export type MatchDto = {
   date: string;
   result?: string | null;
   id?: number;
+  bonusPhase: boolean;
 }
 
 export type MatchListResponse = {

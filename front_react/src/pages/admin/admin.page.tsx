@@ -33,10 +33,10 @@ const AdminPage = () =>{
         <div className="match-row header">
           <div className="match-row_header-match"> Partido </div>
           <div> Fecha </div>
+          <div> Bonus </div>
           <div> Resultado </div>
           <div className="match-row_header-actions"> Acciones </div>
-          { showAddMatchButton && <MatchAddComponent updateList={() =>revalidate()} addNewMatch={(e) => setshowAddMatchButton(e) }/> }
-          
+          { showAddMatchButton && <MatchAddComponent updateList={() =>revalidate()} addNewMatch={(e) => setshowAddMatchButton(e) }/> }  
         </div>
         <MatchListComponent matchList={matchList} updateList={(e) =>setmatchList(e)} />
       </div>

@@ -19,7 +19,7 @@ const MatchAddComponent:React.FC<MatchAddProps> = ({updateList, addNewMatch}) =>
   const handleform = async() => {
     const formData = new FormData(formRef.current!);
     const formValue = Object.fromEntries(formData) as unknown as MatchDto;
-
+    formValue.bonusPhase = formData.get('bonusPhase') !== null
     await mathService.addMatch(formValue);
     updateList();
   }
@@ -30,7 +30,8 @@ const MatchAddComponent:React.FC<MatchAddProps> = ({updateList, addNewMatch}) =>
     <div> vs </div>
     <div> <input type="text" name="team2"></input> </div>
     <div> <input type="date" name="date"></input> </div>
-    <div></div>
+    <div> <input type="checkbox" name="bonusPhase"/> </div>
+    <div> </div>
     <div>
       <FaCheck className="confirm-icon" onClick={()=> handleform()}/>
     </div>

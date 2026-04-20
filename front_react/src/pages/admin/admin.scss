@@ -1,6 +1,6 @@
 .admin-component {
   &_menu {
-    width: 45.11rem;
+    width: 46.11rem;
     margin: 0 auto;
     margin-bottom: 2rem;
 
@@ -14,13 +14,18 @@
   }
 
   .match-row {
-    grid-template-columns: 9.25rem 3.12rem 9.25rem 9.37rem 7.12rem 2.5rem 2.5rem;
-  
+    display: grid;
+    grid-template-columns: 8.25rem 2.12rem 8.25rem 8.37rem 4.12rem 6.5rem 2.5rem 3.5rem;
+
     &_header-actions {
-      grid-column: 6 / span 2;
+      grid-column: 7 / span 2;
     }
 
-    div:nth-child(6), :nth-child(7) {
+    div:nth-child(5) {
+      width: fit-content;
+    }
+
+    div:nth-child(7), :nth-child(8) {
       display: flex;
       align-items: center;
     }

@@ -53,6 +53,9 @@ const MatchListComponent:React.FC<MatchListProps> = ({matchList, updateList}) =>
         <div> vs </div>
         <div> {match.team2} </div>
         <div> {match.date} </div>
+        <div> {match.bonusPhase 
+          ? <FaCheck className="confirm-icon"></FaCheck>
+          : <FaXmark className="cancel-icon"/>} </div>
         <div>
           {  (selectedMatchID === match.id)
             ? <input type="text" onChange={(e)=>setMatchInput(e.target.value)}></input>

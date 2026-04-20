@@ -11,7 +11,8 @@ export class UserController {
     this.userService.login(userPass)
       .then(result => res.status(200).send(result))
       .catch(error => {
-        return res.status(401).send({ errors: [error.message] })
+        console.error(error.message);
+        return res.status(400).send({ errors: ['hubo un error'] })
       })
   }
 
@@ -21,7 +22,8 @@ export class UserController {
     this.userService.register(userData)
       .then(result => res.status(200).send(result))
       .catch(error => {
-        return res.status(401).send({ errors: [error.message] })
+        console.error(error.message);
+        return res.status(400).send({ errors: ['hubo un error'] })
       });
   }
 
@@ -31,7 +33,8 @@ export class UserController {
     this.userService.completeRegister(userData)
       .then(result => res.status(200).send(result))
       .catch(error => {
-        return res.status(400).send({ errors: [error.message] })
+        console.error(error.message);
+        return res.status(400).send({ errors: ['unknow error'] })
       });
   }
 }
