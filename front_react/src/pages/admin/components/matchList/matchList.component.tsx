@@ -14,8 +14,7 @@ interface MatchListProps {
 };
 
 const MatchListComponent:React.FC<MatchListProps> = ({matchList, updateList}) =>{
-  const [selectedMatchID, setMatchId] = useState<number | null>();
-  const [matchInput, setMatchInput] = useState<string>('');
+  const [selectedMatch, setMatch] = useState<MatchDto | null>()
   const { setRef, scroll } = useTableScrollDate();
 
   useEffect(() => {
@@ -26,13 +25,19 @@ const MatchListComponent:React.FC<MatchListProps> = ({matchList, updateList}) =>
   },[matchList]);
 
   const updateMatch = async() => {
-    const result = await mathService.updateResult({result:matchInput, id:selectedMatchID as number});
-    setMatchId(null);
-    let matchToUpdate = matchList.find((match)=> (match.id as number) === selectedMatchID );
+    const result = await mathService.updateResult({
+      result: selectedMatch!.result as string, 
+      id:selectedMatch!.id as number,
+      bonusPhase: selectedMatch!.bonusPhase
+    });
+    
+    let matchToUpdate = matchList.find((match)=> (match.id as number) === selectedMatch?.id );
     matchToUpdate!.result = result.result;
+    matchToUpdate!.bonusPhase = result.bonusPhase;
 
     const updatedMatchList = [...matchList]
     updateList(updatedMatchList);
+    setMatch(null);
   }
 
   const deleteMatch = async(id:number) => {
@@ -53,26 +58,30 @@ const MatchListComponent:React.FC<MatchListProps> = ({matchList, updateList}) =>
         <div> vs </div>
         <div> {match.team2} </div>
         <div> {match.date} </div>
-        <div> {match.bonusPhase 
-          ? <FaCheck className="confirm-icon"></FaCheck>
-          : <FaXmark className="cancel-icon"/>} </div>
+        <div> {
+          selectedMatch?.id === match.id
+          ?  <input type="checkbox" onChange={(e)=> setMatch({...selectedMatch!, bonusPhase:e.target.checked})
+        }></input>
+          : match.bonusPhase 
+            ? <FaCheck className="confirm-icon"></FaCheck>
+            : <FaXmark className="cancel-icon"/>} </div>
         <div>
-          {  (selectedMatchID === match.id)
-            ? <input type="text" onChange={(e)=>setMatchInput(e.target.value)}></input>
+          {  (selectedMatch?.id === match.id)
+            ? <input type="text" onChange={(e)=>setMatch({...selectedMatch!, result:e.target.value})}></input>
             : match.result ? match.result : 'N/A'
           }
         </div>
         <div>
           {
-            (selectedMatchID === match.id)  
+            (selectedMatch?.id === match.id)  
             ? <FaCheck className="confirm-icon" onClick={()=>updateMatch()}/>
-            : <FaPen className="update-icon" onClick={()=>setMatchId(match.id as number)}/>
+            : <FaPen className="update-icon" onClick={()=>setMatch(match)}/>
           }
         </div>
         <div>
           {
-            (selectedMatchID === match.id)
-            ? <FaXmark className="cancel-icon" onClick={()=>setMatchId(null)}/>
+            (selectedMatch?.id === match.id)
+            ? <FaXmark className="cancel-icon" onClick={()=>setMatch(null)}/>
             : <FaTrash className="delete-icon" onClick={()=>deleteMatch(match.id as number)}/>
           }
         </div>

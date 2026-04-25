@@ -28,8 +28,9 @@ export class MatchController {
   }
 
   updateResult = (req: Request, res: Response) => {
-    const { id, result } = req.body;
-    this.matchService.updateResult(parseInt(id), result)
+    const { id, result, bonusPhase } = req.body;
+    
+    this.matchService.updateResult(parseInt(id), result, bonusPhase)
       .then(updatedMatch => res.status(200).send(updatedMatch))
       .catch(error => res.status(500).send(error.meta.cause))
   }

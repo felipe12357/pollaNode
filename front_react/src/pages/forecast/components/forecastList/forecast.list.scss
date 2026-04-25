@@ -20,12 +20,8 @@
       width: 40%;
     }
 
-    :nth-child(5), :nth-child(6), :nth-child(7), :nth-child(8){
-      display: flex;
-      justify-content: center;
-    }
-
     .icon-options {
+      display: flex;
       justify-content: space-between;
     }
   }

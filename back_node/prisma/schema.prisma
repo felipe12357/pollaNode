@@ -50,5 +50,6 @@ model Match {
   team2 String @db.VarChar(20)
   date DateTime @db.Timestamp()
   result String ? @db.VarChar(7)
+  bonusPhase Boolean @default(false)
   foreCast MatchForecast[]
 }

@@ -40,13 +40,13 @@ export class MatchService implements MatchSource {
     return deleted.id;
   }
 
-  public async updateResult(id: number, result: string, phaseBonus = false): Promise<MatchDto> {
+  public async updateResult(id: number, result: string, bonusPhase: boolean): Promise<MatchDto> {
     const updatedMatch =  await prisma.match.update({
       where: { id },
-      data: { result },
+      data: { result, bonusPhase },
     });
 
-    this.updatePoints(id, result, phaseBonus)
+    this.updatePoints(id, result, updatedMatch.bonusPhase)
     return this.transformToEntity(updatedMatch); 
   }
 

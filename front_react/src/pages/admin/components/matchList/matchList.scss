@@ -6,17 +6,13 @@
     grid-template-columns: 8.25rem 2.12rem 8.25rem 8.37rem 4.12rem 6.5rem 2.5rem 2.5rem;
 
     div:nth-child(5) {
-      .confirm-icon {
-
-      }
-
       .cancel-icon {
         cursor: unset;
       }
     }
   }
 
-  input {
+  input[type='text'] {
     width: 40%;
   }
 }

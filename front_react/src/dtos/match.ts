@@ -15,6 +15,7 @@ export type MatchListResponse = {
 export type MatchResultDto = {
   result: string;
   id: number;
+  bonusPhase: boolean;
 }
 
 export type MatchForecastDto = MatchDto & {
