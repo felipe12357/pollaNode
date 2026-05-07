@@ -7,7 +7,7 @@ export type MatchResultDto = MatchDto & {
   points?: number;
 }
 
-export type ForeCastDto = Omit<MatchForecast, 'resultForeCast'> & {
+export type ForeCastDto = Omit<MatchForecast, 'resultForeCast' | 'points'> & {
   id?: number;
   forecast: string;
 }

@@ -2,7 +2,6 @@ import { prisma } from "../../data";
 import { ForeCastSource } from "../../domain/AbstractModels";
 import { ForeCastDto, MatchResultDto, Results } from "../../domain/entities";
 import { MatchForecast } from "../../generated/prisma";
-import { SharedResources } from "../../sharedResources";
 
 export class ForeCastService implements ForeCastSource {
 
@@ -13,7 +12,7 @@ export class ForeCastService implements ForeCastSource {
         "User"."username", 
          COALESCE(SUM ("MatchForecast"."points")::int, 0) as points
       from "User"
-        inner join "MatchForecast" on "User"."id" = "MatchForecast"."userId"
+        left join "MatchForecast" on "User"."id" = "MatchForecast"."userId"
       Group By "User"."username"
       Order By "points" DESC, "User"."username"
     `);
@@ -23,6 +22,10 @@ export class ForeCastService implements ForeCastSource {
 
   public async create(val: ForeCastDto): Promise<ForeCastDto> {
     const { forecast, ...foreCastWithoutResult } = val;
+
+    if(! await this.isValidUpdateForecast(val.matchId)) {
+       throw new Error('to late for update forecast');
+    }
 
     const exits = await prisma.matchForecast.findFirst({
       where: {
@@ -90,6 +93,19 @@ export class ForeCastService implements ForeCastSource {
     return response;
   }
 
+
+  private async isValidUpdateForecast(matchId:number): Promise<boolean> {
+    const match = await prisma.match.findFirst({
+      where: {
+        id:matchId
+      }
+    });
+
+    const eventTime = match!.date.getTime();
+    const oneHourBefore = eventTime - 3600000;
+
+    return Date.now() < oneHourBefore;
+  }
 
   private transformToEntity(obj: MatchForecast): ForeCastDto {
     const { resultForeCast, ...foreCastWithoutResult } = obj; 

@@ -14,8 +14,7 @@ export class ForeCastController {
     this.foreCastService.create(forecast)
       .then(result => res.status(200).send(result))
       .catch(error => {
-        console.log('el error', error);
-        return res.status(500).send(error)
+        return res.status(500).send({errors: [error?.message || error] })
       })
   }
 
@@ -44,7 +43,7 @@ export class ForeCastController {
   getAll = (req: Request, res: Response) => {
     this.foreCastService.getAll()
       .then(result => res.status(200).send(result))
-      .catch(error => res.status(500).send('el error' + error))
+      .catch(error => res.status(500).send(error))
   }
 
   getUserMatchForecast = (req: Request, res: Response) => {

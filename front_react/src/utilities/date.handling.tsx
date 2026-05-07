@@ -10,7 +10,5 @@ export const formatDate = (val: Date): string => {
   .replace(' a. m.', ' am')
   .replace(' p. m.', ' pm');
 
-
-  console.log(result);
   return result;
 }
