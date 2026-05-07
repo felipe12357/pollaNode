@@ -1,8 +1,6 @@
 import { Match, MatchForecast, User } from "../generated/prisma";
 
-export type MatchDto = Omit<Match, 'foreCast' | 'date'> & {
-  date: string;
-}
+export type MatchDto = Omit<Match, 'foreCast'>
 
 export type MatchResultDto = MatchDto & {
   foreCast: string | null;

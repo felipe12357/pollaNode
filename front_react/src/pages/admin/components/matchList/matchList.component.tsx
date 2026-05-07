@@ -7,6 +7,7 @@ import './matchList.scss';
 import mathService from "../../../../services/match.service";
 import type { MatchDto } from "../../../../dtos/match";
 import { useTableScrollDate } from "../../../../hooks/useTableScrollDate";
+import { formatDate } from "../../../../utilities/date.handling";
 
 interface MatchListProps {
   matchList:MatchDto[]
@@ -47,17 +48,16 @@ const MatchListComponent:React.FC<MatchListProps> = ({matchList, updateList}) =>
     updateList(newMatchList);
   }
 
-  // todo AGREGAR SI TIENE BONUS
   return  <div className="match-list-component">
     { matchList?.map(match =>
       <div className="match-row" key={match.id} ref={
         (element) => {
           if (element) setRef(element)
       }}>
+        <div> {formatDate(match.date)} </div>
         <div> {match.team1} </div>
         <div> vs </div>
         <div> {match.team2} </div>
-        <div> {match.date} </div>
         <div> {
           selectedMatch?.id === match.id
           ?  <input type="checkbox" onChange={(e)=> setMatch({...selectedMatch!, bonusPhase:e.target.checked})

@@ -31,8 +31,8 @@ const AdminPage = () =>{
       </div>
       <div className="container">
         <div className="match-row header">
-          <div className="match-row_header-match"> Partido </div>
           <div> Fecha </div>
+          <div className="match-row_header-match"> Partido </div>
           <div> Bonus </div>
           <div> Resultado </div>
           <div className="match-row_header-actions"> Acciones </div>

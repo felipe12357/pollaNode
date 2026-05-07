@@ -15,7 +15,7 @@ class ForecastService extends AxiosHandlingInterceptor {
 
   getByUserId = async(userId: number): Promise<MatchForecastDto[]> => {
     const response = await this.axiosInstance.get<MatchForecastDto[]>(`/${userId}`);
-    return response.data;
+    return response.data.map(match => ({...match, date: new Date(match.date)}));;
   }
 
   updateForecast = async(userId:number, matchId: number, forecast: string): Promise<ForecastResultDTO>  => {

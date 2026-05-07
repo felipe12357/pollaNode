@@ -2,7 +2,7 @@ import { FaCheck } from 'react-icons/fa';
 import './matchAdd.scss';
 import { FaXmark } from 'react-icons/fa6';
 import { useRef } from 'react';
-import type { MatchDto } from '../../../../dtos/match';
+import type { MatchDto, MatchResponse } from '../../../../dtos/match';
 import mathService from '../../../../services/match.service';
 
 
@@ -18,17 +18,17 @@ const MatchAddComponent:React.FC<MatchAddProps> = ({updateList, addNewMatch}) =>
   const formRef = useRef<HTMLFormElement>(null);
   const handleform = async() => {
     const formData = new FormData(formRef.current!);
-    const formValue = Object.fromEntries(formData) as unknown as MatchDto;
+    const formValue = Object.fromEntries(formData) as unknown as MatchResponse;
     formValue.bonusPhase = formData.get('bonusPhase') !== null
     await mathService.addMatch(formValue);
     updateList();
   }
 
   return <form id="matchForm" ref={formRef} className="match-add-component match-row">
+    <div> <input type="datetime-local" name="date"></input> </div>
     <div> <input type="text" name="team1"></input> </div>
     <div> vs </div>
     <div> <input type="text" name="team2"></input> </div>
-    <div> <input type="date" name="date"></input> </div>
     <div> <input type="checkbox" name="bonusPhase"/> </div>
     <div> </div>
     <div>

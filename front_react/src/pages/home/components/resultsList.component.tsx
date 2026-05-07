@@ -12,7 +12,7 @@ const ResultsListComponent = () =>{
       </div>
       {
         results.map(result =>
-        <div className="result-row">
+        <div className="result-row" key={result.username}>
           <div>{result.username}</div>
           <div>{result.points}</div>  
         </div>)

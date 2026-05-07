@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { MatchDto, MatchResultDto } from "../dtos/match";
+import type { MatchDto, MatchResponse, MatchResultDto } from "../dtos/match";
 import { AxiosHandlingInterceptor } from "./axios-handling.interceptor";
 
 class MatchService extends AxiosHandlingInterceptor {
@@ -13,12 +13,13 @@ class MatchService extends AxiosHandlingInterceptor {
   }
 
   getAll = async(): Promise<MatchDto[]> => {
-    const response = await this.axiosInstance.get<MatchDto[]>(`/`);
-    return response.data;
+    const response = await this.axiosInstance.get<MatchResponse[]>(`/`);
+    return response.data.map(match => ({...match, date: new Date(match.date)}));
   }
 
-  addMatch = async(match: MatchDto): Promise<MatchDto> => {
-    const response = await this.axiosInstance.post<MatchDto>('/', match);
+  addMatch = async(match: MatchResponse): Promise<MatchDto> => {
+    const val = { ...match, date: new Date(match.date).toISOString()};
+    const response = await this.axiosInstance.post<MatchDto>('/', val);
     return response.data;
   }
 

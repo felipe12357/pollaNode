@@ -27,7 +27,7 @@ export class MatchRoutes {
         .matches(/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/),
       body(['date'])
         .notEmpty().withMessage('missing property').bail()
-        .isDate(),
+        .isISO8601(),
        ValidationRoutesMiddleware.validate,
        matchController.create );
 

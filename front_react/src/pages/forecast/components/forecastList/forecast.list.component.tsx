@@ -6,6 +6,7 @@ import { FaXmark } from "react-icons/fa6";
 import forecastService from "../../../../services/forecast.service";
 import { useContextGlobal } from "../../../../contextGlobalProvider";
 import { useTableScrollDate } from "../../../../hooks/useTableScrollDate";
+import { formatDate } from "../../../../utilities/date.handling";
 
 
 interface MatchListProps {
@@ -37,11 +38,19 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList}) => {
 
     setMatchId(null);
   }
+
+  //TODO hacer esta validacion en el back
+  const canUpdateMatch = (date: Date): boolean => {
+    const eventTime = date.getTime();
+    const oneHourBefore = eventTime - 3600000;
+
+    return Date.now() < oneHourBefore;
+  }
  
   return <div className="forecast-list-component container">
       <div className="match-row header">
-          <div className="match-row_header-match"> Partido </div>
           <div> Fecha </div>
+          <div className="match-row_header-match"> Partido </div>
           <div> Pronostico </div>
           <div> Acciones </div>
           <div> Resultado </div>
@@ -53,10 +62,10 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList}) => {
           if (element) setRef(element)
         }}
       >
+        <div> {formatDate(match.date)} </div>
         <div> {match.team1} </div>
         <div> vs </div>
         <div> {match.team2} </div>
-        <div> {match.date} </div>
         <div> {selectedMatchID === match.id 
             ? <input type="text" onChange={(e)=>setForecastInput(e.target.value)} defaultValue={match.foreCast}></input>
             : match.foreCast}
@@ -66,9 +75,9 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList}) => {
               <FaCheck className="confirm-icon" onClick={()=>updateForecastResult()}/>
               <FaXmark className="cancel-icon" onClick={()=>setMatchId(null)}/>
               </div>
-            : <div>
-              { new Date() < new Date(match.date) && <FaPen className="update-icon" onClick={()=>setMatchId(match.id as number)} /> }
-            </div>
+            : <div> 
+               { canUpdateMatch(match.date) && <FaPen className="update-icon" onClick={()=>setMatchId(match.id as number)} /> }
+              </div>
           } 
         <div> {match.result} </div>
         <div> {match.points}</div>

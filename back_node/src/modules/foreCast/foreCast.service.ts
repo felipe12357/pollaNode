@@ -83,7 +83,7 @@ export class ForeCastService implements ForeCastSource {
 
     const response = result.map(val => {
       return <MatchResultDto> { ...val, 
-        date: SharedResources.transformDate(val.date), 
+        date: val.date, 
         foreCast: val.foreCast.length > 0 ? val.foreCast[0]!.resultForeCast : null,
         points:   val.foreCast.length > 0 ? val.foreCast[0]!.points: null};
     });

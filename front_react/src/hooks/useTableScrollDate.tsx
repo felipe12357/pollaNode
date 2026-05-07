@@ -4,7 +4,7 @@ export const useTableScrollDate = () => {
   const rowRefsA = useRef<HTMLDivElement[]>([]);
   const setRef = (val: HTMLDivElement) => rowRefsA.current.push(val);
 
-  const scroll = (dateToSearch: Date, matchList: {date: string}[], paddingConsideration = 0): void => {
+  const scroll = (dateToSearch: Date, matchList: {date: Date}[], paddingConsideration = 0): void => {
     const dateSearch = dateToSearch.getTime();
     const closestDate = matchList.map((list) => list.date).reduce((prev, curr) => {
       const prevDate = new Date(prev).getTime();

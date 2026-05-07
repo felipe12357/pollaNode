@@ -2,7 +2,6 @@ import { prisma } from "../../data";
 import { MatchSource } from "../../domain/AbstractModels";
 import { MatchDto } from "../../domain/entities";
 import { Match } from "../../generated/prisma";
-import { SharedResources } from "../../sharedResources";
 
 export class MatchService implements MatchSource {
 
@@ -11,7 +10,7 @@ export class MatchService implements MatchSource {
       orderBy: { date: 'asc' }
     });
 
-    return result.map(val => this.transformToEntity(val))
+    return result;
   }
 
   public async create(match: MatchDto): Promise<MatchDto> {
@@ -22,9 +21,7 @@ export class MatchService implements MatchSource {
       }
     });
 
-    const dateTransformed: string = SharedResources.transformDate(result?.date);
-
-    return {...result, date: dateTransformed};
+    return result;
   }
 
   public async delete(id: number): Promise<number> {
@@ -46,8 +43,9 @@ export class MatchService implements MatchSource {
       data: { result, bonusPhase },
     });
 
-    this.updatePoints(id, result, updatedMatch.bonusPhase)
-    return this.transformToEntity(updatedMatch); 
+    this.updatePoints(id, result, updatedMatch.bonusPhase);
+
+    return updatedMatch; 
   }
 
   private async updatePoints(matchId: number, result: string, phaseBonus: boolean): Promise<void> {
@@ -101,12 +99,5 @@ export class MatchService implements MatchSource {
     }
 
     return points;
-  }
-
-  private transformToEntity(obj: Match): MatchDto {
-
-    const dateTransformed: string = SharedResources.transformDate(obj?.date);
-
-    return {...obj, date: dateTransformed};
   }
 }

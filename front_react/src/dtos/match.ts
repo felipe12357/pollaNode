@@ -1,11 +1,16 @@
 export type MatchDto = {
   team1: string;
   team2: string;
-  date: string;
+  date: Date;
   result?: string | null;
   id?: number;
   bonusPhase: boolean;
 }
+
+export type MatchResponse = Omit<MatchDto, 'date'> & {
+  date: string;
+}
+
 
 export type MatchListResponse = {
   data: MatchDto[],
