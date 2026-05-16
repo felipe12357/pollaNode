@@ -39,7 +39,6 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList}) => {
     setMatchId(null);
   }
 
-  //TODO hacer esta validacion en el back
   const canUpdateMatch = (date: Date): boolean => {
     const eventTime = date.getTime();
     const oneHourBefore = eventTime - 3600000;

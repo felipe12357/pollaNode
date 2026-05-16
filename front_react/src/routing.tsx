@@ -12,6 +12,8 @@ import { registerAction } from "./pages/register/register.action";
 import CompleteRegisterPage from "./pages/complete-register/complete-register.page";
 import { CompleteRegisterLoader } from "./pages/complete-register/complete-register.loader";
 import { ResultListLoader } from "./pages/home/components/resultList.loader";
+import SpyUserPage from "./pages/spyUser/spyUser.page";
+import { spyUserLoader, type SpyUserLoaderParams } from "./pages/spyUser/spyUser.loader";
 
 //Utilizo Suspense para lazy loading
 export const routes = createBrowserRouter([
@@ -53,6 +55,13 @@ export const routes = createBrowserRouter([
                 <ForecastPage/>
               </Suspense>,
               loader: async ({params}) => await ForecastLoader(params as ForecastLoaderParams),
+          }
+          , {
+              path: "spy-user/:userId", 
+              element: <Suspense fallback={<LoadingComponent/>}> 
+                <SpyUserPage/>
+              </Suspense>,
+              loader: async ({params}) => await spyUserLoader(params as SpyUserLoaderParams),
           }
           ,{
             path: "admin",

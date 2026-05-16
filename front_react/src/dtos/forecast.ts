@@ -8,4 +8,5 @@ export type ForecastResultDTO = {
 export type Results = {
   points: number;
   username: string;
+  userId: number;
 }

@@ -7,6 +7,13 @@ export type MatchResultDto = MatchDto & {
   points?: number;
 }
 
+export type ForecastByUser = Match & {
+  foreCast: { 
+    resultForeCast: string | null; 
+    points: number |null; 
+  }[]
+}
+
 export type ForeCastDto = Omit<MatchForecast, 'resultForeCast' | 'points'> & {
   id?: number;
   forecast: string;
@@ -30,4 +37,5 @@ export type UserData = Omit<User, 'password' | 'foreCast'>
 export type Results =  {
   points: number;
   username: string;
+  userId: number;
 }

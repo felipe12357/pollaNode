@@ -1,0 +1,20 @@
+.spy-user-list-component {
+  height: 37rem;
+  overflow-y: scroll;
+  margin-top: 1rem;
+
+  .header {
+    font-weight: bold;
+    position: sticky;
+    top: -16px;
+    z-index: 1;
+    background-color: inherit;
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+
+  .match-row {
+    grid-template-columns: 9.57rem 8.25rem 1.12rem 8.25rem 5.5rem 4.72rem 4.9rem;
+    column-gap: 1rem;
+  }
+}

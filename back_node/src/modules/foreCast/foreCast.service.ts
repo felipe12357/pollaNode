@@ -1,6 +1,6 @@
 import { prisma } from "../../data";
 import { ForeCastSource } from "../../domain/AbstractModels";
-import { ForeCastDto, MatchResultDto, Results } from "../../domain/entities";
+import { ForecastByUser, ForeCastDto, MatchResultDto, Results } from "../../domain/entities";
 import { MatchForecast } from "../../generated/prisma";
 
 export class ForeCastService implements ForeCastSource {
@@ -9,11 +9,12 @@ export class ForeCastService implements ForeCastSource {
 
     const result = await <Results[]><unknown>(prisma.$queryRaw `
       SELECT 
-        "User"."username", 
+        "User"."username",
+        "User"."id" as "userId",
          COALESCE(SUM ("MatchForecast"."points")::int, 0) as points
       from "User"
         left join "MatchForecast" on "User"."id" = "MatchForecast"."userId"
-      Group By "User"."username"
+      Group By "User"."username", "User"."id"
       Order By "points" DESC, "User"."username"
     `);
 
@@ -70,6 +71,32 @@ export class ForeCastService implements ForeCastSource {
     return <MatchForecast>deleted;
   }
 
+  public async spyUserMatchList(userId:number): Promise<MatchResultDto[]> {
+    const notYetLabel = 'Esperando';
+    const notSetted = 'Sin ingresar';
+
+    const result = await <MatchResultDto[]><unknown>(prisma.$queryRaw `
+      SELECT
+       "Match".*,
+       "MatchForecast"."points",
+       "MatchForecast"."userId",
+      CASE
+        WHEN "Match"."date" > 'NOW' THEN ${notYetLabel}
+        WHEN "MatchForecast"."resultForeCast" IS NULL THEN ${notSetted}
+        ELSE "MatchForecast"."resultForeCast"
+      END AS "foreCast"
+      from "Match"
+      CROSS JOIN "User"
+      left join "MatchForecast" 
+        on "Match"."id" = "MatchForecast"."matchId"
+        and "MatchForecast"."userId" = "User"."id"
+      where "User"."id" = ${userId}
+      Order By "Match"."date" ASC
+    `);
+
+    return result;
+  }
+
   public async getUserMatchList(userId:number): Promise<MatchResultDto[]> {
     const result = await prisma.match.findMany({
       include: {
@@ -84,13 +111,16 @@ export class ForeCastService implements ForeCastSource {
       orderBy: { date: 'asc' }
     });
 
-    const response = result.map(val => {
+    return this.transformMatchResult(result);
+  }
+
+  private transformMatchResult(result: ForecastByUser[] ): MatchResultDto[] {
+    return result.map(val => {
       return <MatchResultDto> { ...val, 
         date: val.date, 
         foreCast: val.foreCast.length > 0 ? val.foreCast[0]!.resultForeCast : null,
         points:   val.foreCast.length > 0 ? val.foreCast[0]!.points: null};
     });
-    return response;
   }
 
 

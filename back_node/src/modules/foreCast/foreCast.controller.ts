@@ -48,9 +48,13 @@ export class ForeCastController {
 
   getUserMatchForecast = (req: Request, res: Response) => {
     const userId = parseInt(req.params.userId!);
+    const isSpy = req.query.spy === 'true';
 
-    this.foreCastService.getUserMatchList(userId)
-      .then(result => res.status(200).send(result))
+    const reqq = isSpy 
+      ? this.foreCastService.spyUserMatchList(userId)
+      : this.foreCastService.getUserMatchList(userId);
+
+    reqq.then(result => res.status(200).send(result))
       .catch(error => res.status(500).send(error));
   }
 }
