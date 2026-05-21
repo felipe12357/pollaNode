@@ -91,12 +91,6 @@ const MatchListComponent:React.FC<MatchListProps> = ({matchList, updateList, cou
   
           <ReactCountryFlag className="flag" countryCode={getCountryCode(match.team2)} svg />
         </div>
-        {/* <div>
-          {  (selectedMatch?.id === match.id)
-            ? <input type="text" onChange={(e)=>setMatch({...selectedMatch!, result:e.target.value})}></input>
-            : match.result ? match.result : 'N/A'
-          }
-        </div> */}
         <div>
           {
             (selectedMatch?.id === match.id)  

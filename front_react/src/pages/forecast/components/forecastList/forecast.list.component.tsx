@@ -27,7 +27,7 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList, count
   useEffect(() => {
     if(matchList.length > 0) {
       const today = new Date();
-      scroll(today, matchList, 2);
+      scroll(today, matchList, 1);
     }
   },[matchList]);
 

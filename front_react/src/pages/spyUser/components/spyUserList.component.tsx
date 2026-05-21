@@ -12,7 +12,7 @@ const SpyUserListComponent = () =>{
   useEffect(() => {
     if(forecastList.length > 0) {
       const today = new Date();
-      scroll(today, forecastList, 2);
+      scroll(today, forecastList, 1);
     }
   },[forecastList]);
 
