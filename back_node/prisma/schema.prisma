@@ -53,3 +53,8 @@ model Match {
   bonusPhase Boolean @default(false)
   foreCast MatchForecast[]
 }
+
+model Country {
+  name String @unique @db.VarChar(50)
+  code String @id @db.VarChar(3)
+}

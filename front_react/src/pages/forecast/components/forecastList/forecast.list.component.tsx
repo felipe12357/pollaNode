@@ -7,16 +7,20 @@ import forecastService from "../../../../services/forecast.service";
 import { useContextGlobal } from "../../../../contextGlobalProvider";
 import { useTableScrollDate } from "../../../../hooks/useTableScrollDate";
 import { formatDate } from "../../../../utilities/date.handling";
+import ReactCountryFlag from "react-country-flag";
+import type { Country } from "../../../../dtos/country";
 
 
 interface MatchListProps {
-  matchList:MatchForecastDto[]
+  matchList:MatchForecastDto[],
+  countryList: Country[],
   updateList:(val: MatchForecastDto[])=>void,
 };
 
-const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList}) => {
+const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList, countryList}) => {
   const [selectedMatchID, setMatchId] = useState<number | null>();
-  const [forecastInput, setForecastInput] = useState<string>('');
+  const [forecastInput1, setForecastInput1] = useState<number>();
+  const [forecastInput2, setForecastInput2] = useState<number>();
   const {appState: {user}} = useContextGlobal();
   const { setRef, scroll } = useTableScrollDate();
 
@@ -28,7 +32,7 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList}) => {
   },[matchList]);
 
   const updateForecastResult = async()=> {
-    const response = await forecastService.updateForecast(user!.id,selectedMatchID!, forecastInput);
+    const response = await forecastService.updateForecast(user!.id,selectedMatchID!, `${forecastInput1}-${forecastInput2}`);
 
     if(response) {
       const position = matchList.findIndex((match) => selectedMatchID === match.id);
@@ -44,6 +48,10 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList}) => {
     const oneHourBefore = eventTime - 3600000;
 
     return Date.now() < oneHourBefore;
+  }
+
+  const getCountryCode = (countryName: string): string => {
+    return countryList.find((country) => country.name === countryName)?.code || 'Error';
   }
  
   return <div className="forecast-list-component container">
@@ -65,9 +73,19 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList}) => {
         <div> {match.team1} </div>
         <div> vs </div>
         <div> {match.team2} </div>
-        <div> {selectedMatchID === match.id 
-            ? <input type="text" onChange={(e)=>setForecastInput(e.target.value)} defaultValue={match.foreCast}></input>
-            : match.foreCast}
+        <div>
+          <ReactCountryFlag className="flag" countryCode={getCountryCode(match.team1)} svg />
+          <span className="match-row-score">
+            {selectedMatchID === match.id 
+              ? <>
+                <input type="text" onChange={(e)=>setForecastInput1(+e.target.value)} defaultValue={match.foreCast?.split('-')[0]}></input>
+                -
+                <input type="text"  onChange={(e)=>setForecastInput2(+e.target.value)} defaultValue={match.foreCast?.split('-')[1]}></input>
+               </>
+              : match.foreCast}
+          </span>
+
+          <ReactCountryFlag className="flag" countryCode={getCountryCode(match.team2)} svg />
         </div>
           { selectedMatchID === match.id 
             ? <div className="icon-options"> 

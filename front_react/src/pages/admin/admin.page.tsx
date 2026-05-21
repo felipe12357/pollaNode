@@ -6,17 +6,18 @@ import MatchListComponent from "./components/matchList/matchList.component";
 import MatchAddComponent from "./components/matchAdd/matchAdd.component";
 import { FaPlus } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
+import type { AdminLoaderReturn } from "./admin.loader";
 
 const AdminPage = () =>{
   const navigate = useNavigate();
   const { revalidate } = useRevalidator(); // se usa para volver a cargar el loader
-  const data = useLoaderData() as MatchDto[];
+  const data = useLoaderData() as AdminLoaderReturn;
   const [matchList, setmatchList] = useState<MatchDto[]>([]);
   const [showAddMatchButton, setshowAddMatchButton] = useState<Boolean>(false);
   
   useEffect(()=>{
     if(data)
-      setmatchList(data);
+      setmatchList(data.matchList);
   },[data])
 
   return (
@@ -38,7 +39,7 @@ const AdminPage = () =>{
           <div className="match-row_header-actions"> Acciones </div>
           { showAddMatchButton && <MatchAddComponent updateList={() =>revalidate()} addNewMatch={(e) => setshowAddMatchButton(e) }/> }  
         </div>
-        <MatchListComponent matchList={matchList} updateList={(e) =>setmatchList(e)} />
+        <MatchListComponent matchList={matchList} countryList={data.countryList} updateList={(e) =>setmatchList(e)} />
       </div>
     </div>
   )

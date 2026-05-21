@@ -137,6 +137,11 @@ input:focus {
   border-radius: constants.$border-radius-style;
 }
 
+.container .match-row .flag {
+  width: 2rem !important;
+  height: 2rem !important;
+}
+
 .match-row {
   display: grid;
   place-content: center;
@@ -146,6 +151,17 @@ input:focus {
 
   &_header-match {
     grid-column: 2 / span 3;
+  }
+
+  &-score {
+      min-width: 5.3rem;
+      display: inline-block;
+      text-align: center;
+
+      input {
+        width: 1rem;
+        margin: 0 .3rem
+      }
   }
 
   input {

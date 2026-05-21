@@ -1,6 +1,6 @@
 .admin-component {
   &_menu {
-    width: 46.11rem;
+    width: 55.11rem;
     margin: 0 auto;
     margin-bottom: 2rem;
 
@@ -15,7 +15,7 @@
 
   .match-row {
     display: grid;
-    grid-template-columns: 9.37rem 8.25rem 2.12rem 8.25rem 4.12rem 6.5rem 2.5rem 3.5rem;
+    grid-template-columns: 9.37rem 10.25rem 2.12rem 10.25rem 4.12rem 11rem 2.5rem 3.5rem;
 
     &_header-actions {
       grid-column: 7 / span 2;

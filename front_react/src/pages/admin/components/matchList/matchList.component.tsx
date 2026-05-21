@@ -8,14 +8,19 @@ import mathService from "../../../../services/match.service";
 import type { MatchDto } from "../../../../dtos/match";
 import { useTableScrollDate } from "../../../../hooks/useTableScrollDate";
 import { formatDate } from "../../../../utilities/date.handling";
+import type { Country } from "../../../../dtos/country";
+import ReactCountryFlag from "react-country-flag";
 
 interface MatchListProps {
   matchList:MatchDto[]
   updateList:(val: MatchDto[])=>void,
+  countryList: Country[],
 };
 
-const MatchListComponent:React.FC<MatchListProps> = ({matchList, updateList}) =>{
-  const [selectedMatch, setMatch] = useState<MatchDto | null>()
+const MatchListComponent:React.FC<MatchListProps> = ({matchList, updateList, countryList}) =>{
+  const [selectedMatch, setMatch] = useState<MatchDto | null>();
+  const [matchResultInput1, setmatchResultInput1] = useState<number>();
+  const [matchResultInput2, setmatchResultInput2] = useState<number>();
   const { setRef, scroll } = useTableScrollDate();
 
   useEffect(() => {
@@ -27,7 +32,7 @@ const MatchListComponent:React.FC<MatchListProps> = ({matchList, updateList}) =>
 
   const updateMatch = async() => {
     const result = await mathService.updateResult({
-      result: selectedMatch!.result as string, 
+      result: `${matchResultInput1}-${matchResultInput2}`, 
       id:selectedMatch!.id as number,
       bonusPhase: selectedMatch!.bonusPhase
     });
@@ -48,6 +53,10 @@ const MatchListComponent:React.FC<MatchListProps> = ({matchList, updateList}) =>
     updateList(newMatchList);
   }
 
+  const getCountryCode = (countryName: string): string => {
+    return countryList.find((country) => country.name === countryName)?.code || 'Error';
+  }
+
   return  <div className="match-list-component">
     { matchList?.map(match =>
       <div className="match-row" key={match.id} ref={
@@ -60,17 +69,34 @@ const MatchListComponent:React.FC<MatchListProps> = ({matchList, updateList}) =>
         <div> {match.team2} </div>
         <div> {
           selectedMatch?.id === match.id
-          ?  <input type="checkbox" onChange={(e)=> setMatch({...selectedMatch!, bonusPhase:e.target.checked})
+          ?  <input type="checkbox" 
+              checked={selectedMatch?.bonusPhase}
+              onChange={(e)=> setMatch({...selectedMatch!, bonusPhase:e.target.checked})
         }></input>
           : match.bonusPhase 
             ? <FaCheck className="confirm-icon"></FaCheck>
             : <FaXmark className="cancel-icon"/>} </div>
         <div>
+          <ReactCountryFlag className="flag" countryCode={getCountryCode(match.team1)} svg />
+            <span className="match-row-score">
+              { selectedMatch?.id === match.id
+                ? <>
+                  <input type="text" onChange={(e)=>setmatchResultInput1(+e.target.value)}></input>
+                  -
+                  <input type="text" onChange={(e)=>setmatchResultInput2(+e.target.value)}></input>
+                  </>
+                : match.result ? match.result : 'N/A'
+              }
+            </span>
+  
+          <ReactCountryFlag className="flag" countryCode={getCountryCode(match.team2)} svg />
+        </div>
+        {/* <div>
           {  (selectedMatch?.id === match.id)
             ? <input type="text" onChange={(e)=>setMatch({...selectedMatch!, result:e.target.value})}></input>
             : match.result ? match.result : 'N/A'
           }
-        </div>
+        </div> */}
         <div>
           {
             (selectedMatch?.id === match.id)  

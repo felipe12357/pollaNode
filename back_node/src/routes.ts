@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { MatchRoutes } from './modules/match/match.routes';
 import { ForeCastRoutes } from './modules/foreCast/foreCast.routes';
 import { UserRoutes } from './modules/user/user.routes';
+import { CountryRoutes } from './modules/country/country.routes';
 
 export class AppRoutes {
 
@@ -10,6 +11,7 @@ export class AppRoutes {
     router.use('/api/user', UserRoutes.routes );  
     router.use('/api/match', MatchRoutes.routes );
     router.use('/api/forecast', ForeCastRoutes.routes );
+    router.use('/api/country', CountryRoutes.routes );
     return router;
   }
 
