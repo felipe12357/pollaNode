@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import { formatDate } from "../../../utilities/date.handling";
-import type { MatchForecastDto } from "../../../dtos/match";
 import './spyUserList.scss';
 import { useTableScrollDate } from "../../../hooks/useTableScrollDate";
+import ReactCountryFlag from "react-country-flag";
+import type { SpyLoaderReturn } from "../spyUser.loader";
 
 const SpyUserListComponent = () =>{
-  const forecastList = useLoaderData() as MatchForecastDto[];
+  const { forecastList, countryList } = useLoaderData() as SpyLoaderReturn;
   const { setRef, scroll } = useTableScrollDate();
 
   useEffect(() => {
@@ -15,6 +16,10 @@ const SpyUserListComponent = () =>{
       scroll(today, forecastList, 1);
     }
   },[forecastList]);
+
+  const getCountryCode = (countryName: string): string => {
+    return countryList.find((country) => country.name === countryName)?.code || 'Error';
+  }
 
   return (
     <div className="spy-user-list-component container">
@@ -31,7 +36,11 @@ const SpyUserListComponent = () =>{
               <div> { match.team1 } </div>
               <div> vs </div>
               <div> { match.team2} </div>
-              <div> {match.foreCast} </div>
+              <div> 
+                <ReactCountryFlag className="flag" countryCode={getCountryCode(match.team1)} svg />
+                <span className="match-row-score"> {match.foreCast} </span>
+                <ReactCountryFlag className="flag" countryCode={getCountryCode(match.team2)} svg />
+              </div>
               <div> {match.result} </div>
               <div> {match.points}</div>
             </div>

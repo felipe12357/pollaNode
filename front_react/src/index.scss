@@ -153,6 +153,10 @@ input:focus {
     grid-column: 2 / span 3;
   }
 
+  input {
+    width: 80%;
+  }
+
   &-score {
       min-width: 5.3rem;
       display: inline-block;
@@ -162,10 +166,6 @@ input:focus {
         width: 1rem;
         margin: 0 .3rem
       }
-  }
-
-  input {
-    width: 80%;
   }
 }
 
