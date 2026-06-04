@@ -1,6 +1,7 @@
 import express from 'express';
 import { AppRoutes } from './routes';
 import cors from "cors";
+import { MatchCronProcess } from './modules/match/match.cron';
 
 export class Server {
     private app = express();
@@ -9,6 +10,9 @@ export class Server {
     private cors = cors;
 
     static async start(){
+
+        MatchCronProcess.updateMatchResult();
+
         //use, significa q es un middleware
         const serverInstance = new Server();
         serverInstance.app.use(express.json()); //serializa los body de las peticiones a json

@@ -13,6 +13,31 @@ export class MatchService implements MatchSource {
     return result;
   }
 
+  public async getUnFinishByDate(): Promise<MatchDto[]> {
+    const today = new Date('2026-06-11');
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    const result = await prisma.match.findMany({
+      where: {
+        date: {
+          lt: tomorrow,
+          gt: yesterday,
+        },
+        OR: [
+          { result: null },
+          { result: "" }
+        ]
+      },
+      orderBy: { date: 'asc' }
+    });
+
+    return result;
+  }
+
   public async create(match: MatchDto): Promise<MatchDto> {
     const result:Match = await prisma.match.create({
       data:{

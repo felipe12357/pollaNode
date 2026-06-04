@@ -2,6 +2,8 @@
   express: servidor rest
   express-validator: validacion de parametros en las rutas
   prisma: gestor de BD
+  nodeCron: tareas automaticas recurrentes
+  https://www.nodecron.com/api-reference.html
 
   url para configurar gmail y enviar correos:
   https://myaccount.google.com/apppasswords
