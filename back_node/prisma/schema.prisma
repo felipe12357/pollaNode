@@ -46,7 +46,9 @@ model MatchForecast {
 
 model Match {
   id Int @id @default(autoincrement())
-  team1 String @db.VarChar(20)
+  team1 String 
+  countryHome Country @relation("home", fields: [team1], references: [name])
+  countryVisitor Country @relation("visitor", fields: [team2], references: [name])
   team2 String @db.VarChar(20)
   date DateTime @db.Timestamp()
   result String ? @db.VarChar(7)
@@ -58,4 +60,7 @@ model Country {
   name String @unique @db.VarChar(50)
   englishName String ? @db.VarChar(50)
   code String @id @db.VarChar(3)
+
+  homeMatches Match[] @relation("home")
+  visitorMatches Match[] @relation("visitor")
 }

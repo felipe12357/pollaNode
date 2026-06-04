@@ -11,7 +11,7 @@ export class Server {
 
     static async start(){
 
-        MatchCronProcess.updateMatchResult();
+        MatchCronProcess.updateMatchProcess();
 
         //use, significa q es un middleware
         const serverInstance = new Server();

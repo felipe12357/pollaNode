@@ -1,6 +1,6 @@
 import { prisma } from "../../data";
 import { MatchSource } from "../../domain/AbstractModels";
-import { MatchDto } from "../../domain/entities";
+import { MatchCountry, MatchDto } from "../../domain/entities";
 import { Match } from "../../generated/prisma";
 
 export class MatchService implements MatchSource {
@@ -13,15 +13,20 @@ export class MatchService implements MatchSource {
     return result;
   }
 
-  public async getUnFinishByDate(): Promise<MatchDto[]> {
-    const today = new Date('2026-06-11');
+  public async getUnFinishByDate(): Promise<MatchCountry[]> {
+    const today = new Date(); // testing '2026-06-11'
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
 
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
+    tomorrow.setHours(tomorrow.getHours() + 12);
 
     const result = await prisma.match.findMany({
+      include: {
+       countryHome: true,
+       countryVisitor: true,
+      },
       where: {
         date: {
           lt: tomorrow,

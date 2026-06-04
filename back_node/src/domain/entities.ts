@@ -1,4 +1,4 @@
-import { Match, MatchForecast, User } from "../generated/prisma";
+import { Country, Match, MatchForecast, User } from "../generated/prisma";
 
 export type MatchDto = Omit<Match, 'foreCast'>
 
@@ -6,6 +6,11 @@ export type MatchResultDto = MatchDto & {
   foreCast: string | null;
   points?: number;
 }
+
+export type MatchCountry = Match & {
+  countryHome: Country;
+  countryVisitor: Country;
+};
 
 export type ForecastByUser = Match & {
   foreCast: { 
@@ -38,4 +43,25 @@ export type Results =  {
   points: number;
   username: string;
   userId: number;
+}
+
+export type ApiMatch = {
+  homeTeam: {
+    name: string,
+  },
+  awayTeam: {
+    name: string,
+  },
+  score: {
+    duration: string;
+    winner: string
+    fullTime: {
+      home: number,
+      away: number,
+    },
+    regularTime: {
+      home: number,
+      away: number,
+    }
+  }
 }
