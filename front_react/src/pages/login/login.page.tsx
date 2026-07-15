@@ -27,12 +27,12 @@ const LoginPage = () =>{
       <div>
           <div>
               <label htmlFor="username"> Nombre de Usuario: </label>
-              <input type="text" name="username" id="user" required defaultValue='pepes'></input>
+              <input type="text" name="username" id="user" required defaultValue='admin'></input>
           </div>
 
           <div>
               <label htmlFor="password"> Contraseña: </label>
-              <input type="password" name="password" id="password" required defaultValue='EraseAvezCruz2020'></input>
+              <input type="password" name="password" id="password" required defaultValue='holamundo123'></input>
           </div>
       </div>
       <div>

@@ -43,6 +43,17 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList, count
     setMatchId(null);
   }
 
+  const selectMatch = (id: number): void => {
+    setMatchId(id);
+    const selectedMatch = matchList.find((match) => id === match.id);
+  
+    if(selectedMatch?.foreCast) {
+      const forecast = selectedMatch?.foreCast.split('-');
+      setForecastInput1(Number(forecast[0]));
+      setForecastInput2(Number(forecast[1]));
+    }
+  }
+
   const canUpdateMatch = (date: Date): boolean => {
     const eventTime = date.getTime();
     const oneHourBefore = eventTime - 3600000;
@@ -93,7 +104,7 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList, count
               <FaXmark className="cancel-icon" onClick={()=>setMatchId(null)}/>
               </div>
             : <div> 
-               { canUpdateMatch(match.date) && <FaPen className="update-icon" onClick={()=>setMatchId(match.id as number)} /> }
+               { canUpdateMatch(match.date) && <FaPen className="update-icon" onClick={()=>selectMatch(match.id as number)} /> }
               </div>
           } 
         <div> {match.result} </div>

@@ -12,7 +12,7 @@ export class UserController {
       .then(result => res.status(200).send(result))
       .catch(error => {
         console.error(error.message);
-        return res.status(400).send({ errors: ['hubo un error'] })
+        return res.status(400).send({ errors: [error.message] })
       })
   }
 
@@ -23,7 +23,7 @@ export class UserController {
       .then(result => res.status(200).send(result))
       .catch(error => {
         console.error(error.message);
-        return res.status(400).send({ errors: ['hubo un error'] })
+        return res.status(400).send({ errors: [error.message] })
       });
   }
 
@@ -34,7 +34,7 @@ export class UserController {
       .then(result => res.status(200).send(result))
       .catch(error => {
         console.error(error.message);
-        return res.status(400).send({ errors: ['unknow error'] })
+        return res.status(400).send({ errors: [error.message] })
       });
   }
 }

@@ -14,28 +14,34 @@ export class MatchCronProcess {
 
   private async updateMatchResults() {
     const API_URL ='http://api.football-data.org/v4';
-    const WORLD_CUP_ID = 2000;
-    const result = await this.matchService.getUnFinishByDate();
+    const WORLD_CUP_ID = 2000; // TODO manejarlo con BD
+    
+    try {
+      const result = await this.matchService.getUnFinishByDate();
 
-    if(result.length > 0) {
-        const today = new Date(); // testing '2026-06-11'
-        const tomorrow = new Date(today);
-        tomorrow.setDate(today.getDate() + 1);
+      if(result.length > 0) {
+          const today = new Date(); // testing '2026-06-11'
+          const tomorrow = new Date(today);
+          tomorrow.setDate(today.getDate() + 1);
 
-        const url = new URL(`${API_URL}/competitions/${WORLD_CUP_ID}/matches`);
-        url.searchParams.append('dateFrom', today!.toISOString().split('T')[0]!);
-        url.searchParams.append('dateTo', tomorrow.toISOString().split('T')[0]!);
+          const url = new URL(`${API_URL}/competitions/${WORLD_CUP_ID}/matches`);
+          url.searchParams.append('dateFrom', today!.toISOString().split('T')[0]!);
+          url.searchParams.append('dateTo', tomorrow.toISOString().split('T')[0]!);
 
-        const response = await fetch(url, { headers: {
-            'X-Auth-Token': <string> process.env.API_TOKEN
-        }});
+          const response = await fetch(url, { headers: {
+              'X-Auth-Token': <string> process.env.API_TOKEN
+          }});
 
-        if(response.ok) {
-            const data = await response.json();
-            const matchList = <ApiMatch[]>data.matches;
-            result.forEach(match => this.handleSingleMatch(match, matchList))
-        }
+          if(response.ok) {
+              const data = await response.json();
+              const matchList = <ApiMatch[]>data.matches;
+              result.forEach(match => this.handleSingleMatch(match, matchList))
+          }
+      }
+    } catch (error:any) {
+      console.log('nhubo unerro', error);
     }
+    
   }
 
   private async handleSingleMatch(localMatch: MatchCountry ,apiMatchList: ApiMatch[]): Promise<void> {
