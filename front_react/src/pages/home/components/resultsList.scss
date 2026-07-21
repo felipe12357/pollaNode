@@ -4,6 +4,10 @@
     grid-template-columns: 1.12rem 8.25rem 4.12rem;
     column-gap: 1rem;
     margin-bottom: .5rem;
+
+    &-own-result {
+      font-weight: bold;
+    }
   }
 
   .header {

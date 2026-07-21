@@ -93,7 +93,7 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList, count
                 -
                 <input type="text"  onChange={(e)=>setForecastInput2(+e.target.value)} defaultValue={match.foreCast?.split('-')[1]}></input>
                </>
-              : match.foreCast}
+              : <div className="match-row-result"> {match.foreCast}</div>}
           </span>
 
           <ReactCountryFlag className="flag" countryCode={getCountryCode(match.team2)} svg />
@@ -104,10 +104,11 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList, count
               <FaXmark className="cancel-icon" onClick={()=>setMatchId(null)}/>
               </div>
             : <div> 
+            {/*   TODO             mejorar con event delegation */}
                { canUpdateMatch(match.date) && <FaPen className="update-icon" onClick={()=>selectMatch(match.id as number)} /> }
               </div>
           } 
-        <div> {match.result} </div>
+        <div className="match-row-result"> {match.result} </div>
         <div> {match.points}</div>
       </div>
     )}

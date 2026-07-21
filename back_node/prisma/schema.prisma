@@ -59,7 +59,7 @@ model Match {
 model Country {
   name String @unique @db.VarChar(50)
   englishName String ? @db.VarChar(50)
-  code String @id @db.VarChar(3)
+  code String @id @db.VarChar(7)
 
   homeMatches Match[] @relation("home")
   visitorMatches Match[] @relation("visitor")

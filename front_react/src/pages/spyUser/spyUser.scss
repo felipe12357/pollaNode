@@ -3,5 +3,12 @@
     margin: 0 auto;
     width: 60.11rem;
     margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+
+    button {
+      height: fit-content;
+      margin-right: 10px;
+    }
   }
 }

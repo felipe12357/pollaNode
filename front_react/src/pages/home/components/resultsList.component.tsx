@@ -2,10 +2,12 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import type { Results } from "../../../dtos/forecast";
 import './resultsList.scss';
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import { useContextGlobal } from "../../../contextGlobalProvider";
 
 const ResultsListComponent = () =>{
   const results = useLoaderData() as Results[];
   const navigate = useNavigate();
+  const { appState: {user} } = useContextGlobal();
 
   return (
     <div className="result-list-component container">
@@ -16,11 +18,16 @@ const ResultsListComponent = () =>{
       {
         results.map(result =>
         <div className="result-row" key={result.username}>
-          <FaMagnifyingGlass className="cursor-pointer" onClick={() => navigate(`/spy-user/${result.userId}`)}/>
-          <div className="cursor-pointer" onClick={() => navigate(`/spy-user/${result.userId}`)}>
+          <FaMagnifyingGlass className="cursor-pointer" onClick={() => navigate(`/spy-user/${result.userId}?name=${result.username}`)}/>
+          <div className={`cursor-pointer 
+              ${result.userId === user?.id ? 'result-row-own-result' : ''}`
+            }
+            onClick={() => navigate(`/spy-user/${result.userId}?name=${result.username}`)}>
             {result.username}
           </div>
-          <div>{result.points}</div>  
+          <div className={result.userId === user?.id ? 'result-row-own-result' : ''}>
+            {result.points}
+          </div>  
         </div>)
       }
     </div>
