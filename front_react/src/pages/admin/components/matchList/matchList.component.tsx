@@ -85,7 +85,7 @@ const MatchListComponent:React.FC<MatchListProps> = ({matchList, updateList, cou
                   -
                   <input type="text" onChange={(e)=>setmatchResultInput2(+e.target.value)}></input>
                   </>
-                : match.result ? match.result : 'N/A'
+                : <div className="match-row-result">{ match.result ? match.result : 'N/A' }</div> 
               }
             </span>
   

@@ -38,10 +38,10 @@ const SpyUserListComponent = () =>{
               <div> { match.team2} </div>
               <div> 
                 <ReactCountryFlag className="flag" countryCode={getCountryCode(match.team1)} svg />
-                <span className="match-row-score"> {match.foreCast} </span>
+                <span className="match-row-score match-row-result"> {match.foreCast} </span>
                 <ReactCountryFlag className="flag" countryCode={getCountryCode(match.team2)} svg />
               </div>
-              <div> {match.result} </div>
+              <div className="match-row-result"> {match.result} </div>
               <div> {match.points}</div>
             </div>
           )}

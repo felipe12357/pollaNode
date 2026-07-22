@@ -1,1 +1,178 @@
 /* You can add global styles to this file, and also import other style files */
+@use './constants.scss';
+
+@font-face {
+  font-family: 'Fira';
+  src: url('./assets/fira-sans/FiraSans-Regular.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+:root {
+  
+}
+
+body {
+  margin: 0;
+  font-family: 'Fira', sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+input {
+  padding: 5px;
+  border-radius: 5px;
+  border:2px solid constants.$color-silver;
+  font-family:'Fira', sans-serif;
+}
+
+input:focus {
+  border: 2px solid constants.$color-silver;
+  outline: none;
+  box-shadow: none;
+}
+
+.button {
+  background-color: constants.$color-green-dark;
+  padding: .75rem 10px;
+  color:constants.$color-white;
+  border-radius: constants.$border-radius-style;
+  border: 0px;
+  cursor:pointer;
+
+  &:hover, &:active{
+    background-color: constants.$color-green;
+  }
+  &.active{
+    background-color: constants.$color-green-dark;
+  }
+}
+
+.button-primary {
+  background-color: constants.$color-blue-main;
+
+  &:hover, &:active{
+    background-color: constants.$color-blue;
+  }
+  &.active{
+    background-color: constants.$color-blue-main;
+  }
+
+  &_disabled, &_disabled:hover{
+    cursor: auto;
+    background-color: constants.$color-blue;
+    opacity: 0.65;
+  }
+}
+
+.button-danger {
+  background-color: constants.$color-red;
+
+  &:hover, &:active{
+    background-color: constants.$color-red-dark;
+  }
+  &.active{
+    background-color: constants.$color-red;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.loading-icon {
+  font-size: 24px;
+  animation: rotateAnimation 2s linear infinite;
+}
+
+.delete-icon {
+  @extend .cursor-pointer;
+  color: constants.$color-red-dark;
+}
+
+.update-icon {
+  @extend .cursor-pointer;
+  color: constants.$color-brown;
+}
+
+.confirm-icon {
+  @extend .cursor-pointer;
+  color: constants.$color-green-dark;
+}
+
+.cancel-icon {
+  width:20px;
+  height: 20px;
+  color: constants.$color-red-dark;
+  @extend .cursor-pointer;
+}
+
+.alert-container {
+  padding: 1rem;
+  border-radius: constants.$border-radius-style;
+
+}
+
+.alert-container-danger {
+  color: constants.$color-red-dark;
+  background-color: #f8d7da;
+  border-color: constants.$color-red-dark;
+}
+
+.container {
+  margin: 0 auto;
+  box-shadow: constants.$box-shadow-small;
+  background-color: constants.$color-grey-light;
+  width: fit-content;
+  padding: 1rem;
+  border-radius: constants.$border-radius-style;
+}
+
+.container .match-row .flag {
+  width: 2rem !important;
+  height: 2rem !important;
+}
+
+.match-row {
+  display: grid;
+  place-content: center;
+  row-gap: 0.62rem;
+  padding-bottom: .75rem;
+  align-items: center;
+
+  &_header-match {
+    grid-column: 2 / span 3;
+  }
+
+  input {
+    width: 80%;
+  }
+
+  &-score {
+      min-width: 5.3rem;
+      display: inline-block;
+      text-align: center;
+
+      input {
+        width: 1rem;
+        margin: 0 .3rem
+      }
+  }
+
+  &-result {
+     letter-spacing: 5px;
+  }
+}
+
+
+

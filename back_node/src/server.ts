@@ -17,7 +17,7 @@ export class Server {
         const serverInstance = new Server();
         serverInstance.app.use(express.json()); //serializa los body de las peticiones a json
         serverInstance.app.use(express.urlencoded({extended:true})) // serializa los body de las peticiones x-www-form-urlencode
-        serverInstance.app.use(serverInstance.cors({ origin: 'http://localhost:5173' }))
+        serverInstance.app.use(serverInstance.cors({ origin: ['http://localhost:5173', 'http://localhost:4200'] }))
         serverInstance.app.use(serverInstance.routes)
 
         serverInstance.app.listen(serverInstance.PORT, () => {
