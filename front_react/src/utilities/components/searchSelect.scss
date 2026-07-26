@@ -1,0 +1,26 @@
+@use '../../constants';
+
+.search-select {
+  &-list{
+    background-color: constants.$color-white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    position: fixed;
+    width:200px;
+    overflow-y: scroll;
+    max-height: 200px;
+
+    &-element {
+      margin-top: 5px;
+      cursor: pointer;
+      padding-left: 10px;
+      padding-right: 10px;
+      font-size: 14px;
+      
+      &:hover {
+        background-color: constants.$color-grey-light;
+      }
+    }
+  }
+}

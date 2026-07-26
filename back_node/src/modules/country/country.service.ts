@@ -5,7 +5,11 @@ import { Country } from "../../generated/prisma";
 export class CountryService implements CountrySource {
 
   public async getAll(): Promise<Country[]> {
-     const result = await prisma.country.findMany();
+     const result = await prisma.country.findMany({
+      orderBy:{
+        name: 'asc'
+      }
+     });
 
      return result;
   }

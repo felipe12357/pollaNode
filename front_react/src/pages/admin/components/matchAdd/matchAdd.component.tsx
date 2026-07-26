@@ -1,9 +1,12 @@
 import { FaCheck } from 'react-icons/fa';
 import './matchAdd.scss';
 import { FaXmark } from 'react-icons/fa6';
-import { useRef } from 'react';
-import type { MatchDto, MatchResponse } from '../../../../dtos/match';
+import { useEffect, useRef, useState } from 'react';
+import type { MatchResponse } from '../../../../dtos/match';
 import mathService from '../../../../services/match.service';
+import type { Country } from '../../../../dtos/country';
+import { InputTypeSearchAdapter } from '../../../../utilities/inputTypeSerch.adapter';
+import SearchSelectComponent, { type InputTypeSearch } from '../../../../utilities/components/searchSelect.component';
 
 
 interface MatchAddProps {
@@ -11,24 +14,41 @@ interface MatchAddProps {
   // o primera posicion pq esta ordenado por la fecha y esto lo hace el backend
   updateList:()=>void,
   addNewMatch:(val: boolean)=>void,
+  countryList: Country[]
 };
 
-const MatchAddComponent:React.FC<MatchAddProps> = ({updateList, addNewMatch}) =>{
+const MatchAddComponent:React.FC<MatchAddProps> = ({updateList, addNewMatch, countryList}) =>{
+  const [countryKeyValues, setcountryKeyValues] = useState<InputTypeSearch[]>([]);
+  
+  useEffect(()=>{
+    if(countryList){
+      const response = InputTypeSearchAdapter(countryList,'name', 'code');
+      setcountryKeyValues(response);
+    }
+  },[countryList])
 
   const formRef = useRef<HTMLFormElement>(null);
   const handleform = async() => {
     const formData = new FormData(formRef.current!);
     const formValue = Object.fromEntries(formData) as unknown as MatchResponse;
-    formValue.bonusPhase = formData.get('bonusPhase') !== null
-    await mathService.addMatch(formValue);
-    updateList();
+
+    if (formRef.current?.checkValidity() ) {
+      formValue.bonusPhase = formData.get('bonusPhase') !== null
+      await mathService.addMatch(formValue);
+      updateList(); 
+    } else 
+      formRef.current?.reportValidity()
   }
 
   return <form id="matchForm" ref={formRef} className="match-add-component match-row">
-    <div> <input type="datetime-local" name="date"></input> </div>
-    <div> <input type="text" name="team1"></input> </div>
+    <div> <input type="datetime-local" name="date" required></input> </div>
+    <div>
+      <SearchSelectComponent inputTypeSearch={countryKeyValues} nameProperty='team1' isRequired={true}></SearchSelectComponent>
+    </div>
     <div> vs </div>
-    <div> <input type="text" name="team2"></input> </div>
+    <div>
+      <SearchSelectComponent inputTypeSearch={countryKeyValues} nameProperty='team2' isRequired={true}></SearchSelectComponent> 
+    </div>
     <div> <input type="checkbox" name="bonusPhase"/> </div>
     <div> </div>
     <div>

@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: 'Fira';
-  src: url('./assets/fira-sans-regular.ttf') format('truetype');
+  src: url('./assets/fira-sans/FiraSans-Regular.otf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -48,6 +48,7 @@ input:focus {
   border-radius: constants.$border-radius-style;
   border: 0px;
   cursor:pointer;
+  font-family: 'Fira', sans-serif;
 
   &:hover, &:active{
     background-color: constants.$color-green;

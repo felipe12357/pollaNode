@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { MatchSource } from "../../domain/AbstractModels";
 import { MatchDto, UserData } from "../../domain/entities";
+import { error } from "console";
 
 export class MatchController {
 
@@ -10,7 +11,7 @@ export class MatchController {
     const { user, ...match } : MatchDto & { user:UserData } = req.body
     this.matchService.create(match)
       .then(result => res.status(200).send(result))
-      .catch(error => res.status(500).send(error))
+      .catch(error => res.status(500).send({ errors:[error]}))
   }
 
   getAll = (req: Request, res: Response) => {

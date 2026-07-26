@@ -13,7 +13,7 @@ const AdminPage = () =>{
   const { revalidate } = useRevalidator(); // se usa para volver a cargar el loader
   const data = useLoaderData() as AdminLoaderReturn;
   const [matchList, setmatchList] = useState<MatchDto[]>([]);
-  const [showAddMatchButton, setshowAddMatchButton] = useState<Boolean>(false);
+  const [showAddMatchButton, setshowAddMatchButton] = useState<Boolean>(true);
   
   useEffect(()=>{
     if(data)
@@ -37,7 +37,7 @@ const AdminPage = () =>{
           <div> Bonus </div>
           <div> Resultado </div>
           <div className="match-row_header-actions"> Acciones </div>
-          { showAddMatchButton && <MatchAddComponent updateList={() =>revalidate()} addNewMatch={(e) => setshowAddMatchButton(e) }/> }  
+          { showAddMatchButton && <MatchAddComponent updateList={() =>revalidate()} addNewMatch={(e) => setshowAddMatchButton(e) } countryList={data.countryList}/> }  
         </div>
         <MatchListComponent matchList={matchList} countryList={data.countryList} updateList={(e) =>setmatchList(e)} />
       </div>
