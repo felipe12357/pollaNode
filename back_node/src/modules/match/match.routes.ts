@@ -5,6 +5,7 @@ import { body } from "express-validator";
 import { ValidationRoutesMiddleware } from "../../middlewares/validation.routes.middleware";
 import { AuthMiddleware } from "../../middlewares/auth.middleware";
 import { UserRole } from "../../generated/prisma";
+import { Validators } from "../../utils/validators";
 
 export class MatchRoutes {
 
@@ -28,6 +29,10 @@ export class MatchRoutes {
       body(['date'])
         .notEmpty().withMessage('missing property').bail()
         .isISO8601(),
+      body(['team1']).custom((team1) => Validators.validTeam(team1))
+        .withMessage('Team1 not exits'),
+      body(['team2']).custom((team2) => Validators.validTeam(team2))
+        .withMessage('Team2 not exits'),
        ValidationRoutesMiddleware.validate,
        matchController.create );
 
