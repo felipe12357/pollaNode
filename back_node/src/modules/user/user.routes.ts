@@ -4,6 +4,7 @@ import { UserController } from "./user.controller";
 import { body, query } from "express-validator";
 import { ValidationRoutesMiddleware } from "../../middlewares/validation.routes.middleware";
 import { MailHandlerAdapter } from "../../utils/mail.adapter";
+import { Validators } from "../../utils/validators";
 
 export class UserRoutes {
 
@@ -30,6 +31,10 @@ export class UserRoutes {
 
     router.post('/register', 
       body(['username', 'password', 'email']).notEmpty().withMessage('missing property'),
+      body(['username']).custom((username) => Validators.uniqueUserName(username))
+        .withMessage('UserName already exits'),
+      body(['email']).custom((email) => Validators.uniqueEmail(email))
+        .withMessage('email already exits'),
       body(['email']).isEmail(),
       ValidationRoutesMiddleware.validate,
       userController.register );
