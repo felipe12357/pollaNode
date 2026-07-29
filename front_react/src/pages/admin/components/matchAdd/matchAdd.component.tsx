@@ -7,6 +7,7 @@ import mathService from '../../../../services/match.service';
 import type { Country } from '../../../../dtos/country';
 import { InputTypeSearchAdapter } from '../../../../utilities/inputTypeSerch.adapter';
 import SearchSelectComponent, { type InputTypeSearch } from '../../../../utilities/components/searchSelect.component';
+import { toast } from 'react-toastify';
 
 
 interface MatchAddProps {
@@ -28,16 +29,28 @@ const MatchAddComponent:React.FC<MatchAddProps> = ({updateList, addNewMatch, cou
   },[countryList])
 
   const formRef = useRef<HTMLFormElement>(null);
+
+  const validateTeam = (team:string): Boolean => {
+    const position = countryList.findIndex((e)=> e.name === team);
+
+    return position >=0;
+  }
+
+
   const handleform = async() => {
     const formData = new FormData(formRef.current!);
     const formValue = Object.fromEntries(formData) as unknown as MatchResponse;
 
-    if (formRef.current?.checkValidity() ) {
-      formValue.bonusPhase = formData.get('bonusPhase') !== null
-      await mathService.addMatch(formValue);
-      updateList(); 
-    } else 
-      formRef.current?.reportValidity()
+    if(!validateTeam(formValue.team1) || !validateTeam(formValue.team2)) {
+      toast.error(`Hubo un error: uno o dos de los equipos seleccionados no son validos`);
+    } else {
+      if (formRef.current?.checkValidity() ) {
+        formValue.bonusPhase = formData.get('bonusPhase') !== null
+        await mathService.addMatch(formValue);
+        updateList(); 
+      } else 
+        formRef.current?.reportValidity()
+    }
   }
 
   return <form id="matchForm" ref={formRef} className="match-add-component match-row">
