@@ -1,1 +1,16 @@
-<p>home works!</p>
+<section>
+  <h1>Resultados</h1>
+
+  @if (resultSignal().length> 0) {
+    <ul>
+      @for (item of resultSignal(); track item?.userId) {
+        <li>
+          <strong>{{ item?.username }}</strong> - {{ item?.points }} puntos
+        </li>
+      }
+    </ul>
+  } @else {
+    <p>No hay resultados disponibles.</p>
+  }
+</section>
+

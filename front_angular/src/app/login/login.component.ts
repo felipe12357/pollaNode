@@ -21,13 +21,6 @@ export class LoginComponent {
   login(): void {
     this.userService.login({username: this.username(), password:this.password()})
     .subscribe(val => this.router.navigate(['/home']));
-    /* .subscribe({
-      next:(response) => {
-      console.log(response);
-      }, error: (err) => {
-        console.log(err);
-      }
-    }); */
   }
 
 }

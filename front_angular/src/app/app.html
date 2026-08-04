@@ -1,1 +1,8 @@
 <router-outlet></router-outlet>
+@if (errorModalService.isOpen()) {
+  <app-modal
+    title="{{ errorModalService.title() }}"
+    message="{{ errorModalService.message() }}"
+    (closed)="errorModalService.close()"
+  ></app-modal>
+}
