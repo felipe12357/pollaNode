@@ -1,0 +1,44 @@
+@use '../../../constants.scss' as constants;
+
+.menu {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  background-color: constants.$color-white;
+  border: 1px solid constants.$color-silver;
+  border-radius: constants.$border-radius-style;
+  box-shadow: constants.$box-shadow-small;
+}
+
+.menu-list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 0.75rem;
+  list-style: none;
+}
+
+.menu-item {
+  display: inline-flex;
+}
+
+.menu-link,
+.menu-label {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: constants.$border-radius-style;
+  background-color: rgba(15, 23, 79, 0.08);
+  color: constants.$color-blue-main;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.menu-link:hover {
+  background-color: constants.$color-blue;
+  color: constants.$color-white;
+}
+
+.menu-empty {
+  color: constants.$color-red-dark;
+  font-size: 0.95rem;
+}

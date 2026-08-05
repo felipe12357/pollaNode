@@ -1,0 +1,17 @@
+<nav class="menu">
+  @if (visibleOptions().length > 0) {
+    <ul class="menu-list">
+      @for (option of visibleOptions(); track option.label) {
+        <li class="menu-item">
+          @if (option.route) {
+            <a [routerLink]="option.route" class="menu-link">{{ option.label }}</a>
+          } @else {
+            <span class="menu-label">{{ option.label }}</span>
+          }
+        </li>
+      }
+    </ul>
+  } @else {
+    <div class="menu-empty">No hay acciones disponibles para tu rol.</div>
+  }
+</nav>

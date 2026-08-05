@@ -1,16 +1,30 @@
-<div class="container login-component">
+<form (submit)="login($event)" class="container login-component">
   <div>
     <div>
       <label> Nombre de Usuario:</label>
-      <input type="text" [(ngModel)]=username>
+      <input [formField]="loginForm.username" type="text"  />
+      @if (loginForm.username().invalid() && loginForm.username().touched()) {
+        <div class="error">
+          @for (error of loginForm.username().errors(); track error.kind) {
+            <span>{{ error.message }}</span>
+          }
+        </div>
+      }
     </div>
     <div>
       <label>Contraseña:</label>
-      <input type="password" [(ngModel)]=password>
+      <input [formField]="loginForm.password" type="password"  />
+      @if (loginForm.password().invalid() && loginForm.password().touched()) {
+        <div class="error">
+          @for (error of loginForm.password().errors(); track error.kind) {
+            <span>{{ error.message }}</span>
+          }
+        </div>
+      }
     </div>
   </div>
   <div>
     <button class='button button-primary' type="button" routerLink="/register">Registrarse</button>
-    <button class='button' (click)="login()">Ingresar</button> 
+    <button class='button' type="submit" [disabled]="loginForm().invalid()">Ingresar</button> 
   </div>
-</div>
+</form>

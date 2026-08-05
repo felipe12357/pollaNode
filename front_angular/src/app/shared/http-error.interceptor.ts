@@ -23,6 +23,10 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       return error.error.message;
     }
 
+    if(error.error.errors) {
+      return error.error.errors[0];
+    }
+
     if (error.error?.error) {
       return error.error.error;
     }

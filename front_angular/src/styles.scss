@@ -56,6 +56,16 @@ input:focus {
   &.active{
     background-color: constants.$color-green-dark;
   }
+
+ /* Disabled state for buttons */
+ &:disabled,
+ &[disabled],
+ &.disabled {
+   opacity: 0.6;
+   cursor: not-allowed;
+   pointer-events: none;
+   filter: grayscale(20%);
+ }
 }
 
 .button-primary {
@@ -84,6 +94,12 @@ input:focus {
   &.active{
     background-color: constants.$color-red;
   }
+}
+
+.error {
+  color: constants.$color-red;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
 }
 
 .cursor-pointer {

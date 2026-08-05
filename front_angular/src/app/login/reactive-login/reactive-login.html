@@ -1,0 +1,15 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h2>Login Reactivo</h2>
+
+  <label>
+    Usuario
+    <input formControlName="username" type="text" />
+  </label>
+
+  <label>
+    Contraseña
+    <input formControlName="password" type="password" />
+  </label>
+
+  <button type="submit">Ingresar</button>
+</form>
