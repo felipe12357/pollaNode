@@ -1,0 +1,9 @@
+<p>input-search-observable.component works!</p>
+
+<input type="text" #inputSearch>
+
+@let countryList = countryList$ | async;
+@for (country of countryList; track country.code) {
+  <div>aca ta {{ country.name }}</div>
+}
+

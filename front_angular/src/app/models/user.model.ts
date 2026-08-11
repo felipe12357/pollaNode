@@ -8,6 +8,12 @@ export const UserRole = {
   USER: 'USER',
 }
 
+export type UserSession = {
+  username: string;
+  role: string;
+  token: string;
+};
+
 export type UserLoginResponse = {
   username: string;
   id: number;

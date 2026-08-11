@@ -1,0 +1,9 @@
+
+<input type="text" #inputSearch>
+
+@let countryListRef = countryList();
+@for (country of countryListRef; track country.code) {
+  <div>{{ country.name }}</div>
+}
+
+

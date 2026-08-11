@@ -12,6 +12,7 @@ export interface MenuOption {
   imports: [RouterLink],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss',
+  standalone: true,
 })
 export class MenuComponent {
   options = input<MenuOption[]>([]);

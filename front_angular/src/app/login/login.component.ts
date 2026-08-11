@@ -32,7 +32,7 @@ export class LoginComponent {
     event.preventDefault();
     
     this.userService.login(this.formModel())
-      .subscribe(val => this.router.navigate(['/home']));
+      .subscribe(() => this.router.navigate(['/home']));
   }
 
 }

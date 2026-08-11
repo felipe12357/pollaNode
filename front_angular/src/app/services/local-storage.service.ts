@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
+import { UserSession } from '../models/user.model';
 
-export type LocalStorageData = {
-  username: string;
-  role: string;
-  token: string;
-};
 
 @Injectable({
   providedIn: 'root',
@@ -12,17 +8,17 @@ export type LocalStorageData = {
 export class LocalStorageService {
   private readonly storageKey = 'auth-user';
 
-  set(data: LocalStorageData): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(data));
+  set(data: UserSession): void {
+    sessionStorage.setItem(this.storageKey, JSON.stringify(data));
   }
 
-  get(): LocalStorageData | null {
-    const storedValue = localStorage.getItem(this.storageKey);
+  get(): UserSession | null {
+    const storedValue = sessionStorage.getItem(this.storageKey);
 
     if (!storedValue) {
       return null;
     }
 
-    return JSON.parse(storedValue) as LocalStorageData;
+    return JSON.parse(storedValue) as UserSession;
   }
 }

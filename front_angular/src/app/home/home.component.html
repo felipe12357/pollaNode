@@ -1,16 +1,24 @@
 <app-menu [options]="menuOptions" [currentRole]="currentRole()"></app-menu>
 
-<section>
-  <h1>Resultados</h1>
+<section class="result-list container">
+  <div class="result-row header">
+    <div>Usuario</div>
+    <div>Puntos</div>
+  </div>
+  @let resultList = resultSignal();
 
-  @if (resultSignal().length> 0) {
-    <ul>
-      @for (item of resultSignal(); track item?.userId) {
-        <li>
-          <strong>{{ item?.username }}</strong> - {{ item?.points }} puntos
-        </li>
+  @if (resultList.length> 0) {
+    <div class="result-row">
+      @for (item of resultList; track item?.userId) {
+        <div class="cursor-pointer"> <fa-icon [icon]="faMagnifyingGlass"></fa-icon></div>
+        <div class="cursor-pointer" [ngClass]="{ 'result-row-own-result': item?.username === currentUsername() }">
+         {{ item?.username }}
+        </div>
+        <div [ngClass]="{ 'result-row-own-result': item?.username === currentUsername() }">
+          {{ item?.points }}
+        </div>
       }
-    </ul>
+    </div>
   } @else {
     <p>No hay resultados disponibles.</p>
   }
