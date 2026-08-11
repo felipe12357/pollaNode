@@ -3,14 +3,14 @@ export type UserLogin = {
   password: string,
 }
 
-export const UserRole = {
-  ADMIN: 'ADMIN',
-  USER: 'USER',
+export enum UserRole {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
 }
 
 export type UserSession = {
   username: string;
-  role: string;
+  role: UserRole;
   token: string;
 };
 
@@ -20,5 +20,5 @@ export type UserLoginResponse = {
   name: string | null;
   lastname: string | null;
   token: string;
-  role: typeof UserRole[keyof typeof UserRole];
+  role: UserRole;
 }

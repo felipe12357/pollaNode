@@ -1,10 +1,11 @@
 import { Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { UserRole } from '../../models/user.model';
 
 export interface MenuOption {
   label: string;
   route?: string;
-  roles: string[];
+  roles: UserRole[];
 }
 
 @Component({
@@ -16,7 +17,7 @@ export interface MenuOption {
 })
 export class MenuComponent {
   options = input<MenuOption[]>([]);
-  currentRole = input<string>('guest');
+  currentRole = input<UserRole>(UserRole.USER);
 
   visibleOptions = computed(() =>
     this.options().filter(option => option.roles.includes(this.currentRole()))

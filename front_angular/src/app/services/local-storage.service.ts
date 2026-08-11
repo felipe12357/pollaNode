@@ -9,11 +9,11 @@ export class LocalStorageService {
   private readonly storageKey = 'auth-user';
 
   set(data: UserSession): void {
-    sessionStorage.setItem(this.storageKey, JSON.stringify(data));
+    localStorage.setItem(this.storageKey, JSON.stringify(data));
   }
 
   get(): UserSession | null {
-    const storedValue = sessionStorage.getItem(this.storageKey);
+    const storedValue = localStorage.getItem(this.storageKey);
 
     if (!storedValue) {
       return null;

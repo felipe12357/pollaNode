@@ -6,6 +6,7 @@ import { NgClass } from '@angular/common';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { LocalStorageService } from '../services/local-storage.service';
+import { UserRole } from '../models/user.model';
 
 @Component({
   selector: 'app-home',
@@ -19,12 +20,12 @@ export class HomeComponent {
   private readonly localStorageService = inject(LocalStorageService);
 
   readonly resultSignal = toSignal(this.forecastService.get(), { initialValue: [] });
-  readonly currentRole = signal('admin');
+  readonly currentRole = signal(this.localStorageService.get()?.role ?? UserRole.USER);
   readonly currentUsername = signal(this.localStorageService.get()?.username ?? '');
   readonly faMagnifyingGlass = faMagnifyingGlass;
 
   readonly menuOptions: MenuOption[] = [
-    { label: 'admin', route: '/admin', roles: ['admin'] },
-    { label: 'Pronósticos', route: '/home', roles: ['admin', 'user'] },
+    { label: 'admin', route: '/admin', roles: [UserRole.ADMIN] },
+    { label: 'Pronósticos', route: '/home', roles: [UserRole.ADMIN, UserRole.USER] },
   ];
 }
