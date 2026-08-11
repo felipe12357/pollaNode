@@ -1,4 +1,5 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, inject, ChangeDetectorRef, effect } from '@angular/core';
+import { ErrorModalService } from '../../services/error-modal.service';
 
 @Component({
   selector: 'app-modal',
@@ -6,19 +7,16 @@ import { Component, input, output } from '@angular/core';
   styleUrl: './modal.scss',
 })
 export class Modal {
-  title = input('Modal');
-  message = input('');
-  closeOnBackdrop = input(true);
-
-  closed = output<void>();
-
-  close(): void {
-    this.closed.emit();
+  readonly errorModalService = inject(ErrorModalService);
+  private readonly cdr = inject(ChangeDetectorRef);
+  constructor() {
+    effect(() => {
+      console.log('APP MESSAGE:', this.errorModalService.message());
+       this.cdr.markForCheck();
+    });
   }
 
-  onBackdropClick(event: MouseEvent): void {
-    if (this.closeOnBackdrop() && event.target === event.currentTarget) {
-      this.close();
-    }
+  close(): void {
+    this.errorModalService.close();
   }
 }

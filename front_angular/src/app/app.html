@@ -1,8 +1,9 @@
-<router-outlet></router-outlet>
-@if (errorModalService.isOpen()) {
-  <app-modal
-    title="{{ errorModalService.title() }}"
-    message="{{ errorModalService.message() }}"
-    (closed)="errorModalService.close()"
-  ></app-modal>
+@if(currentRole()) {
+  <app-menu [options]="menuOptions" [currentRole]="currentRole()!"></app-menu>
 }
+
+<router-outlet></router-outlet>
+
+@if (errorModalService.isOpen()) {
+  <app-modal></app-modal>
+ }

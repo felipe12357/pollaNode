@@ -13,10 +13,10 @@ export class JwtAdapter {
             return  await jwt.verify(token,JWT_SEED) as T;
         } catch (err: unknown) {
             if (err instanceof jwt.TokenExpiredError) {
-                return Promise.reject({errors: 'token expired' });
+                return Promise.reject('token expired');
             }
             if (err instanceof jwt.JsonWebTokenError){
-                 return Promise.reject({errors: 'Invalid token' });
+                 return Promise.reject('Invalid token');
             }
             throw err;
         }

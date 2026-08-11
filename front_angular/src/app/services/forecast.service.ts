@@ -9,7 +9,11 @@ export class ForecastService {
   private readonly httpClient = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/forecast`;
 
-  get(): Observable<ForecastResult[]> {
+  getAll(): Observable<ForecastResult[]> {
     return this.httpClient.get<ForecastResult[]>(`${this.apiUrl}/`);
+  }
+
+  get(userId: string): Observable<ForecastResult[]> {
+    return this.httpClient.get<ForecastResult[]>(`${this.apiUrl}/${userId}`);
   }
 }

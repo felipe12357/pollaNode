@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserSession } from '../models/user.model';
+import { UserLoginResponse, UserSession } from '../models/user.model';
 
 
 @Injectable({
@@ -8,17 +8,21 @@ import { UserSession } from '../models/user.model';
 export class LocalStorageService {
   private readonly storageKey = 'auth-user';
 
-  set(data: UserSession): void {
+  set(data: UserLoginResponse): void {
     localStorage.setItem(this.storageKey, JSON.stringify(data));
   }
 
-  get(): UserSession | null {
+  clean(): void {
+    localStorage.removeItem(this.storageKey)
+  }
+
+  get(): UserLoginResponse | null {
     const storedValue = localStorage.getItem(this.storageKey);
 
     if (!storedValue) {
       return null;
     }
 
-    return JSON.parse(storedValue) as UserSession;
+    return JSON.parse(storedValue) as UserLoginResponse;
   }
 }

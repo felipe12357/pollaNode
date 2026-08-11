@@ -7,7 +7,6 @@ import { form, FormField, required } from '@angular/forms/signals';
 @Component({
   selector: 'app-login',
   imports: [RouterLink, FormField],
-  providers: [UserService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

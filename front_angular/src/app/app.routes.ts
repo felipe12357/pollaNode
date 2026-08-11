@@ -12,6 +12,12 @@ export const routes: Routes = [
       import ('./home/home.component').then(h => h.HomeComponent),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'spy-user/:id',
+    loadComponent: () =>
+      import ('./spy-user/spy-user.component').then(h => h.SpyUserComponent),
+    canActivate: [AuthGuard],
+  },
   { path: 'admin',
     loadComponent: () =>
       import ('./admin/admin.component').then(h => h.AdminComponent),

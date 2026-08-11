@@ -1,20 +1,22 @@
-<app-menu [options]="menuOptions" [currentRole]="currentRole()"></app-menu>
-
 <section class="result-list container">
   <div class="result-row header">
     <div>Usuario</div>
     <div>Puntos</div>
   </div>
   @let resultList = resultSignal();
-
   @if (resultList.length> 0) {
     <div class="result-row">
       @for (item of resultList; track item?.userId) {
-        <div class="cursor-pointer"> <fa-icon [icon]="faMagnifyingGlass"></fa-icon></div>
-        <div class="cursor-pointer" [ngClass]="{ 'result-row-own-result': item?.username === currentUsername() }">
+        <div class="cursor-pointer" [routerLink]="`/spy-user/${item.userId}`" >
+          <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+        </div>
+       <div class="cursor-pointer" 
+          [routerLink]="`/spy-user/${item.userId}`"
+          [ngClass]="{ 'result-row-own-result': item?.username === currentUsername() }">
          {{ item?.username }}
         </div>
-        <div [ngClass]="{ 'result-row-own-result': item?.username === currentUsername() }">
+        <div          
+          [ngClass]="{ 'result-row-own-result': item?.username === currentUsername() }">
           {{ item?.points }}
         </div>
       }

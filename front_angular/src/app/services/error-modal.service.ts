@@ -4,16 +4,19 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root'
 })
 export class ErrorModalService {
-  readonly isOpen = signal(false);
-  readonly title = signal('Error');
-  readonly message = signal('Paso un error');
+  isOpen = signal(false);
+  title = signal('Error');
+  message = signal('Paso un error');
+  
 
   showError(message: string): void {
     const normalizedMessage = message?.trim() ? message : 'Paso un error';
-
     this.message.set(normalizedMessage);
     this.title.set('Error');
-    this.isOpen.set(true);
+
+    setTimeout(() => {
+      this.isOpen.set(true);
+    },1);
   }
 
   close(): void {

@@ -22,3 +22,5 @@ export type UserLoginResponse = {
   token: string;
   role: UserRole;
 }
+
+export type User = Omit<UserLoginResponse, 'token'> 
