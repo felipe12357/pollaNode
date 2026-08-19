@@ -14,7 +14,7 @@ app.use(cors({
         'https://polla-node-4yvx-git-master-felipe12357s-projects.vercel.app'
     ]
 }));
-app.get('/test', (req, res) => {
+app.get('/api/test', (req, res) => {
   res.json({
     ok: true,
     message: 'Express funcionando'
