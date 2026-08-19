@@ -22,15 +22,15 @@ app.get('/api/test', (req, res) => {
 });
 app.use(AppRoutes.routes);
 
-export class Server {
+/* export class Server {
     private PORT = 3000;
 
     static async start(){
 
-      /*   MatchCronProcess.updateMatchProcess();
+        MatchCronProcess.updateMatchProcess();
 
         app.listen(new Server().PORT, () => {
             console.log(`Server running at http://localhost:${new Server().PORT}` );
-        }); */
+        });
     }
-}
+} */
