@@ -7,7 +7,8 @@ export const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({
+app.use(cors());
+/* app.use(cors({
     origin: [
         'http://localhost:5173',
         'http://localhost:4200',
@@ -16,7 +17,7 @@ app.use(cors({
         'https://polla-node-4yvx.vercel.app',
         'https://polla-node-4yvx-git-master-felipe12357s-projects.vercel.app'
     ]
-}));
+})); */
 app.get('/api/test', (req, res) => {
   res.json({
     ok: true,
