@@ -11,6 +11,9 @@ app.use(cors({
     origin: [
         'http://localhost:5173',
         'http://localhost:4200',
+        'polla-node-4yvx.vercel.app',
+        'http://polla-node-4yvx.vercel.app',
+        'https://polla-node-4yvx.vercel.app',
         'https://polla-node-4yvx-git-master-felipe12357s-projects.vercel.app'
     ]
 }));
