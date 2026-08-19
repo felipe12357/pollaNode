@@ -1,24 +1,7 @@
 import express from 'express';
-import cors from 'cors';
-
-export const app = express();
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-app.use(cors());
-
-app.get('/api/test', (req, res) => {
-  res.json({
-    ok: true,
-    message: 'Express funcionando en Vercel'
-  });
-});
-
-/* import express from 'express';
 import { AppRoutes } from './routes';
 import cors from "cors";
-import { MatchCronProcess } from './modules/match/match.cron';
+// import { MatchCronProcess } from './modules/match/match.cron';
 
 export const app = express();
 
@@ -44,10 +27,10 @@ export class Server {
 
     static async start(){
 
-        MatchCronProcess.updateMatchProcess();
+      /*   MatchCronProcess.updateMatchProcess();
 
         app.listen(new Server().PORT, () => {
             console.log(`Server running at http://localhost:${new Server().PORT}` );
-        });
+        }); */
     }
-} */
+}
