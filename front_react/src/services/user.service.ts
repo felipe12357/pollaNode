@@ -5,8 +5,9 @@ import { AxiosHandlingInterceptor } from "./axios-handling.interceptor";
 class UserService extends AxiosHandlingInterceptor {
 
   constructor() {
+    const environmentURL = import.meta.env.VITE_API_URL;
     const axiosInstance = axios.create({
-    baseURL:'http://localhost:3000/api/user',
+    baseURL:`${environmentURL}/user`,
     });
 
     super(axiosInstance);

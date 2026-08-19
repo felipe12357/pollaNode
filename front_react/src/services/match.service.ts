@@ -5,8 +5,9 @@ import { AxiosHandlingInterceptor } from "./axios-handling.interceptor";
 class MatchService extends AxiosHandlingInterceptor {
 
   constructor() {
+    const environmentURL = import.meta.env.VITE_API_URL;
     const axiosInstance = axios.create({
-    baseURL:'http://localhost:3000/api/match',
+    baseURL:  `${environmentURL}/match`,
     });
 
     super(axiosInstance);

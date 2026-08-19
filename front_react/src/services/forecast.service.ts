@@ -6,8 +6,9 @@ import type { ForecastResultDTO, Results } from "../dtos/forecast";
 class ForecastService extends AxiosHandlingInterceptor {
 
   constructor() {
+    const environmentURL = import.meta.env.VITE_API_URL;
     const axiosInstance = axios.create({
-    baseURL:'http://localhost:3000/api/forecast',
+      baseURL: `${environmentURL}/forecast`,
     });
 
     super(axiosInstance);

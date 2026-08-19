@@ -7,8 +7,9 @@ class CountryService extends AxiosHandlingInterceptor {
   private countryList:Country[] = []
 
   constructor() {
+    const environmentURL = import.meta.env.VITE_API_URL;
     const axiosInstance = axios.create({
-    baseURL:'http://localhost:3000/api/country',
+    baseURL: `${environmentURL}/country`,
     });
 
     super(axiosInstance);

@@ -32,7 +32,7 @@ const LoginPage = () =>{
 
           <div>
               <label htmlFor="password"> Contraseña: </label>
-              <input type="password" name="password" id="password" required defaultValue='holamundo123'></input>
+              <input type="password" name="password" id="password" required defaultValue='holamundo123456789'></input>
           </div>
       </div>
       <div>
