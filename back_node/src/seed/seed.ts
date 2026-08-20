@@ -19,13 +19,12 @@ export class Seed {
 
   static async start(): Promise<void> {
     const instance = new Seed();
-    const seedDir = path.join(process.cwd(), "src/seed");
     const countriesCsv = fs.readFileSync(
-      path.join(seedDir,"CountryPolla.csv"),
+      path.join(__dirname,"CountryPolla.csv"),
       "utf-8"
     );
     const matchesCsv = fs.readFileSync(
-      path.join(seedDir,"MatchPolla.csv"),
+      path.join(__dirname,"MatchPolla.csv"),
       "utf-8"
     );
 
