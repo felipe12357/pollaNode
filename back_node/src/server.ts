@@ -1,7 +1,7 @@
 import express from 'express';
 import { AppRoutes } from './routes';
 import cors from "cors";
-// import { MatchCronProcess } from './modules/match/match.cron';
+import { MatchCronProcess } from './modules/match/match.cron';
 
 export class Server {
     private app = express();
@@ -10,8 +10,8 @@ export class Server {
     private cors = cors;
 
     static async start(){
-
-       // MatchCronProcess.updateMatchProcess();
+        // TODO
+        MatchCronProcess.updateMatchProcess();
 
         //use, significa q es un middleware
         const serverInstance = new Server();
