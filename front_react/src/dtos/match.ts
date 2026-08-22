@@ -7,6 +7,14 @@ export type MatchDto = {
   bonusPhase: boolean;
 }
 
+export type MatchForecast =
+  MatchDto & { foreCast: { 
+    resultForeCast: string | null, 
+    points: number | null,
+    user: string,
+  }[] }
+
+
 export type MatchResponse = Omit<MatchDto, 'date'> & {
   date: string;
 }
@@ -30,5 +38,10 @@ export type MatchForecastDto = MatchDto & {
 
 export type MatchForecastListResponse = {
   data: MatchForecastDto[],
+  error?: string,
+}
+
+export type MatchForecastResponse = {
+  data: MatchForecast,
   error?: string,
 }

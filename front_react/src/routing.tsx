@@ -14,6 +14,8 @@ import { CompleteRegisterLoader } from "./pages/complete-register/complete-regis
 import { ResultListLoader } from "./pages/home/components/resultList.loader";
 import SpyUserPage from "./pages/spyUser/spyUser.page";
 import { spyUserLoader, type SpyUserLoaderParams } from "./pages/spyUser/spyUser.loader";
+import SpyMatchPage from "./pages/spyMatch/spyMatch.page";
+import { spyMatchLoader, type SpyMatchParams } from "./pages/spyMatch/spyMatch.loader";
 
 //Utilizo Suspense para lazy loading
 export const routes = createBrowserRouter([
@@ -55,8 +57,13 @@ export const routes = createBrowserRouter([
                 <ForecastPage/>
               </Suspense>,
               loader: async ({params}) => await ForecastLoader(params as ForecastLoaderParams),
-          }
-          , {
+          }, {
+            path: "spy-match/:matchId", 
+            element: <Suspense fallback={<LoadingComponent/>}> 
+              <SpyMatchPage/>
+            </Suspense>,
+            loader: async ({params}) => await spyMatchLoader(params as SpyMatchParams),
+          } , {
               path: "spy-user/:userId", 
               element: <Suspense fallback={<LoadingComponent/>}> 
                 <SpyUserPage/>

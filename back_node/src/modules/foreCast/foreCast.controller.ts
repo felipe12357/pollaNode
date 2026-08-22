@@ -57,4 +57,11 @@ export class ForeCastController {
     reqq.then(result => res.status(200).send(result))
       .catch(error => res.status(500).send(error));
   }
+
+  getMatchForecast = (req: Request, res: Response) => {
+    const matchId = parseInt(req.params.matchId!);
+    this.foreCastService.getMatchForecastList(matchId)
+      .then(result => res.status(200).send(result))
+      .catch(error => res.status(500).send(error));
+  }
 }

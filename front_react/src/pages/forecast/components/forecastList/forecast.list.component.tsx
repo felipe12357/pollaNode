@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { MatchForecastDto } from "../../../../dtos/match";
 import './forecast.list.scss';
-import { FaCheck, FaPen } from "react-icons/fa";
+import { FaCheck, FaEye, FaPen } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import forecastService from "../../../../services/forecast.service";
 import { useContextGlobal } from "../../../../contextGlobalProvider";
@@ -9,6 +9,7 @@ import { useTableScrollDate } from "../../../../hooks/useTableScrollDate";
 import { formatDate } from "../../../../utilities/date.handling";
 import ReactCountryFlag from "react-country-flag";
 import type { Country } from "../../../../dtos/country";
+import { useNavigate } from "react-router-dom";
 
 
 interface MatchListProps {
@@ -23,6 +24,7 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList, count
   const [forecastInput2, setForecastInput2] = useState<number>();
   const {appState: {user}} = useContextGlobal();
   const { setRef, scroll } = useTableScrollDate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if(matchList.length > 0) {
@@ -105,7 +107,9 @@ const ForecastListPage:React.FC<MatchListProps> = ({matchList, updateList, count
               </div>
             : <div> 
             {/*   TODO             mejorar con event delegation */}
-               { canUpdateMatch(match.date) && <FaPen className="update-icon" onClick={()=>selectMatch(match.id as number)} /> }
+               { canUpdateMatch(match.date) 
+                ? <FaPen className="update-icon" onClick={()=>selectMatch(match.id as number)} /> 
+                : <FaEye className="cursor-pointer" onClick={()=>navigate(`/spy-match/${match.id}`)} /> }
               </div>
           } 
         <div className="match-row-result"> {match.result} </div>

@@ -1,0 +1,15 @@
+.spy-match {
+    .header {
+        font-weight: bold;
+        padding-top: 2rem;
+      }
+
+    .match-row {
+        grid-template-columns: 9.57rem 10.25rem 3rem 4rem;
+        column-gap: 1rem;
+    }
+
+    .result-row-own-result {
+        font-weight: bold;
+    }
+}

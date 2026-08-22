@@ -1,7 +1,7 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import type { Results } from "../../../dtos/forecast";
 import './resultsList.scss';
-import { FaMagnifyingGlass } from "react-icons/fa6";
+import { FaEye } from "react-icons/fa6";
 import { useContextGlobal } from "../../../contextGlobalProvider";
 
 const ResultsListComponent = () =>{
@@ -18,7 +18,7 @@ const ResultsListComponent = () =>{
       {
         results.map(result =>
         <div className="result-row" key={result.username}>
-          <FaMagnifyingGlass className="cursor-pointer" onClick={() => navigate(`/spy-user/${result.userId}?name=${result.username}`)}/>
+          <FaEye className="cursor-pointer" onClick={() => navigate(`/spy-user/${result.userId}?name=${result.username}`)}/>
           <div className={`cursor-pointer 
               ${result.userId === user?.id ? 'result-row-own-result' : ''}`
             }

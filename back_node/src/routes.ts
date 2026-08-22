@@ -13,6 +13,7 @@ export class AppRoutes {
     router.use('/api/match', MatchRoutes.routes );
     router.use('/api/forecast', ForeCastRoutes.routes );
     router.use('/api/country', CountryRoutes.routes );
+    // TODO  authenticate
     router.get('/api/seed', async (req, res) => {
       try {
         await Seed.start();

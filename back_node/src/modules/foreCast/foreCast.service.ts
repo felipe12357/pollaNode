@@ -1,6 +1,6 @@
 import { prisma } from "../../data";
 import { ForeCastSource } from "../../domain/AbstractModels";
-import { ForecastByUser, ForeCastDto, MatchResultDto, Results } from "../../domain/entities";
+import { ForecastByMatch, ForecastByUser, ForeCastDto, MatchForecastListResponse, MatchResultDto, Results } from "../../domain/entities";
 import { MatchForecast } from "../../generated/prisma";
 
 export class ForeCastService implements ForeCastSource {
@@ -113,6 +113,38 @@ export class ForeCastService implements ForeCastSource {
 
     return this.transformMatchResult(result);
   }
+
+  public async getMatchForecastList(matchId:number): Promise<MatchForecastListResponse | null> {
+    const result = await prisma.match.findFirst({
+      where: { id: matchId },
+      include: {
+        foreCast: {
+          select: {
+            resultForeCast: true,
+            points: true,
+            user: {
+              select: {
+                username: true
+              }
+            }
+          },
+          orderBy: {
+            user: {
+              username: 'asc'
+            }
+          }
+        },
+      }});
+
+    return result && this.transformMatchUserForecast(result) ;
+  }
+
+  private transformMatchUserForecast(res: ForecastByMatch): MatchForecastListResponse {
+    const result = res.foreCast.map(val => ({ ...val, user:val.user.username }) );
+    const response = {...res, foreCast: result};
+    return response;
+  }
+
 
   private transformMatchResult(result: ForecastByUser[] ): MatchResultDto[] {
     return result.map(val => {

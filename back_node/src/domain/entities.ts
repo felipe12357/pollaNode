@@ -7,10 +7,26 @@ export type MatchResultDto = MatchDto & {
   points?: number;
 }
 
+export type MatchForecastListResponse = Match & {
+  foreCast: { 
+    resultForeCast: string | null, 
+    points: number | null,
+    user: string,
+  }[],
+}
+
 export type MatchCountry = Match & {
   countryHome: Country;
   countryVisitor: Country;
 };
+
+export type ForecastByMatch = MatchDto & {
+  foreCast: { 
+    resultForeCast: string | null, 
+    points: number | null,
+    user: { username: string }
+  }[],
+}
 
 export type ForecastByUser = Match & {
   foreCast: { 

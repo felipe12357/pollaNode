@@ -22,6 +22,13 @@ export class ForeCastRoutes {
       ValidationRoutesMiddleware.validate,
       foreCastController.getUserMatchForecast);
 
+    router.get('/match/:matchId',
+        param('matchId')
+        .notEmpty().withMessage('missing property').bail()
+        .isNumeric(),
+        ValidationRoutesMiddleware.validate,
+        foreCastController.getMatchForecast);
+
     //Body hace la validacion sobre el formato body/json 
     router.post('/',
       body(['matchId'])
