@@ -1,21 +1,20 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { MainLayout } from "./layout/mainLayout";
 import { Suspense } from "react";
-import { AdminPage, HomePage, LoginPage } from "./pages";
-import { AdminLoader } from "./pages/admin/admin.loader";
+import { 
+  AdminPage, AdminLoader,
+  HomePage, ResultListLoader, 
+  LoginPage, loginAction,
+  ForecastPage, ForecastLoader,
+  RegisterPage, registerAction,
+  CompleteRegisterPage, CompleteRegisterLoader,
+  SpyUserPage, spyUserLoader,
+  SpyMatchPage, spyMatchLoader
+} from "./pages";
 import { LoadingComponent } from "./layout/loading/loading.component";
-import ForecastPage from "./pages/forecast/forecast.page";
-import { ForecastLoader, type ForecastLoaderParams } from "./pages/forecast/forecast.loader";
-import { loginAction } from "./pages/login/login.action";
-import RegisterPage from "./pages/register/register.page";
-import { registerAction } from "./pages/register/register.action";
-import CompleteRegisterPage from "./pages/complete-register/complete-register.page";
-import { CompleteRegisterLoader } from "./pages/complete-register/complete-register.loader";
-import { ResultListLoader } from "./pages/home/components/resultList.loader";
-import SpyUserPage from "./pages/spyUser/spyUser.page";
-import { spyUserLoader, type SpyUserLoaderParams } from "./pages/spyUser/spyUser.loader";
-import SpyMatchPage from "./pages/spyMatch/spyMatch.page";
-import { spyMatchLoader, type SpyMatchParams } from "./pages/spyMatch/spyMatch.loader";
+import type { SpyUserLoaderParams } from "./pages/spyUser/spyUser.loader";
+import type {  SpyMatchParams } from "./pages/spyMatch/spyMatch.loader";
+import type { ForecastLoaderParams } from "./pages/forecast/forecast.loader";
 
 //Utilizo Suspense para lazy loading
 export const routes = createBrowserRouter([

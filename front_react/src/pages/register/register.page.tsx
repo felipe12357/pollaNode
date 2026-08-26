@@ -23,15 +23,15 @@ const RegisterPage = () =>{
       <div>
           <div>
               <label htmlFor="username"> Nombre de Usuario: </label>
-              <input type="text" name="username" id="user" required defaultValue='felipe'></input>
+              <input type="text" name="username" id="user" required defaultValue=''></input>
           </div>
           <div>
               <label htmlFor="username"> Correo Electrónico: </label>
-              <input name="email" id="email" required defaultValue='andrewt12357@hotmail.com'></input>
+              <input name="email" id="email" required defaultValue=''></input>
           </div>
           <div>
               <label htmlFor="password"> Contraseña: </label>
-              <input type="password" name="password" id="password" required defaultValue='holamundo123'></input>
+              <input type="password" name="password" id="password" required defaultValue=''></input>
           </div>
       </div>
       <div>
