@@ -13,10 +13,6 @@ export type AdminLoaderReturn = {
 export const AdminLoader= async ():Promise<AdminLoaderReturn | Response>=>{
 
   if(!ValidationRouteService.validateRouteAdmin()) {
-    if(!ValidationRouteService.validateRoute()) {
-       return redirect('../login');
-    }
-
     return redirect('../home');
   }
   const result = await Promise.all([countryService.getCountries(), mathService.getAll()]);

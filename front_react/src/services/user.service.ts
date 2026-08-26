@@ -8,6 +8,9 @@ class UserService extends AxiosHandlingInterceptor {
     const environmentURL = import.meta.env.VITE_API_URL;
     const axiosInstance = axios.create({
     baseURL:`${environmentURL}/user`,
+    headers: {
+      skipAuth: true,
+    },
     });
 
     super(axiosInstance);

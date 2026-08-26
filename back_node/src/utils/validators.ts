@@ -17,8 +17,8 @@ export class Validators {
       where: { username }
     })
 
-    if(!result) {
-      throw new Error();
+    if(result) {
+      throw new Error('username already exits');
     }
   }
 
@@ -28,7 +28,7 @@ export class Validators {
     })
 
     if(result) {
-      throw new Error()
+      throw new Error('Email already exits')
     }
   }
 }

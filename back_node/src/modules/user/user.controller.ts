@@ -20,7 +20,7 @@ export class UserController {
     const userData: UserRegisterDto = req.body as unknown as UserRegisterDto;
     
     this.userService.register(userData)
-      .then(result => res.status(200).send(result))
+      .then(result => res.status(200).send({message: 'ok'}))
       .catch(error => {
         console.error(error.message);
         return res.status(400).send({ errors: [error.message] })

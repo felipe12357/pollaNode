@@ -6,15 +6,15 @@ import { GiSoccerBall } from "react-icons/gi";
 
 
 const RegisterPage = () =>{
-  const actionData: unknown = useActionData();
+  const actionData = useActionData();
   const navigate =  useNavigate();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
   useEffect(()=>{
-    if(actionData) {
+    if(actionData.message === 'ok') {
       toast.success('Revisa el correo electrónico para terminar el proceso');
-      navigate('/');
+      navigate('/login');
     }
   },[actionData])
 

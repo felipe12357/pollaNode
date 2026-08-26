@@ -15,67 +15,71 @@ import { LoadingComponent } from "./layout/loading/loading.component";
 import type { SpyUserLoaderParams } from "./pages/spyUser/spyUser.loader";
 import type {  SpyMatchParams } from "./pages/spyMatch/spyMatch.loader";
 import type { ForecastLoaderParams } from "./pages/forecast/forecast.loader";
+import ErrorComponent from "./layout/error/error.component";
+import { AuthLoader } from "./utilities/auth.loader";
 
 //Utilizo Suspense para lazy loading
 export const routes = createBrowserRouter([
     {
         path: "/",
         element: <MainLayout/>,
+        errorElement: <><MainLayout/><ErrorComponent/></>,
         children:[
-          { index: true, element: <Navigate to="/home" replace /> },
+          { index: true, element: <Navigate to="/home" replace /> }, 
           {
               path: "login",
               action:(params) => loginAction(params),
               element: <Suspense fallback={<LoadingComponent/>}> 
                 <LoginPage/>
               </Suspense>
-          },
-          {
-              path: "register",
-              action:(params) => registerAction(params),
-              element: <Suspense fallback={<LoadingComponent/>}> 
-                <RegisterPage/>
-              </Suspense>,
-          },
-          {
+          }, {
+            path: "register",
+            action:(params) => registerAction(params),
+            element: <Suspense fallback={<LoadingComponent/>}> 
+              <RegisterPage/>
+            </Suspense>,
+          }, {
               path: "complete-register",
               element: <Suspense fallback={<LoadingComponent/>}> 
                 <CompleteRegisterPage/>
               </Suspense>,
               loader: async (params) => await CompleteRegisterLoader(params),
-          },
-          {
-              path: "home", 
-              element: <Suspense fallback={<LoadingComponent/>}> 
-                <HomePage/>
-              </Suspense>,
-              loader: async () => await ResultListLoader(),
+          },{
+            loader: AuthLoader,
+            children: [
+              {
+                  path: "home", 
+                  element: <Suspense fallback={<LoadingComponent/>}> 
+                    <HomePage/>
+                  </Suspense>,
+                  loader: async () => await ResultListLoader(),
+              }, {
+                  path: "forecast/:userId", 
+                  element: <Suspense fallback={<LoadingComponent/>}> 
+                    <ForecastPage/>
+                  </Suspense>,
+                  loader: async ({params}) => await ForecastLoader(params as ForecastLoaderParams),
+              }, {
+                path: "spy-match/:matchId", 
+                element: <Suspense fallback={<LoadingComponent/>}> 
+                  <SpyMatchPage/>
+                </Suspense>,
+                loader: async ({params}) => await spyMatchLoader(params as SpyMatchParams),
+              } , {
+                  path: "spy-user/:userId", 
+                  element: <Suspense fallback={<LoadingComponent/>}> 
+                    <SpyUserPage/>
+                  </Suspense>,
+                  loader: async ({params}) => await spyUserLoader(params as SpyUserLoaderParams),
+              }
+              ,{
+                path: "admin",
+                element: <Suspense fallback={<LoadingComponent/>}> <AdminPage/> </Suspense>,
+                loader: async () => await AdminLoader(),
+                errorElement: <div>Error loading page</div>
+              },
+            ]
           }, {
-              path: "forecast/:userId", 
-              element: <Suspense fallback={<LoadingComponent/>}> 
-                <ForecastPage/>
-              </Suspense>,
-              loader: async ({params}) => await ForecastLoader(params as ForecastLoaderParams),
-          }, {
-            path: "spy-match/:matchId", 
-            element: <Suspense fallback={<LoadingComponent/>}> 
-              <SpyMatchPage/>
-            </Suspense>,
-            loader: async ({params}) => await spyMatchLoader(params as SpyMatchParams),
-          } , {
-              path: "spy-user/:userId", 
-              element: <Suspense fallback={<LoadingComponent/>}> 
-                <SpyUserPage/>
-              </Suspense>,
-              loader: async ({params}) => await spyUserLoader(params as SpyUserLoaderParams),
-          }
-          ,{
-            path: "admin",
-            element: <Suspense fallback={<LoadingComponent/>}> <AdminPage/> </Suspense>,
-            loader: async () => await AdminLoader(),
-            errorElement: <div>Error loading page</div>
-          },
-          {
             path: "*",
             element: <Navigate to="/home" replace />,
           },

@@ -2,6 +2,8 @@ import { type AxiosInstance } from "axios";
 import { toast } from "react-toastify";
 import globalNavigation from "../utilities/navigation";
 import { GetSessionUser } from "../utilities/session.storage";
+import { ValidationRouteService } from "./validation-route.service";
+import { redirect } from "react-router-dom";
 
 export class AxiosHandlingInterceptor {
 
@@ -10,7 +12,19 @@ export class AxiosHandlingInterceptor {
   constructor(axiosInstance: AxiosInstance) {
     this.axiosInstance = axiosInstance;
     this.addToken();
+    this.validateSession();
     this.handleError();
+  }
+
+  private validateSession() {
+    this.axiosInstance.interceptors.request.use(config => {
+      if(config.headers.skipAuth)
+        return config;
+      if(!ValidationRouteService.validateRoute()) {
+        return Promise.reject( new Error("No hay session activa"));
+      }
+      return config;
+    });
   }
 
   private addToken() {
@@ -45,6 +59,8 @@ export class AxiosHandlingInterceptor {
 
         if(error.status === 401){
           sessionStorage.removeItem('user-data');
+          // se peude reemplazar por redirect?
+                // redirect("/login");
           globalNavigation.navigate?.('/login');
         }
         
