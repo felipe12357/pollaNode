@@ -4,7 +4,7 @@ import userService from "../../services/user.service";
 
 export const loginAction = async({request}: {request: Request})=>{
   const formData =  await request.formData();
-  //para q funcione todos los inputs tienen q tener asignada la propiedad name
+  //para q funcione los inputs tienen q tener asignada la propiedad name
   const data = Object.fromEntries(formData) as UserLoginDto;
 
   try {

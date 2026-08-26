@@ -10,7 +10,6 @@ export class Server {
     private cors = cors;
 
     static async start(){
-        // TODO
         MatchCronProcess.updateMatchProcess();
 
         //use, significa q es un middleware

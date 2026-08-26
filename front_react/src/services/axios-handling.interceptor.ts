@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import globalNavigation from "../utilities/navigation";
 import { GetSessionUser } from "../utilities/session.storage";
 import { ValidationRouteService } from "./validation-route.service";
-import { redirect } from "react-router-dom";
+// import { redirect } from "react-router-dom";
 
 export class AxiosHandlingInterceptor {
 
@@ -59,7 +59,7 @@ export class AxiosHandlingInterceptor {
 
         if(error.status === 401){
           sessionStorage.removeItem('user-data');
-          // se peude reemplazar por redirect?
+          // TODO se peude reemplazar por redirect?
                 // redirect("/login");
           globalNavigation.navigate?.('/login');
         }
